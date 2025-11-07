@@ -54,10 +54,8 @@ object SplashTextService : Gui() {
         val monthDatePair = Pair(calendar[Calendar.MONTH] + 1, calendar[Calendar.DATE])
 
         splashText = when (monthDatePair) {
-            Pair(12, 7) -> "Happy birthday, Spoili!"
-            Pair(12, 24) -> "Merry X-mas!"
-            Pair(1, 1) -> "Happy new year!"
-            Pair(10, 31) -> "OOoooOOOoooo! Spooky!"
+            Pair(5, 18) -> "其实今天是狼牙生日!!"
+            Pair(1, 1) -> "狼牙祝你新年快乐!"
             else -> splashText
         }
     }
