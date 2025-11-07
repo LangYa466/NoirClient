@@ -1,8 +1,11 @@
 package net.minecraft.client.gui;
 
+import cn.langya.util.render.RoundedRect;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import java.awt.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -95,6 +98,7 @@ public class GuiIngame extends Gui
         this.titleFadeOut = 20;
     }
 
+    private RoundedRect rect = new RoundedRect();
     public void renderGameOverlay(float partialTicks)
     {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
@@ -142,6 +146,7 @@ public class GuiIngame extends Gui
         this.mc.getTextureManager().bindTexture(icons);
         GlStateManager.enableBlend();
 
+
         if (this.showCrosshair())
         {
             GlStateManager.tryBlendFuncSeparate(775, 769, 1, 0);
@@ -177,6 +182,7 @@ public class GuiIngame extends Gui
 
             int k = (int)(220.0F * f1) << 24 | 1052704;
             drawRect(0, 0, i, j, k);
+
             GlStateManager.enableAlpha();
             GlStateManager.enableDepth();
             this.mc.mcProfiler.endSection();
@@ -322,6 +328,8 @@ public class GuiIngame extends Gui
         {
             this.overlayPlayerList.updatePlayerList(false);
         }
+
+        rect.draw(5,85,50,50,25, Color.white.getRGB());
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();

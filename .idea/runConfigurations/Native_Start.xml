@@ -7,7 +7,6 @@
     <selectedOptions>
       <option name="environmentVariables" visible="false" />
     </selectedOptions>
-    <option name="VM_PARAMETERS" value="-Xmx4G -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -XX:-UseCompressedOops -XX:+UseThreadPriorities -XX:+UseCompressedClassPointers -XX:+OptimizeStringConcat" />
     <option name="WORKING_DIRECTORY" value="D:/mcp_run" />
     <method v="2">
       <option name="Make" enabled="true" />

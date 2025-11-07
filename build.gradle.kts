@@ -102,6 +102,9 @@ dependencies {
         exclude("com.mojang", "authlib")
     }
 
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
     // Testing (useless for now)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.21")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
