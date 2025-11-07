@@ -1,5 +1,6 @@
 package net.minecraft.client;
 
+import cn.langya.Client;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -400,6 +401,8 @@ public final class Minecraft implements IThreadListener, IPlayerUsage {
         this.effectRenderer = new EffectRenderer(this.theWorld, this.renderEngine);
         checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
+
+        Client.INSTANCE.init();
 
         // display the appropriate GUI screen
         if (this.serverName != null) {
