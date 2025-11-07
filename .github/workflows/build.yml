@@ -15,6 +15,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Cache JDK 21
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/sdkman/candidates/java/21*
+          key: ${{ runner.os }}-jdk-21-${{ hashFiles('**/*.gradle*', '**/settings.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-jdk-21-
+
       - name: Setting up JDK 21
         uses: actions/setup-java@v3
         with:
