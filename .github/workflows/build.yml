@@ -2,50 +2,56 @@ name: Build
 
 on:
   push:
-    branches: [ dev ]
-
+    branches: [dev]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout repository and submodules
       - name: Checkout repository and submodules
         uses: actions/checkout@v3
         with:
           submodules: recursive
 
+      # Setting up JDK 21
       - name: Setting up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: oracle
           java-version: 21
 
+      # Grant permissions to Gradlew
       - name: Grant permissions to Gradlew
         run: sudo chmod +x ./gradlew
 
+      # Setup and build the project using Gradle
       - name: Setup and build
         run: ./gradlew build
 
+      # Upload the JAR artifact to GitHub Actions artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           path: build/libs/*.jar
 
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: build/libs/*.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Create a GitHub release (alternative to softprops action)
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
 
       - name: Create GitHub release with commit message
         run: |
+          # Fetch all history to get the full commit message
           git fetch --prune --unshallow
+          # Extract branch name from GitHub ref
           BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          # Get the latest commit message
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          # Create the GitHub release using the gh CLI
           gh release create "$BRANCH_NAME" build/libs/*.jar \
-            --title "Automatic Build" \
+            --title "Automatic Build - $BRANCH_NAME" \
             --notes "$COMMIT_MESSAGE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
