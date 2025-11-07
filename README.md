@@ -13,7 +13,6 @@
 - [Built-in Features](#built-in-features)
 - [Pending Built-in Features](#pending-built-in-features)
 - [Why the Name "Evanescent"?](#why-the-name-evanescent)
-- [Community](#community)
 - [Contributions](#contributions)
 - [License](#license)
 
@@ -60,19 +59,13 @@ Yes, you are welcome to use any JVM languages to work on Evanescent for your ind
 
 The name “Evanescent” means something that fades away quickly. We chose this name because this client is only a starting point for your own project, and you can customize it as you wish.
 
-## Community
-
-Join the discussion, connect with fellow developers, and ask for help or support at our [Discord server](https://discord.gg/nG9UzMGa7k).
-
 ## Contributions
 
 Contributions are greatly appreciated and mainly accepted in Kotlin/JVM. Feel free to contribute to the project and help make it even better!
 
-If you are interested in actively contributing and have already made at least one contribution, we encourage you to join our [Discord server](https://discord.gg/nG9UzMGa7k) and request the "Contributor" role. Ensure that your GitHub account is linked to your Discord profile. Finally, you need to visit [this channel](https://discord.com/channels/1153066699453636680/1153415081946783805) to access information about our goals, schedules, and other relevant details. This will help you stay updated and aligned with our project's policies, which may affect the acceptance of your contributions.
-
 ## License
 
-This project is licensed under the Evanescent License, Version 1.0. Please review the [LICENSE](https://github.com/SpoilerRules/KotlinizedMCP/blob/main/LICENSE) file for more details.
+This project is licensed under the Evanescent License, Version 1.0. Please review the [LICENSE](https://github.com/LangYa466/NoirClient/blob/dev/LICENSEE) file for more details.
 
 ---
 
