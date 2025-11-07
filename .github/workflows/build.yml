@@ -31,7 +31,7 @@ jobs:
         run: sudo chmod +x ./gradlew
 
       - name: Setup and build
-        run: ./gradlew build --debug
+        run: ./gradlew build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
