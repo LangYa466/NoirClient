@@ -44,17 +44,30 @@ jobs:
       - name: Authenticate with GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GH_TOKEN }}
 
-      - name: Create GitHub release with commit message
+      - name: Create or update GitHub release with commit message
         run: |
           # Fetch all history to get the full commit message
           git fetch --prune --unshallow
+
           # Extract branch name from GitHub ref
           BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+
           # Get the latest commit message
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          # Create the GitHub release using the gh CLI
-          gh release create "$BRANCH_NAME" build/libs/*.jar \
-            --title "Automatic Build - $BRANCH_NAME" \
-            --notes "$COMMIT_MESSAGE"
+
+          # Check if the release already exists
+          EXISTING_RELEASE=$(gh release view "$BRANCH_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
+
+          if [ -z "$EXISTING_RELEASE" ]; then
+            # If no release exists with this tag, create a new one
+            gh release create "$BRANCH_NAME" build/libs/*.jar \
+              --title "Automatic Build - $BRANCH_NAME" \
+              --notes "$COMMIT_MESSAGE"
+          else
+            # If a release exists, update it
+            gh release edit "$BRANCH_NAME" \
+              --title "Automatic Build - $BRANCH_NAME" \
+              --notes "$COMMIT_MESSAGE"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
