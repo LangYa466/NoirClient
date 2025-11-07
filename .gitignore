@@ -3,7 +3,6 @@
 /.idea/*
 !/.idea/runConfigurations/
 /.gradle/
-/gradle/
 /build/
 # Minecraft (clueless)
 /workspace/
