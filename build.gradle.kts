@@ -93,8 +93,12 @@ dependencies {
     api("com.mojang:authlib:3.11.50")
 
     // Microsoft account support
-    implementation("com.github.CCBlueX:Elixir:1.2.6") {
-        exclude("org.jetbrains.kotlin", "kotlin-stdlib")
+    implementation("com.github.CCBlueX:mc-authlib:v1.4.0") {
+        exclude("com.google.code.gson", "gson")
+        exclude("org.apache.logging.log4j", "log4j-core")
+        exclude("org.apache.logging.log4j", "log4j-api")
+        exclude("org.apache.logging.log4j", "log4j-slf4j-impl")
+        exclude("org.slf4j", "slf4j-api")
         exclude("com.mojang", "authlib")
     }
 

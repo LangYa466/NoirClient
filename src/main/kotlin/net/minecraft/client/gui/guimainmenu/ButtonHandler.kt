@@ -1,5 +1,6 @@
 package net.minecraft.client.gui.guimainmenu
 
+import cn.langya.login.LoginHandler
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiButtonLanguage
@@ -8,7 +9,6 @@ import net.minecraft.client.gui.GuiMultiplayer
 import net.minecraft.client.gui.GuiOptions
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.client.gui.GuiSelectWorld
-import net.minecraft.client.gui.mainMenuGui.microsoftLogin.LoginHandler
 import net.minecraft.client.resources.LocalizationHelper
 
 object ButtonHandler {
