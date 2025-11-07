@@ -5,6 +5,12 @@ on:
     branches: [dev]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+  issues: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,14 +27,6 @@ jobs:
           distribution: oracle
           java-version: 21
 
-      - name: Cache JDK 21
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/sdkman/candidates/java/21*
-          key: ${{ runner.os }}-jdk-21-${{ hashFiles('**/*.gradle*', '**/settings.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-jdk-21-
-
       - name: Grant permissions to Gradlew
         run: sudo chmod +x ./gradlew
 
@@ -43,6 +41,9 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
+      - name: Authenticate with GitHub CLI
+        run: gh auth login --with-token <<< ${{ secrets.GH_TOKEN }}
+
       - name: Create GitHub release with commit message
         run: |
           # Fetch all history to get the full commit message
@@ -56,4 +57,4 @@ jobs:
             --title "Automatic Build - $BRANCH_NAME" \
             --notes "$COMMIT_MESSAGE"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
