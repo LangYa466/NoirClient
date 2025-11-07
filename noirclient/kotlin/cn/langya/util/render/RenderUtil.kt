@@ -3,7 +3,6 @@ package cn.langya.util.render
 import org.lwjgl.opengl.GL11
 import java.awt.Color
 
-
 /**
  * @author LangYa466
  * @date 8/11/2025
