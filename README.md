@@ -1,4 +1,4 @@
-# Evanescent - Kotlinized MCP for Minecraft 1.8.9
+# NoirClient(Evanescent Base) - Kotlinized MCP for Minecraft 1.8.9
 
 [![Progress](https://img.shields.io/badge/Progress-1.0%25-yellow.svg)](https://github.com/SpoilerRules/KotlinizedMCP)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-blue.svg?logo=kotlin)](https://kotlinlang.org/)
