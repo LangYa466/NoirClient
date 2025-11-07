@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [ mcp ]
-  pull_request:
-    branches: [ mcp ]
+    branches: [ dev ]
+
+  workflow_dispatch:
 
 jobs:
   build:
