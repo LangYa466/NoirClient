@@ -119,11 +119,7 @@ class RoundedRect {
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
 
-        val red = (color shr 16 and 255).toFloat() / 255.0f
-        val green = (color shr 8 and 255).toFloat() / 255.0f
-        val blue = (color and 255).toFloat() / 255.0f
-        val alpha = (color shr 24 and 255).toFloat() / 255.0f
-        GlStateManager.color(red, green, blue, alpha)
+        RenderUtil.color(color)
 
         GlStateManager.enableTexture2D()
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.tex!!.getGlTextureId())
