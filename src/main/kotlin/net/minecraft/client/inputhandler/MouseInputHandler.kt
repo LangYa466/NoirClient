@@ -31,26 +31,24 @@ class MouseInputHandler : InputService() {
                 }
             }
 
-            if (potentialTimeResolution <= 200L) {
-                var mouseWheelDelta = Mouse.getEventDWheel()
+            var mouseWheelDelta = Mouse.getEventDWheel()
 
-                if (mouseWheelDelta != 0) {
-                    when {
-                        player.isSpectator -> {
-                            mouseWheelDelta = if (mouseWheelDelta < 0) -1 else 1
+            if (mouseWheelDelta != 0) {
+                when {
+                    player.isSpectator -> {
+                        mouseWheelDelta = if (mouseWheelDelta < 0) -1 else 1
 
-                            if (mc.ingameGUI.spectatorGui.func_175262_a()) {
-                                mc.ingameGUI.spectatorGui.func_175259_b(-mouseWheelDelta)
-                            } else {
-                                val flySpeedIncrement = mouseWheelDelta.toFloat() * 0.005f
-                                player.capabilities?.let { capabilities ->
-                                    val newFlySpeed = (capabilities.flySpeed + flySpeedIncrement).coerceIn(0.0f, 0.2f)
-                                    capabilities.flySpeed = newFlySpeed
-                                }
+                        if (mc.ingameGUI.spectatorGui.func_175262_a()) {
+                            mc.ingameGUI.spectatorGui.func_175259_b(-mouseWheelDelta)
+                        } else {
+                            val flySpeedIncrement = mouseWheelDelta.toFloat() * 0.005f
+                            player.capabilities?.let { capabilities ->
+                                val newFlySpeed = (capabilities.flySpeed + flySpeedIncrement).coerceIn(0.0f, 0.2f)
+                                capabilities.flySpeed = newFlySpeed
                             }
                         }
-                        else -> player.inventory?.changeCurrentItem(mouseWheelDelta)
                     }
+                    else -> player.inventory?.changeCurrentItem(mouseWheelDelta)
                 }
             }
         }

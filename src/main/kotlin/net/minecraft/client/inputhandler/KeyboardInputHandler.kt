@@ -27,6 +27,8 @@ class KeyboardInputHandler : InputService() {
                 mc.gameSettings.keyBindDrop.keyCode -> player?.takeUnless { it.isSpectator }
                     ?.dropOneItem(GuiScreen.isCtrlKeyDown())
 
+                mc.gameSettings.keyBindCommand.keyCode -> mc.displayGuiScreen(GuiChat("/"))
+
                 mc.gameSettings.keyBindInventory.keyCode -> if (mc.playerController.isRidingHorse) {
                     if (activeScreen !is GuiScreenHorseInventory) player?.sendHorseInventory()
                 } else {
