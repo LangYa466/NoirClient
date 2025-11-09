@@ -17,6 +17,9 @@ dependencies {
         exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
     } // Latest as of November 06 (2023)
 
+    implementation(kotlin("stdlib"))
+    implementation(kotlin("reflect"))
+
     // Netty
     implementation("io.netty:netty-buffer:4.1.100.Final") // Latest as of October 25 (2023)
     implementation("io.netty:netty-codec:4.1.100.Final") // Latest as of October 25 (2023)
@@ -102,13 +105,9 @@ dependencies {
         exclude("com.mojang", "authlib")
     }
 
+    // Lombok
     compileOnly("org.projectlombok:lombok:1.18.42")
     annotationProcessor("org.projectlombok:lombok:1.18.42")
-
-    // Testing (useless for now)
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.21")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.1")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 configurations.all {
@@ -147,10 +146,6 @@ tasks.jar {
     archiveBaseName.set("NoirClient")
 
     duplicatesStrategy = DuplicatesStrategy.FAIL
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 tasks.withType<JavaCompile> {

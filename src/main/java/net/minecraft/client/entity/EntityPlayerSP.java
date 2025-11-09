@@ -1,5 +1,7 @@
 package net.minecraft.client.entity;
 
+import cn.langya.event.UpdateEvent;
+import com.darkmagician6.eventapi.EventManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -75,6 +77,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void onUpdate() {
+        UpdateEvent updateEvent = new UpdateEvent();
+        EventManager.call(updateEvent);
+
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             super.onUpdate();
 

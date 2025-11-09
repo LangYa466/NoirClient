@@ -1,16 +1,13 @@
 package net.minecraft.client.gui;
 
-import cn.langya.util.render.RoundedRect;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
+import cn.langya.event.Render2DEvent;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import com.darkmagician6.eventapi.EventManager;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -46,7 +43,6 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
 
@@ -98,7 +94,6 @@ public class GuiIngame extends Gui
         this.titleFadeOut = 20;
     }
 
-    private RoundedRect rect = new RoundedRect();
     public void renderGameOverlay(float partialTicks)
     {
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
@@ -329,7 +324,8 @@ public class GuiIngame extends Gui
             this.overlayPlayerList.updatePlayerList(false);
         }
 
-        rect.draw(5,85,50,50,25, Color.white.getRGB());
+        Render2DEvent render2DEvent = new Render2DEvent(partialTicks, scaledresolution);
+        EventManager.call(render2DEvent);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
