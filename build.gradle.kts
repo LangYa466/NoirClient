@@ -17,9 +17,6 @@ dependencies {
         exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
     } // Latest as of November 06 (2023)
 
-    implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
-
     // Netty
     implementation("io.netty:netty-buffer:4.1.100.Final") // Latest as of October 25 (2023)
     implementation("io.netty:netty-codec:4.1.100.Final") // Latest as of October 25 (2023)
