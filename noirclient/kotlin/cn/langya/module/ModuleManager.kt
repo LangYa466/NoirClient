@@ -10,13 +10,23 @@ import com.darkmagician6.eventapi.EventManager
 open class Module(val name: String, val description: String = "") {
     var enabled: Boolean = false
      set(value) {
-         if (value)
+         if (value) {
+             onEnable()
              EventManager.register(this)
-         else
+         } else {
+             onDisable()
              EventManager.unregister(this)
+         }
 
          field = value
      }
+
+    fun onDisable() { }
+    fun onEnable() { }
+
+    fun toggle() {
+        enabled = !enabled
+    }
 }
 
 class ModuleManager {

@@ -1,6 +1,8 @@
 package net.minecraft.client;
 
 import cn.langya.Client;
+import cn.langya.event.TickEvent;
+import com.darkmagician6.eventapi.EventManager;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
@@ -1104,6 +1106,8 @@ public final class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public void runTick() {
+        TickEvent tickEvent = new TickEvent();
+        EventManager.call(tickEvent);
         if (this.rightClickDelayTimer > 0) {
             --this.rightClickDelayTimer;
         }
