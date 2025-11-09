@@ -283,6 +283,8 @@ public final class EventManager {
         } catch (IllegalAccessException e) {
         } catch (IllegalArgumentException e) {
         } catch (InvocationTargetException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 	

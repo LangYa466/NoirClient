@@ -271,11 +271,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             {
                 super.doRender(entity, x, y, z, entityYaw, partialTicks);
             }
-
-            if (Reflector.RenderLivingEvent_Post_Constructor.exists())
-            {
-                Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Post_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)});
-            }
         }
     }
 
