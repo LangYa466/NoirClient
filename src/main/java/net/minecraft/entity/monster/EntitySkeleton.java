@@ -351,7 +351,7 @@ public class EntitySkeleton extends EntityMob implements IRangedAttackMob
     public void writeEntityToNBT(NBTTagCompound tagCompound)
     {
         super.writeEntityToNBT(tagCompound);
-        tagCompound.setByte("SkeletonType", (byte)this.getSkeletonType());
+        tagCompound.setByte("SkeletonType", this.getSkeletonType());
     }
 
     public void setCurrentItemOrArmor(int slotIn, ItemStack stack)

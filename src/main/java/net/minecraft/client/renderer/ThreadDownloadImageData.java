@@ -113,7 +113,7 @@ public class ThreadDownloadImageData extends SimpleTexture
                 }
                 catch (IOException ioexception)
                 {
-                    logger.error((String)("Couldn\'t load skin " + this.cacheFile), (Throwable)ioexception);
+                    logger.error("Couldn't load skin " + this.cacheFile, ioexception);
                     this.loadTextureFromServer();
                 }
             }
@@ -178,8 +178,7 @@ public class ThreadDownloadImageData extends SimpleTexture
                     }
                     catch (Exception exception)
                     {
-                        ThreadDownloadImageData.logger.error("Couldn\'t download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
-                        return;
+                        ThreadDownloadImageData.logger.error("Couldn't download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
                     }
                     finally
                     {
@@ -206,7 +205,7 @@ public class ThreadDownloadImageData extends SimpleTexture
         else
         {
             Proxy proxy = Minecraft.getMinecraft().getProxy();
-            return proxy.type() != Type.DIRECT && proxy.type() != Type.SOCKS ? false : this.imageUrl.startsWith("http://");
+            return (proxy.type() == Type.DIRECT || proxy.type() == Type.SOCKS) && this.imageUrl.startsWith("http://");
         }
     }
 
@@ -245,8 +244,7 @@ public class ThreadDownloadImageData extends SimpleTexture
         }
         catch (Exception exception)
         {
-            logger.error("Couldn\'t download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
-            return;
+            logger.error("Couldn't download http texture: " + exception.getClass().getName() + ": " + exception.getMessage());
         }
         finally
         {
@@ -258,9 +256,8 @@ public class ThreadDownloadImageData extends SimpleTexture
     {
         this.imageFound = Boolean.valueOf(this.bufferedImage != null);
 
-        if (this.imageBuffer instanceof CapeImageBuffer)
+        if (this.imageBuffer instanceof CapeImageBuffer capeimagebuffer)
         {
-            CapeImageBuffer capeimagebuffer = (CapeImageBuffer)this.imageBuffer;
             capeimagebuffer.cleanup();
         }
     }

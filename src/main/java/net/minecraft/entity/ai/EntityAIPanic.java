@@ -5,7 +5,7 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIPanic extends EntityAIBase
 {
-    private EntityCreature theEntityCreature;
+    private final EntityCreature theEntityCreature;
     protected double speed;
     private double randPosX;
     private double randPosY;
@@ -34,9 +34,9 @@ public class EntityAIPanic extends EntityAIBase
             }
             else
             {
-                this.randPosX = vector3D.x;
-                this.randPosY = vector3D.y;
-                this.randPosZ = vector3D.z;
+                this.randPosX = vector3D.x();
+                this.randPosY = vector3D.y();
+                this.randPosZ = vector3D.z();
                 return true;
             }
         }

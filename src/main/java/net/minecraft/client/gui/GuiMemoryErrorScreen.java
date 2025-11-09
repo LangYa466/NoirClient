@@ -9,9 +9,9 @@ public class GuiMemoryErrorScreen extends GuiScreen
 {
     public void initGui()
     {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 4 + 120 + 12, LocalizationHelper.translate("gui.toTitle")));
-        this.buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 4 + 120 + 12, LocalizationHelper.translate("menu.quit")));
+        buttonList.clear();
+        buttonList.add(new GuiOptionButton(0, this.width / 2 - 155, this.height / 4 + 120 + 12, LocalizationHelper.translate("gui.toTitle")));
+        buttonList.add(new GuiOptionButton(1, this.width / 2 - 155 + 160, this.height / 4 + 120 + 12, LocalizationHelper.translate("menu.quit")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException

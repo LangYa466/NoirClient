@@ -130,7 +130,7 @@ public class HttpUtils
             }
             catch (Exception exception)
             {
-                Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
 
             if (playerItemsUrl == null)

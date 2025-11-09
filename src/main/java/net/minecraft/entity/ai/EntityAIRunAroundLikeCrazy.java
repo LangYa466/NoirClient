@@ -7,8 +7,8 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIRunAroundLikeCrazy extends EntityAIBase
 {
-    private EntityHorse horseHost;
-    private double speed;
+    private final EntityHorse horseHost;
+    private final double speed;
     private double targetX;
     private double targetY;
     private double targetZ;
@@ -32,9 +32,9 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
             }
             else
             {
-                this.targetX = vector3D.x;
-                this.targetY = vector3D.y;
-                this.targetZ = vector3D.z;
+                this.targetX = vector3D.x();
+                this.targetY = vector3D.y();
+                this.targetZ = vector3D.z();
                 return true;
             }
         }
@@ -73,7 +73,7 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
                 this.horseHost.increaseTemper(5);
             }
 
-            this.horseHost.riddenByEntity.mountEntity((Entity)null);
+            this.horseHost.riddenByEntity.mountEntity(null);
             this.horseHost.riddenByEntity = null;
             this.horseHost.makeHorseRearWithSound();
             this.horseHost.worldObj.setEntityState(this.horseHost, (byte)6);

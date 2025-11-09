@@ -6,13 +6,13 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIMoveTowardsTarget extends EntityAIBase
 {
-    private EntityCreature theEntity;
+    private final EntityCreature theEntity;
     private EntityLivingBase targetEntity;
     private double movePosX;
     private double movePosY;
     private double movePosZ;
-    private double speed;
-    private float maxTargetDistance;
+    private final double speed;
+    private final float maxTargetDistance;
 
     public EntityAIMoveTowardsTarget(EntityCreature creature, double speedIn, float targetMaxDistance)
     {
@@ -44,9 +44,9 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase
             }
             else
             {
-                this.movePosX = vector3D.x;
-                this.movePosY = vector3D.y;
-                this.movePosZ = vector3D.z;
+                this.movePosX = vector3D.x();
+                this.movePosY = vector3D.y();
+                this.movePosZ = vector3D.z();
                 return true;
             }
         }

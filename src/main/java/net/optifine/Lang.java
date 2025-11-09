@@ -36,7 +36,7 @@ public class Lang
             list.add(s + Config.getGameSettings().language + s2);
         }
 
-        String[] astring = (String[])((String[])list.toArray(new String[list.size()]));
+        String[] astring = list.toArray(new String[list.size()]);
         loadResources(Config.getDefaultResourcePack(), astring, map);
         IResourcePack[] airesourcepack = Config.getResourcePacks();
 
@@ -84,7 +84,7 @@ public class Lang
 
             if (!s.isEmpty() && s.charAt(0) != 35)
             {
-                String[] astring = (String[])((String[])Iterables.toArray(splitter.split(s), String.class));
+                String[] astring = Iterables.toArray(splitter.split(s), String.class);
 
                 if (astring != null && astring.length == 2)
                 {
@@ -98,37 +98,37 @@ public class Lang
 
     public static String get(String key)
     {
-        return LocalizationHelper.translate(key, new Object[0]);
+        return LocalizationHelper.translate(key);
     }
 
     public static String get(String key, String def)
     {
-        String s = LocalizationHelper.translate(key, new Object[0]);
+        String s = LocalizationHelper.translate(key);
         return s != null && !s.equals(key) ? s : def;
     }
 
     public static String getOn()
     {
-        return LocalizationHelper.translate("options.on", new Object[0]);
+        return LocalizationHelper.translate("options.on");
     }
 
     public static String getOff()
     {
-        return LocalizationHelper.translate("options.off", new Object[0]);
+        return LocalizationHelper.translate("options.off");
     }
 
     public static String getFast()
     {
-        return LocalizationHelper.translate("options.graphics.fast", new Object[0]);
+        return LocalizationHelper.translate("options.graphics.fast");
     }
 
     public static String getFancy()
     {
-        return LocalizationHelper.translate("options.graphics.fancy", new Object[0]);
+        return LocalizationHelper.translate("options.graphics.fancy");
     }
 
     public static String getDefault()
     {
-        return LocalizationHelper.translate("generator.default", new Object[0]);
+        return LocalizationHelper.translate("generator.default");
     }
 }

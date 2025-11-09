@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class CloudRenderer
 {
-    private Minecraft mc;
+    private final Minecraft mc;
     private boolean updated = false;
     private boolean renderFancy = false;
     int cloudTickCounter;
@@ -44,9 +44,9 @@ public class CloudRenderer
             return true;
         }
 
-        double diffX = Math.abs(this.cloudColor.x - this.updateCloudColor.x);
-        double diffY = Math.abs(this.cloudColor.y - this.updateCloudColor.y);
-        double diffZ = Math.abs(this.cloudColor.z - this.updateCloudColor.z);
+        double diffX = Math.abs(this.cloudColor.x() - this.updateCloudColor.x());
+        double diffY = Math.abs(this.cloudColor.y() - this.updateCloudColor.y());
+        double diffZ = Math.abs(this.cloudColor.z() - this.updateCloudColor.z());
 
         if (diffX > 0.003D || diffY > 0.003D || diffZ > 0.003D)
         {

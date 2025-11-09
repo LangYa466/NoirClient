@@ -49,7 +49,7 @@ public class DefaultResourcePack implements IResourcePack
     }
 
     public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
-        File file1 = (File)this.mapAssets.get(location.toString());
+        File file1 = this.mapAssets.get(location.toString());
         return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
     }
 
@@ -74,16 +74,16 @@ public class DefaultResourcePack implements IResourcePack
     {
         try
         {
-            InputStream inputstream = new FileInputStream((File)this.mapAssets.get("pack.mcmeta"));
+            InputStream inputstream = new FileInputStream(this.mapAssets.get("pack.mcmeta"));
             return AbstractResourcePack.readMetadata(metadataSerializer, inputstream, metadataSectionName);
         }
         catch (RuntimeException var4)
         {
-            return (T)((IMetadataSection)null);
+            return null;
         }
         catch (FileNotFoundException var5)
         {
-            return (T)((IMetadataSection)null);
+            return null;
         }
     }
 

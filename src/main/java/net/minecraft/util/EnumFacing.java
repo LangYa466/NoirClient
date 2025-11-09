@@ -100,10 +100,10 @@ public enum EnumFacing implements IStringSerializable
     {
         return switch (this) {
             case NORTH -> DOWN;
-            default -> throw new IllegalStateException("Unable to get X-rotated facing of " + this);
             case SOUTH -> UP;
             case UP -> NORTH;
             case DOWN -> SOUTH;
+            default -> throw new IllegalStateException("Unable to get X-rotated facing of " + this);
         };
     }
 
@@ -111,10 +111,10 @@ public enum EnumFacing implements IStringSerializable
     {
         return switch (this) {
             case EAST -> DOWN;
-            default -> throw new IllegalStateException("Unable to get Z-rotated facing of " + this);
             case WEST -> UP;
             case UP -> EAST;
             case DOWN -> WEST;
+            default -> throw new IllegalStateException("Unable to get Z-rotated facing of " + this);
         };
     }
 

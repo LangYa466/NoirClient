@@ -4,7 +4,6 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.guiconstruction.PlateHandler;
 import net.minecraft.client.gui.guimainmenu.GuiMainMenu;
 import net.minecraft.client.inputhandler.InputService;
 import net.minecraft.client.renderer.GlStateManager;
@@ -227,13 +226,13 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
         {
             HoverEvent hoverevent = component.getChatStyle().getChatHoverEvent();
 
-            if (hoverevent.getAction() == HoverEvent.Action.SHOW_ITEM)
+            if (hoverevent.action() == HoverEvent.Action.SHOW_ITEM)
             {
                 ItemStack itemstack = null;
 
                 try
                 {
-                    NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
+                    NBTTagCompound nbtbase = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
                     if (nbtbase != null)
                     {
@@ -253,13 +252,13 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                     this.drawCreativeTabHoveringText(EnumChatFormatting.RED + "Invalid Item!", x, y);
                 }
             }
-            else if (hoverevent.getAction() == HoverEvent.Action.SHOW_ENTITY)
+            else if (hoverevent.action() == HoverEvent.Action.SHOW_ENTITY)
             {
                 if (this.mc.gameSettings.advancedItemTooltips)
                 {
                     try
                     {
-                        NBTTagCompound nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.getValue().getUnformattedText());
+                        NBTTagCompound nbtbase1 = JsonToNBT.getTagFromJson(hoverevent.value().getUnformattedText());
 
                         if (nbtbase1 != null)
                         {
@@ -286,13 +285,13 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                     }
                 }
             }
-            else if (hoverevent.getAction() == HoverEvent.Action.SHOW_TEXT)
+            else if (hoverevent.action() == HoverEvent.Action.SHOW_TEXT)
             {
-                this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverevent.getValue().getFormattedText()), x, y);
+                this.drawHoveringText(NEWLINE_SPLITTER.splitToList(hoverevent.value().getFormattedText()), x, y);
             }
-            else if (hoverevent.getAction() == HoverEvent.Action.SHOW_ACHIEVEMENT)
+            else if (hoverevent.action() == HoverEvent.Action.SHOW_ACHIEVEMENT)
             {
-                StatBase statbase = StatList.getOneShotStat(hoverevent.getValue().getUnformattedText());
+                StatBase statbase = StatList.getOneShotStat(hoverevent.value().getUnformattedText());
 
                 if (statbase != null)
                 {
@@ -333,39 +332,39 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
                     this.setText(component.getChatStyle().getInsertion(), false);
                 }
             } else if (clickevent != null) {
-                if (clickevent.getAction() == ClickEvent.Action.OPEN_URL) {
+                if (clickevent.action() == ClickEvent.Action.OPEN_URL) {
                     if (!this.mc.gameSettings.chatLinks) {
                         return false;
                     }
 
                     try {
-                        URI uri = new URI(clickevent.getValue());
+                        URI uri = new URI(clickevent.value());
                         String s = uri.getScheme();
 
                         if (s == null) {
-                            throw new URISyntaxException(clickevent.getValue(), "Missing protocol");
+                            throw new URISyntaxException(clickevent.value(), "Missing protocol");
                         }
 
                         if (!PROTOCOLS.contains(s.toLowerCase())) {
-                            throw new URISyntaxException(clickevent.getValue(), "Unsupported protocol: " + s.toLowerCase());
+                            throw new URISyntaxException(clickevent.value(), "Unsupported protocol: " + s.toLowerCase());
                         }
 
                         if (this.mc.gameSettings.chatLinksPrompt) {
                             this.clickedLinkURI = uri;
-                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickevent.getValue(), 31102009, false));
+                            this.mc.displayGuiScreen(new GuiConfirmOpenLink(this, clickevent.value(), 31102009, false));
                         } else {
                             this.openWebLink(uri);
                         }
                     } catch (URISyntaxException urisyntaxexception) {
                         LOGGER.error("Can't open url for " + clickevent, urisyntaxexception);
                     }
-                } else if (clickevent.getAction() == ClickEvent.Action.OPEN_FILE) {
-                    URI uri1 = (new File(clickevent.getValue())).toURI();
+                } else if (clickevent.action() == ClickEvent.Action.OPEN_FILE) {
+                    URI uri1 = (new File(clickevent.value())).toURI();
                     this.openWebLink(uri1);
-                } else if (clickevent.getAction() == ClickEvent.Action.SUGGEST_COMMAND) {
-                    this.setText(clickevent.getValue(), true);
-                } else if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    this.sendChatMessage(clickevent.getValue(), false);
+                } else if (clickevent.action() == ClickEvent.Action.SUGGEST_COMMAND) {
+                    this.setText(clickevent.value(), true);
+                } else if (clickevent.action() == ClickEvent.Action.RUN_COMMAND) {
+                    this.sendChatMessage(clickevent.value(), false);
                 } else {
                     LOGGER.error("Don't know how to handle " + clickevent);
                 }

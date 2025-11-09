@@ -18,7 +18,7 @@ public class GuiScreenOF extends GuiScreen
 
         if (mouseButton == 1)
         {
-            GuiButton guibutton = getSelectedButton(mouseX, mouseY, this.buttonList);
+            GuiButton guibutton = getSelectedButton(mouseX, mouseY, buttonList);
 
             if (guibutton != null && guibutton.enabled)
             {
@@ -32,7 +32,7 @@ public class GuiScreenOF extends GuiScreen
     {
         for (int i = 0; i < listButtons.size(); ++i)
         {
-            GuiButton guibutton = (GuiButton)listButtons.get(i);
+            GuiButton guibutton = listButtons.get(i);
 
             if (guibutton.visible)
             {

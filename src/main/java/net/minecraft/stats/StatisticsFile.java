@@ -80,7 +80,7 @@ public class StatisticsFile extends StatFileWriter
 
             if (this.mcServer.isAnnouncingPlayerAchievements())
             {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", new Object[] {playerIn.getDisplayName(), statIn.createChatComponent()}));
+                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
 
@@ -90,7 +90,7 @@ public class StatisticsFile extends StatFileWriter
 
             if (this.mcServer.isAnnouncingPlayerAchievements())
             {
-                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", new Object[] {playerIn.getDisplayName(), statIn.createChatComponent()}));
+                this.mcServer.getConfigurationManager().sendChatMsg(new ChatComponentTranslation("chat.type.achievement.taken", playerIn.getDisplayName(), statIn.createChatComponent()));
             }
         }
     }
@@ -156,25 +156,25 @@ public class StatisticsFile extends StatFileWriter
 
         for (Entry<StatBase, TupleIntJsonSerializable> entry : p_150880_0_.entrySet())
         {
-            if (((TupleIntJsonSerializable)entry.getValue()).getJsonSerializableValue() != null)
+            if (entry.getValue().getJsonSerializableValue() != null)
             {
                 JsonObject jsonobject1 = new JsonObject();
-                jsonobject1.addProperty("value", (Number)Integer.valueOf(((TupleIntJsonSerializable)entry.getValue()).getIntegerValue()));
+                jsonobject1.addProperty("value", Integer.valueOf(entry.getValue().getIntegerValue()));
 
                 try
                 {
-                    jsonobject1.add("progress", ((TupleIntJsonSerializable)entry.getValue()).getJsonSerializableValue().getSerializableElement());
+                    jsonobject1.add("progress", entry.getValue().getJsonSerializableValue().getSerializableElement());
                 }
                 catch (Throwable throwable)
                 {
-                    logger.warn("Couldn\'t save statistic " + ((StatBase)entry.getKey()).getStatName() + ": error serializing progress", throwable);
+                    logger.warn("Couldn't save statistic " + entry.getKey().getStatName() + ": error serializing progress", throwable);
                 }
 
-                jsonobject.add(((StatBase)entry.getKey()).statId, jsonobject1);
+                jsonobject.add(entry.getKey().statId, jsonobject1);
             }
             else
             {
-                jsonobject.addProperty(((StatBase)entry.getKey()).statId, (Number)Integer.valueOf(((TupleIntJsonSerializable)entry.getValue()).getIntegerValue()));
+                jsonobject.addProperty(entry.getKey().statId, Integer.valueOf(entry.getValue().getIntegerValue()));
             }
         }
 
@@ -192,7 +192,7 @@ public class StatisticsFile extends StatFileWriter
     public void func_150876_a(EntityPlayerMP p_150876_1_)
     {
         int i = this.mcServer.getTickCounter();
-        Map<StatBase, Integer> map = Maps.<StatBase, Integer>newHashMap();
+        Map<StatBase, Integer> map = Maps.newHashMap();
 
         if (this.field_150886_g || i - this.field_150885_f > 300)
         {
@@ -209,7 +209,7 @@ public class StatisticsFile extends StatFileWriter
 
     public void sendAchievements(EntityPlayerMP player)
     {
-        Map<StatBase, Integer> map = Maps.<StatBase, Integer>newHashMap();
+        Map<StatBase, Integer> map = Maps.newHashMap();
 
         for (Achievement achievement : AchievementList.achievementList)
         {

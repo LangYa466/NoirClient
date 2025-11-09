@@ -12,8 +12,8 @@ public class GuiSnooper extends GuiScreen
 {
     private final GuiScreen field_146608_a;
     private final GameSettings game_settings_2;
-    private final java.util.List<String> field_146604_g = Lists.<String>newArrayList();
-    private final java.util.List<String> field_146609_h = Lists.<String>newArrayList();
+    private final java.util.List<String> field_146604_g = Lists.newArrayList();
+    private final java.util.List<String> field_146609_h = Lists.newArrayList();
     private String field_146610_i;
     private String[] field_146607_r;
     private GuiSnooper.List field_146606_s;
@@ -27,34 +27,34 @@ public class GuiSnooper extends GuiScreen
 
     public void initGui()
     {
-        this.field_146610_i = LocalizationHelper.translate("options.snooper.title", new Object[0]);
-        String s = LocalizationHelper.translate("options.snooper.desc", new Object[0]);
-        java.util.List<String> list = Lists.<String>newArrayList();
+        this.field_146610_i = LocalizationHelper.translate("options.snooper.title");
+        String s = LocalizationHelper.translate("options.snooper.desc");
+        java.util.List<String> list = Lists.newArrayList();
 
         for (String s1 : this.fontRendererObject.listFormattedStringToWidth(s, this.width - 30))
         {
             list.add(s1);
         }
 
-        this.field_146607_r = (String[])list.toArray(new String[list.size()]);
+        this.field_146607_r = list.toArray(new String[list.size()]);
         this.field_146604_g.clear();
         this.field_146609_h.clear();
-        this.buttonList.add(this.field_146605_t = new GuiButton(1, this.width / 2 - 152, this.height - 30, 150, 20, this.game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));
-        this.buttonList.add(new GuiButton(2, this.width / 2 + 2, this.height - 30, 150, 20, LocalizationHelper.translate("gui.done", new Object[0])));
+        buttonList.add(this.field_146605_t = new GuiButton(1, this.width / 2 - 152, this.height - 30, 150, 20, this.game_settings_2.getKeyBinding(GameSettings.Options.SNOOPER_ENABLED)));
+        buttonList.add(new GuiButton(2, this.width / 2 + 2, this.height - 30, 150, 20, LocalizationHelper.translate("gui.done")));
         boolean flag = this.mc.getIntegratedServer() != null && this.mc.getIntegratedServer().getPlayerUsageSnooper() != null;
 
         for (Entry<String, String> entry : (new TreeMap<String, String>(this.mc.getPlayerUsageSnooper().getCurrentStats())).entrySet())
         {
-            this.field_146604_g.add((flag ? "C " : "") + (String)entry.getKey());
-            this.field_146609_h.add(this.fontRendererObject.trimStringToWidth((String)entry.getValue(), this.width - 220));
+            this.field_146604_g.add((flag ? "C " : "") + entry.getKey());
+            this.field_146609_h.add(this.fontRendererObject.trimStringToWidth(entry.getValue(), this.width - 220));
         }
 
         if (flag)
         {
             for (Entry<String, String> entry1 : (new TreeMap<String, String>(this.mc.getIntegratedServer().getPlayerUsageSnooper().getCurrentStats())).entrySet())
             {
-                this.field_146604_g.add("S " + (String)entry1.getKey());
-                this.field_146609_h.add(this.fontRendererObject.trimStringToWidth((String)entry1.getValue(), this.width - 220));
+                this.field_146604_g.add("S " + entry1.getKey());
+                this.field_146609_h.add(this.fontRendererObject.trimStringToWidth(entry1.getValue(), this.width - 220));
             }
         }
 
@@ -129,8 +129,8 @@ public class GuiSnooper extends GuiScreen
 
         protected void drawSlot(int entryID, int p_180791_2_, int p_180791_3_, int p_180791_4_, int mouseXIn, int mouseYIn)
         {
-            GuiSnooper.this.fontRendererObject.drawString((String)GuiSnooper.this.field_146604_g.get(entryID), 10, p_180791_3_, 16777215);
-            GuiSnooper.this.fontRendererObject.drawString((String)GuiSnooper.this.field_146609_h.get(entryID), 230, p_180791_3_, 16777215);
+            GuiSnooper.this.fontRendererObject.drawString(GuiSnooper.this.field_146604_g.get(entryID), 10, p_180791_3_, 16777215);
+            GuiSnooper.this.fontRendererObject.drawString(GuiSnooper.this.field_146609_h.get(entryID), 230, p_180791_3_, 16777215);
         }
 
         protected int getScrollBarX()

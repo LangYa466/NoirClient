@@ -120,14 +120,14 @@ public class IntegratedServer extends MinecraftServer
         {
             WorldServer worldserver = (WorldServer)(new WorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
             worldserver.initialize(this.theWorldSettings);
-            Integer[] ainteger = (Integer[])((Integer[])Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]));
+            Integer[] ainteger = (Integer[]) Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]);
             Integer[] ainteger1 = ainteger;
             int i = ainteger.length;
 
             for (int j = 0; j < i; ++j)
             {
                 int k = ainteger1[j].intValue();
-                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer)((WorldServer)(new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init());
+                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer) (new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init();
                 worldserver1.addWorldAccess(new WorldManager(this, worldserver1));
 
                 if (!this.isSinglePlayer())
@@ -137,7 +137,7 @@ public class IntegratedServer extends MinecraftServer
 
                 if (Reflector.EventBus.exists())
                 {
-                    Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, new Object[] {worldserver1});
+                    Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, worldserver1);
                 }
             }
 
@@ -201,9 +201,9 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.FMLCommonHandler_handleServerAboutToStart.exists())
         {
-            Object object = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
+            Object object = Reflector.call(Reflector.FMLCommonHandler_instance);
 
-            if (!Reflector.callBoolean(object, Reflector.FMLCommonHandler_handleServerAboutToStart, new Object[] {this}))
+            if (!Reflector.callBoolean(object, Reflector.FMLCommonHandler_handleServerAboutToStart, this))
             {
                 return false;
             }
@@ -214,14 +214,14 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.FMLCommonHandler_handleServerStarting.exists())
         {
-            Object object1 = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
+            Object object1 = Reflector.call(Reflector.FMLCommonHandler_instance);
 
             if (Reflector.FMLCommonHandler_handleServerStarting.getReturnType() == Boolean.TYPE)
             {
-                return Reflector.callBoolean(object1, Reflector.FMLCommonHandler_handleServerStarting, new Object[] {this});
+                return Reflector.callBoolean(object1, Reflector.FMLCommonHandler_handleServerStarting, this);
             }
 
-            Reflector.callVoid(object1, Reflector.FMLCommonHandler_handleServerStarting, new Object[] {this});
+            Reflector.callVoid(object1, Reflector.FMLCommonHandler_handleServerStarting, this);
         }
 
         return true;
@@ -328,7 +328,7 @@ public class IntegratedServer extends MinecraftServer
                 return;
             }
 
-            this.ticksSaveLast = (long)i;
+            this.ticksSaveLast = i;
         }
 
         super.saveAllWorlds(dontLog);
@@ -372,12 +372,12 @@ public class IntegratedServer extends MinecraftServer
 
                 if (!s.equals("vanilla"))
                 {
-                    return "Definitely; Client brand changed to \'" + s + "\'";
+                    return "Definitely; Client brand changed to '" + s + "'";
                 }
                 else
                 {
                     s = IntegratedServer.this.getServerModName();
-                    return !s.equals("vanilla") ? "Definitely; Server brand changed to \'" + s + "\'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
+                    return !s.equals("vanilla") ? "Definitely; Server brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
                 }
             }
         });
@@ -417,7 +417,6 @@ public class IntegratedServer extends MinecraftServer
             }
             catch (IOException var5)
             {
-                ;
             }
 
             if (i <= 0)
@@ -503,7 +502,7 @@ public class IntegratedServer extends MinecraftServer
 
     private void onTick()
     {
-        for (WorldServer worldserver : Arrays.asList(this.worldServers))
+        for (WorldServer worldserver : this.worldServers)
         {
             this.onTick(worldserver);
         }

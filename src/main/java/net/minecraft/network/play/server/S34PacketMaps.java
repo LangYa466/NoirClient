@@ -28,7 +28,7 @@ public class S34PacketMaps implements IPacket<INetHandlerPlayClient>
     {
         this.mapId = mapIdIn;
         this.mapScale = scale;
-        this.mapVisiblePlayersVec4b = (Vec4b[])visiblePlayers.toArray(new Vec4b[visiblePlayers.size()]);
+        this.mapVisiblePlayersVec4b = visiblePlayers.toArray(new Vec4b[visiblePlayers.size()]);
         this.mapMinX = minX;
         this.mapMinY = minY;
         this.mapMaxX = maxX;
@@ -52,7 +52,7 @@ public class S34PacketMaps implements IPacket<INetHandlerPlayClient>
 
         for (int i = 0; i < this.mapVisiblePlayersVec4b.length; ++i)
         {
-            short short1 = (short)buf.readByte();
+            short short1 = buf.readByte();
             this.mapVisiblePlayersVec4b[i] = new Vec4b((byte)(short1 >> 4 & 15), buf.readByte(), buf.readByte(), (byte)(short1 & 15));
         }
 

@@ -60,7 +60,7 @@ public class PathNavigateSwimmer extends PathNavigate
 
     protected boolean isDirectPathBetweenPoints(Vector3D posDVec31, Vector3D posDVec32, int sizeX, int sizeY, int sizeZ)
     {
-        MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posDVec31, new Vector3D(posDVec32.x, posDVec32.y + (double)this.theEntity.height * 0.5D, posDVec32.z), false, true, false);
+        MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(posDVec31, new Vector3D(posDVec32.x(), posDVec32.y() + (double)this.theEntity.height * 0.5D, posDVec32.z()), false, true, false);
         return movingobjectposition == null || movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.MISS;
     }
 }

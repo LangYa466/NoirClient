@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationReceiver implements IFileDownloadListener
 {
-    private String player;
+    private final String player;
 
     public PlayerConfigurationReceiver(String player)
     {

@@ -169,7 +169,7 @@ public class EntityGhast extends EntityFlying implements IMob
 
     static class AIFireballAttack extends EntityAIBase
     {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
         public int attackTimer;
 
         public AIFireballAttack(EntityGhast ghast)
@@ -204,22 +204,22 @@ public class EntityGhast extends EntityFlying implements IMob
 
                 if (this.attackTimer == 10)
                 {
-                    world.playAuxSFXAtEntity((EntityPlayer)null, 1007, new BlockPos(this.parentEntity), 0);
+                    world.playAuxSFXAtEntity(null, 1007, new BlockPos(this.parentEntity), 0);
                 }
 
                 if (this.attackTimer == 20)
                 {
                     double d1 = 4.0D;
                     Vector3D vector3D = this.parentEntity.getLook(1.0F);
-                    double d2 = entitylivingbase.posX - (this.parentEntity.posX + vector3D.x * d1);
+                    double d2 = entitylivingbase.posX - (this.parentEntity.posX + vector3D.x() * d1);
                     double d3 = entitylivingbase.getEntityBoundingBox().minY + (double)(entitylivingbase.height / 2.0F) - (0.5D + this.parentEntity.posY + (double)(this.parentEntity.height / 2.0F));
-                    double d4 = entitylivingbase.posZ - (this.parentEntity.posZ + vector3D.z * d1);
-                    world.playAuxSFXAtEntity((EntityPlayer)null, 1008, new BlockPos(this.parentEntity), 0);
+                    double d4 = entitylivingbase.posZ - (this.parentEntity.posZ + vector3D.z() * d1);
+                    world.playAuxSFXAtEntity(null, 1008, new BlockPos(this.parentEntity), 0);
                     EntityLargeFireball entitylargefireball = new EntityLargeFireball(world, this.parentEntity, d2, d3, d4);
                     entitylargefireball.explosionPower = this.parentEntity.getFireballStrength();
-                    entitylargefireball.posX = this.parentEntity.posX + vector3D.x * d1;
+                    entitylargefireball.posX = this.parentEntity.posX + vector3D.x() * d1;
                     entitylargefireball.posY = this.parentEntity.posY + (double)(this.parentEntity.height / 2.0F) + 0.5D;
-                    entitylargefireball.posZ = this.parentEntity.posZ + vector3D.z * d1;
+                    entitylargefireball.posZ = this.parentEntity.posZ + vector3D.z() * d1;
                     world.spawnEntityInWorld(entitylargefireball);
                     this.attackTimer = -40;
                 }
@@ -235,7 +235,7 @@ public class EntityGhast extends EntityFlying implements IMob
 
     static class AILookAround extends EntityAIBase
     {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
 
         public AILookAround(EntityGhast ghast)
         {
@@ -271,7 +271,7 @@ public class EntityGhast extends EntityFlying implements IMob
 
     static class AIRandomFly extends EntityAIBase
     {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
 
         public AIRandomFly(EntityGhast ghast)
         {
@@ -314,7 +314,7 @@ public class EntityGhast extends EntityFlying implements IMob
 
     static class GhastMoveHelper extends EntityMoveHelper
     {
-        private EntityGhast parentEntity;
+        private final EntityGhast parentEntity;
         private int courseChangeCooldown;
 
         public GhastMoveHelper(EntityGhast ghast)
@@ -335,7 +335,7 @@ public class EntityGhast extends EntityFlying implements IMob
                 if (this.courseChangeCooldown-- <= 0)
                 {
                     this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
-                    d3 = (double)MathHelper.sqrt_double(d3);
+                    d3 = MathHelper.sqrt_double(d3);
 
                     if (this.isNotColliding(this.posX, this.posY, this.posZ, d3))
                     {

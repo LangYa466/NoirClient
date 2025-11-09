@@ -75,8 +75,8 @@ public class ServerPingHandlerService {
                     }
 
                     if (serverStatusResponse.getProtocolVersionInfo() != null) {
-                        server.gameVersion = serverStatusResponse.getProtocolVersionInfo().getName();
-                        server.version = serverStatusResponse.getProtocolVersionInfo().getProtocol();
+                        server.gameVersion = serverStatusResponse.getProtocolVersionInfo().name();
+                        server.version = serverStatusResponse.getProtocolVersionInfo().protocol();
                     } else {
                         server.gameVersion = "Old";
                         server.version = 0;

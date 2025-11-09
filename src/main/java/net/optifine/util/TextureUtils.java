@@ -139,7 +139,7 @@ public class TextureUtils
     public static TextureAtlasSprite iconClock;
     public static final String SPRITE_PREFIX_BLOCKS = "minecraft:blocks/";
     public static final String SPRITE_PREFIX_ITEMS = "minecraft:items/";
-    private static IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
+    private static final IntBuffer staticBuffer = GLAllocation.createDirectIntBuffer(256);
 
     public static void update()
     {
@@ -182,7 +182,7 @@ public class TextureUtils
                 BufferedImage bufferedimage = new BufferedImage(i, j * 2, 2);
                 Graphics2D graphics2d = bufferedimage.createGraphics();
                 graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                graphics2d.drawImage(bi, 0, 0, i, j, (ImageObserver)null);
+                graphics2d.drawImage(bi, 0, 0, i, j, null);
                 return bufferedimage;
             }
         }
@@ -196,7 +196,6 @@ public class TextureUtils
 
         for (i = 1; i < val; i *= 2)
         {
-            ;
         }
 
         return i;
@@ -286,9 +285,8 @@ public class TextureUtils
     {
         IResourceManager iresourcemanager = Config.getResourceManager();
 
-        if (iresourcemanager instanceof IReloadableResourceManager)
+        if (iresourcemanager instanceof IReloadableResourceManager ireloadableresourcemanager)
         {
-            IReloadableResourceManager ireloadableresourcemanager = (IReloadableResourceManager)iresourcemanager;
             IResourceManagerReloadListener iresourcemanagerreloadlistener = new IResourceManagerReloadListener()
             {
                 public void onResourceManagerReload(IResourceManager var1)
@@ -442,7 +440,7 @@ public class TextureUtils
         }
 
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, object);
-        graphics2d.drawImage(bi, 0, 0, w2, k, (ImageObserver)null);
+        graphics2d.drawImage(bi, 0, 0, w2, k, null);
         return bufferedimage;
     }
 
@@ -458,7 +456,6 @@ public class TextureUtils
 
             for (i = size / sizeGrid * sizeGrid; i < size; i += sizeGrid)
             {
-                ;
             }
 
             return i;
@@ -477,7 +474,6 @@ public class TextureUtils
 
             for (i = sizeMin / size * size; i < sizeMin; i += size)
             {
-                ;
             }
 
             return i;
@@ -529,11 +525,11 @@ public class TextureUtils
 
             if (aint1 == null)
             {
-                Config.dbg("" + i + ": " + aint1);
+                Config.dbg(i + ": " + aint1);
             }
             else
             {
-                Config.dbg("" + i + ": " + aint1.length);
+                Config.dbg(i + ": " + aint1.length);
             }
         }
     }
@@ -565,7 +561,7 @@ public class TextureUtils
             int l = j * k;
             IntBuffer intbuffer = BufferUtils.createIntBuffer(l);
             int[] aint = new int[l];
-            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, i1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer)intbuffer);
+            GL11.glGetTexImage(GL11.GL_TEXTURE_2D, i1, GL12.GL_BGRA, GL12.GL_UNSIGNED_INT_8_8_8_8_REV, intbuffer);
             intbuffer.get(aint);
             BufferedImage bufferedimage = new BufferedImage(j, k, 2);
             bufferedimage.setRGB(0, 0, j, k, aint, 0, j);
@@ -578,7 +574,7 @@ public class TextureUtils
             catch (Exception exception)
             {
                 Config.warn("Error writing: " + file4);
-                Config.warn("" + exception.getClass().getName() + ": " + exception.getMessage());
+                Config.warn(exception.getClass().getName() + ": " + exception.getMessage());
             }
         }
     }
@@ -612,7 +608,7 @@ public class TextureUtils
 
             if (aint2.length != i * j)
             {
-                int k = (int)Math.round(Math.sqrt((double)aint2.length));
+                int k = (int)Math.round(Math.sqrt(aint2.length));
 
                 if (k * k != aint2.length)
                 {
@@ -647,7 +643,7 @@ public class TextureUtils
         }
         else
         {
-            int[][] aint = (int[][])list.get(frame);
+            int[][] aint = list.get(frame);
 
             if (aint != null && aint.length > level)
             {
@@ -665,7 +661,7 @@ public class TextureUtils
     {
         for (int i = 65536; i > 0; i >>= 1)
         {
-            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, (IntBuffer)null);
+            GlStateManager.glTexImage2D(32868, 0, 6408, i, i, 0, 6408, 5121, null);
             int j = GL11.glGetError();
             int k = GlStateManager.glGetTexLevelParameteri(32868, 0, 4096);
 

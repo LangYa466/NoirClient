@@ -8,11 +8,11 @@ import net.minecraft.client.settings.GameSettings;
 
 public class GuiDetailSettingsOF extends GuiScreen
 {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.CLOUDS, GameSettings.Options.CLOUD_HEIGHT, GameSettings.Options.TREES, GameSettings.Options.RAIN, GameSettings.Options.SKY, GameSettings.Options.STARS, GameSettings.Options.SUN_MOON, GameSettings.Options.SHOW_CAPES, GameSettings.Options.FOG_FANCY, GameSettings.Options.FOG_START, GameSettings.Options.TRANSLUCENT_BLOCKS, GameSettings.Options.HELD_ITEM_TOOLTIPS, GameSettings.Options.DROPPED_ITEMS, GameSettings.Options.ENTITY_SHADOWS, GameSettings.Options.VIGNETTE, GameSettings.Options.ALTERNATE_BLOCKS, GameSettings.Options.SWAMP_COLORS, GameSettings.Options.SMOOTH_BIOMES};
-    private TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderOptions());
+    private final GameSettings settings;
+    private static final GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.CLOUDS, GameSettings.Options.CLOUD_HEIGHT, GameSettings.Options.TREES, GameSettings.Options.RAIN, GameSettings.Options.SKY, GameSettings.Options.STARS, GameSettings.Options.SUN_MOON, GameSettings.Options.SHOW_CAPES, GameSettings.Options.FOG_FANCY, GameSettings.Options.FOG_START, GameSettings.Options.TRANSLUCENT_BLOCKS, GameSettings.Options.HELD_ITEM_TOOLTIPS, GameSettings.Options.DROPPED_ITEMS, GameSettings.Options.ENTITY_SHADOWS, GameSettings.Options.VIGNETTE, GameSettings.Options.ALTERNATE_BLOCKS, GameSettings.Options.SWAMP_COLORS, GameSettings.Options.SMOOTH_BIOMES};
+    private final TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderOptions());
 
     public GuiDetailSettingsOF(GuiScreen guiscreen, GameSettings gamesettings)
     {
@@ -22,8 +22,8 @@ public class GuiDetailSettingsOF extends GuiScreen
 
     public void initGui()
     {
-        this.title = LocalizationHelper.translate("of.options.detailsTitle", new Object[0]);
-        this.buttonList.clear();
+        this.title = LocalizationHelper.translate("of.options.detailsTitle");
+        buttonList.clear();
 
         for (int i = 0; i < enumOptions.length; ++i)
         {
@@ -33,15 +33,15 @@ public class GuiDetailSettingsOF extends GuiScreen
 
             if (!gamesettings$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
             }
             else
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
             }
         }
 
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done", new Object[0])));
+        buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done")));
     }
 
     protected void actionPerformed(GuiButton guibutton)
@@ -67,6 +67,6 @@ public class GuiDetailSettingsOF extends GuiScreen
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObject, this.title, this.width / 2, 15, 16777215);
         super.drawScreen(x, y, f);
-        this.tooltipManager.drawTooltips(x, y, this.buttonList);
+        this.tooltipManager.drawTooltips(x, y, buttonList);
     }
 }

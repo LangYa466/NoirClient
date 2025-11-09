@@ -36,7 +36,7 @@ public class GuiVideoSettings extends GuiScreenOF
     public void initGui()
     {
         this.screenTitle = LocalizationHelper.translate("options.videoTitle");
-        this.buttonList.clear();
+        buttonList.clear();
 
         for (int i = 0; i < videoOptions.length; ++i)
         {
@@ -47,31 +47,31 @@ public class GuiVideoSettings extends GuiScreenOF
 
             if (gamesettings$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.guiGameSettings.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.guiGameSettings.getKeyBinding(gamesettings$options)));
             }
         }
 
         int l = this.height / 6 + 21 * (videoOptions.length / 2) - 12;
         int i1;
         i1 = this.width / 2 - 155;
-        this.buttonList.add(new GuiOptionButton(231, i1, l, Lang.get("of.options.shaders")));
+        buttonList.add(new GuiOptionButton(231, i1, l, Lang.get("of.options.shaders")));
         i1 = this.width / 2 - 155 + 160;
-        this.buttonList.add(new GuiOptionButton(202, i1, l, Lang.get("of.options.quality")));
+        buttonList.add(new GuiOptionButton(202, i1, l, Lang.get("of.options.quality")));
         l = l + 21;
         i1 = this.width / 2 - 155;
-        this.buttonList.add(new GuiOptionButton(201, i1, l, Lang.get("of.options.details")));
+        buttonList.add(new GuiOptionButton(201, i1, l, Lang.get("of.options.details")));
         i1 = this.width / 2 - 155 + 160;
-        this.buttonList.add(new GuiOptionButton(212, i1, l, Lang.get("of.options.performance")));
+        buttonList.add(new GuiOptionButton(212, i1, l, Lang.get("of.options.performance")));
         l = l + 21;
         i1 = this.width / 2 - 155;
-        this.buttonList.add(new GuiOptionButton(211, i1, l, Lang.get("of.options.animations")));
+        buttonList.add(new GuiOptionButton(211, i1, l, Lang.get("of.options.animations")));
         i1 = this.width / 2 - 155 + 160;
-        this.buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done")));
+        buttonList.add(new GuiOptionButton(222, i1, l, Lang.get("of.options.other")));
+        buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException
@@ -191,7 +191,7 @@ public class GuiVideoSettings extends GuiScreenOF
         int i = this.fontRendererObject.getStringWidth(s2);
         this.drawString(this.fontRendererObject, s2, this.width - i - 2, this.height - 10, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.tooltipManager.drawTooltips(mouseX, mouseY, this.buttonList);
+        this.tooltipManager.drawTooltips(mouseX, mouseY, buttonList);
     }
 
     public static int getButtonWidth(GuiButton p_getButtonWidth_0_)

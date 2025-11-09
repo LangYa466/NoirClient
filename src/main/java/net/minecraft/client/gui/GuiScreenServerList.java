@@ -25,14 +25,14 @@ public class GuiScreenServerList extends GuiScreen
     public void initGui()
     {
         Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, LocalizationHelper.translate("selectServer.select", new Object[0])));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, LocalizationHelper.translate("gui.cancel", new Object[0])));
+        buttonList.clear();
+        buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 4 + 96 + 12, LocalizationHelper.translate("selectServer.select")));
+        buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + 12, LocalizationHelper.translate("gui.cancel")));
         this.field_146302_g = new GuiTextField(2, this.fontRendererObject, this.width / 2 - 100, 116, 200, 20);
         this.field_146302_g.setMaxStringLength(128);
         this.field_146302_g.setFocus(true);
         this.field_146302_g.setText(this.mc.gameSettings.lastServer);
-        ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
+        buttonList.get(0).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
     }
 
     public void onGuiClosed()
@@ -62,11 +62,11 @@ public class GuiScreenServerList extends GuiScreen
     {
         if (this.field_146302_g.textboxKeyTyped(typedChar, keyCode))
         {
-            ((GuiButton)this.buttonList.get(0)).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
+            buttonList.get(0).enabled = this.field_146302_g.getText().length() > 0 && this.field_146302_g.getText().split(":").length > 0;
         }
         else if (keyCode == 28 || keyCode == 156)
         {
-            this.actionPerformed((GuiButton)this.buttonList.get(0));
+            this.actionPerformed((GuiButton) buttonList.get(0));
         }
     }
 
@@ -79,8 +79,8 @@ public class GuiScreenServerList extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("selectServer.direct", new Object[0]), this.width / 2, 20, 16777215);
-        this.drawString(this.fontRendererObject, LocalizationHelper.translate("addServer.enterIp", new Object[0]), this.width / 2 - 100, 100, 10526880);
+        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("selectServer.direct"), this.width / 2, 20, 16777215);
+        this.drawString(this.fontRendererObject, LocalizationHelper.translate("addServer.enterIp"), this.width / 2 - 100, 100, 10526880);
         this.field_146302_g.drawTextBox();
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

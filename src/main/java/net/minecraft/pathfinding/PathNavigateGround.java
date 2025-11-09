@@ -36,7 +36,7 @@ public class PathNavigateGround extends PathNavigate
 
     protected Vector3D getEntityPosition()
     {
-        return new Vector3D(this.theEntity.posX, (double)this.getPathablePosY(), this.theEntity.posZ);
+        return new Vector3D(this.theEntity.posX, this.getPathablePosY(), this.theEntity.posZ);
     }
 
     private int getPathablePosY()
@@ -93,10 +93,10 @@ public class PathNavigateGround extends PathNavigate
 
     protected boolean isDirectPathBetweenPoints(Vector3D posDVec31, Vector3D posDVec32, int sizeX, int sizeY, int sizeZ)
     {
-        int i = MathHelper.floor_double(posDVec31.x);
-        int j = MathHelper.floor_double(posDVec31.z);
-        double d0 = posDVec32.x - posDVec31.x;
-        double d1 = posDVec32.z - posDVec31.z;
+        int i = MathHelper.floor_double(posDVec31.x());
+        int j = MathHelper.floor_double(posDVec31.z());
+        double d0 = posDVec32.x() - posDVec31.x();
+        double d1 = posDVec32.z() - posDVec31.z();
         double d2 = d0 * d0 + d1 * d1;
 
         if (d2 < 1.0E-8D)
@@ -111,7 +111,7 @@ public class PathNavigateGround extends PathNavigate
             sizeX = sizeX + 2;
             sizeZ = sizeZ + 2;
 
-            if (!this.isSafeToStandAt(i, (int) posDVec31.y, j, sizeX, sizeY, sizeZ, posDVec31, d0, d1))
+            if (!this.isSafeToStandAt(i, (int) posDVec31.y(), j, sizeX, sizeY, sizeZ, posDVec31, d0, d1))
             {
                 return false;
             }
@@ -121,8 +121,8 @@ public class PathNavigateGround extends PathNavigate
                 sizeZ = sizeZ - 2;
                 double d4 = 1.0D / Math.abs(d0);
                 double d5 = 1.0D / Math.abs(d1);
-                double d6 = (double)(i * 1) - posDVec31.x;
-                double d7 = (double)(j * 1) - posDVec31.z;
+                double d6 = (double)(i) - posDVec31.x();
+                double d7 = (double)(j) - posDVec31.z();
 
                 if (d0 >= 0.0D)
                 {
@@ -138,8 +138,8 @@ public class PathNavigateGround extends PathNavigate
                 d7 = d7 / d1;
                 int k = d0 < 0.0D ? -1 : 1;
                 int l = d1 < 0.0D ? -1 : 1;
-                int i1 = MathHelper.floor_double(posDVec32.x);
-                int j1 = MathHelper.floor_double(posDVec32.z);
+                int i1 = MathHelper.floor_double(posDVec32.x());
+                int j1 = MathHelper.floor_double(posDVec32.z());
                 int k1 = i1 - i;
                 int l1 = j1 - j;
 
@@ -158,7 +158,7 @@ public class PathNavigateGround extends PathNavigate
                         l1 = j1 - j;
                     }
 
-                    if (!this.isSafeToStandAt(i, (int) posDVec31.y, j, sizeX, sizeY, sizeZ, posDVec31, d0, d1))
+                    if (!this.isSafeToStandAt(i, (int) posDVec31.y(), j, sizeX, sizeY, sizeZ, posDVec31, d0, d1))
                     {
                         return false;
                     }
@@ -184,8 +184,8 @@ public class PathNavigateGround extends PathNavigate
             {
                 for (int l = j; l < j + sizeZ; ++l)
                 {
-                    double d0 = (double)k + 0.5D - vec31D.x;
-                    double d1 = (double)l + 0.5D - vec31D.z;
+                    double d0 = (double)k + 0.5D - vec31D.x();
+                    double d1 = (double)l + 0.5D - vec31D.z();
 
                     if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0.0D)
                     {
@@ -218,8 +218,8 @@ public class PathNavigateGround extends PathNavigate
     {
         for (BlockPos blockpos : BlockPos.getAllInBox(new BlockPos(p_179692_1_, p_179692_2_, p_179692_3_), new BlockPos(p_179692_1_ + p_179692_4_ - 1, p_179692_2_ + p_179692_5_ - 1, p_179692_3_ + p_179692_6_ - 1)))
         {
-            double d0 = (double)blockpos.getX() + 0.5D - p_179692_7_.x;
-            double d1 = (double)blockpos.getZ() + 0.5D - p_179692_7_.z;
+            double d0 = (double)blockpos.getX() + 0.5D - p_179692_7_.x();
+            double d1 = (double)blockpos.getZ() + 0.5D - p_179692_7_.z();
 
             if (d0 * p_179692_8_ + d1 * p_179692_10_ >= 0.0D)
             {

@@ -12,7 +12,7 @@ public class RandomPositionGenerator
 
     public static Vector3D findRandomTarget(EntityCreature entitycreatureIn, int xz, int y)
     {
-        return findRandomTargetBlock(entitycreatureIn, xz, y, (Vector3D)null);
+        return findRandomTargetBlock(entitycreatureIn, xz, y, null);
     }
 
     public static Vector3D findRandomTargetBlockTowards(EntityCreature entitycreatureIn, int xz, int y, Vector3D targetVector3D)
@@ -39,8 +39,8 @@ public class RandomPositionGenerator
 
         if (entitycreatureIn.hasHome())
         {
-            double d0 = entitycreatureIn.getHomePosition().distanceSq((double)MathHelper.floor_double(entitycreatureIn.posX), (double)MathHelper.floor_double(entitycreatureIn.posY), (double)MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
-            double d1 = (double)(entitycreatureIn.getMaximumHomeDistance() + (float)xz);
+            double d0 = entitycreatureIn.getHomePosition().distanceSq(MathHelper.floor_double(entitycreatureIn.posX), MathHelper.floor_double(entitycreatureIn.posY), MathHelper.floor_double(entitycreatureIn.posZ)) + 4.0D;
+            double d1 = entitycreatureIn.getMaximumHomeDistance() + (float)xz;
             flag1 = d0 < d1 * d1;
         }
         else
@@ -54,7 +54,7 @@ public class RandomPositionGenerator
             int k1 = random.nextInt(2 * y + 1) - y;
             int i1 = random.nextInt(2 * xz + 1) - xz;
 
-            if (targetVector3D == null || (double)l * targetVector3D.x + (double)i1 * targetVector3D.z >= 0.0D)
+            if (targetVector3D == null || (double)l * targetVector3D.x() + (double)i1 * targetVector3D.z() >= 0.0D)
             {
                 if (entitycreatureIn.hasHome() && xz > 1)
                 {
@@ -102,7 +102,7 @@ public class RandomPositionGenerator
 
         if (flag)
         {
-            return new Vector3D((double)i, (double)j, (double)k);
+            return new Vector3D(i, j, k);
         }
         else
         {

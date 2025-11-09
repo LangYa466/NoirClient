@@ -500,10 +500,10 @@ public class ModelBakery
 
         for (BlockPart blockpart : p_bakeModel_1_.getElements())
         {
-            for (EnumFacing enumfacing : blockpart.mapFaces.keySet())
+            for (EnumFacing enumfacing : blockpart.mapFaces().keySet())
             {
-                BlockPartFace blockpartface = blockpart.mapFaces.get(enumfacing);
-                TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(p_bakeModel_1_.resolveTextureName(blockpartface.texture)));
+                BlockPartFace blockpartface = blockpart.mapFaces().get(enumfacing);
+                TextureAtlasSprite textureatlassprite1 = this.sprites.get(new ResourceLocation(p_bakeModel_1_.resolveTextureName(blockpartface.texture())));
                 boolean flag = true;
 
                 if (Reflector.ForgeHooksClient.exists())
@@ -511,9 +511,9 @@ public class ModelBakery
                     flag = TRSRTransformation.isInteger(p_bakeModel_2_.getMatrix());
                 }
 
-                if (blockpartface.cullFace != null && flag)
+                if (blockpartface.cullFace() != null && flag)
                 {
-                    simplebakedmodel$builder.addFaceQuad(p_bakeModel_2_.rotate(blockpartface.cullFace), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, p_bakeModel_2_, p_bakeModel_3_));
+                    simplebakedmodel$builder.addFaceQuad(p_bakeModel_2_.rotate(blockpartface.cullFace()), this.makeBakedQuad(blockpart, blockpartface, textureatlassprite1, enumfacing, p_bakeModel_2_, p_bakeModel_3_));
                 }
                 else
                 {
@@ -527,7 +527,7 @@ public class ModelBakery
 
     protected BakedQuad makeBakedQuad(BlockPart p_makeBakedQuad_1_, BlockPartFace p_makeBakedQuad_2_, TextureAtlasSprite p_makeBakedQuad_3_, EnumFacing p_makeBakedQuad_4_, ITransformation p_makeBakedQuad_5_, boolean p_makeBakedQuad_6_)
     {
-        return this.faceBakery.makeBakedQuad(p_makeBakedQuad_1_.positionFrom, p_makeBakedQuad_1_.positionTo, p_makeBakedQuad_2_, p_makeBakedQuad_3_, p_makeBakedQuad_4_, p_makeBakedQuad_5_, p_makeBakedQuad_1_.partRotation, p_makeBakedQuad_6_, p_makeBakedQuad_1_.shade);
+        return this.faceBakery.makeBakedQuad(p_makeBakedQuad_1_.positionFrom(), p_makeBakedQuad_1_.positionTo(), p_makeBakedQuad_2_, p_makeBakedQuad_3_, p_makeBakedQuad_4_, p_makeBakedQuad_5_, p_makeBakedQuad_1_.partRotation(), p_makeBakedQuad_6_, p_makeBakedQuad_1_.shade());
     }
 
     private void loadModelsCheck()
@@ -621,9 +621,9 @@ public class ModelBakery
 
         for (BlockPart blockpart : p_177585_1_.getElements())
         {
-            for (BlockPartFace blockpartface : blockpart.mapFaces.values())
+            for (BlockPartFace blockpartface : blockpart.mapFaces().values())
             {
-                ResourceLocation resourcelocation = new ResourceLocation(p_177585_1_.resolveTextureName(blockpartface.texture));
+                ResourceLocation resourcelocation = new ResourceLocation(p_177585_1_.resolveTextureName(blockpartface.texture()));
                 set.add(resourcelocation);
             }
         }
@@ -682,9 +682,9 @@ public class ModelBakery
                 {
                     for (BlockPart blockpart : modelblock.getElements())
                     {
-                        for (BlockPartFace blockpartface : blockpart.mapFaces.values())
+                        for (BlockPartFace blockpartface : blockpart.mapFaces().values())
                         {
-                            ResourceLocation resourcelocation1 = new ResourceLocation(modelblock.resolveTextureName(blockpartface.texture));
+                            ResourceLocation resourcelocation1 = new ResourceLocation(modelblock.resolveTextureName(blockpartface.texture()));
                             set.add(resourcelocation1);
                         }
                     }
@@ -804,7 +804,7 @@ public class ModelBakery
 
         if (customVariantNames.containsKey(registrydelegate))
         {
-            ((Set)customVariantNames.get(registrydelegate)).addAll(Lists.newArrayList(p_addVariantName_1_));
+            customVariantNames.get(registrydelegate).addAll(Lists.newArrayList(p_addVariantName_1_));
         }
         else
         {

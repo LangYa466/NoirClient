@@ -754,7 +754,7 @@ public class Reflector {
             }
             else
             {
-                boolean flag = field.getBoolean((Object)null);
+                boolean flag = field.getBoolean(null);
                 return flag;
             }
         }
@@ -947,15 +947,14 @@ public class Reflector {
             }
             else
             {
-                Object object1 = call(object, EventBus_post, new Object[] {event});
+                Object object1 = call(object, EventBus_post, event);
 
-                if (!(object1 instanceof Boolean))
+                if (!(object1 instanceof Boolean obool))
                 {
                     return false;
                 }
                 else
                 {
-                    Boolean obool = (Boolean)object1;
                     return obool.booleanValue();
                 }
             }
@@ -1055,9 +1054,8 @@ public class Reflector {
         {
             Throwable throwable = e.getCause();
 
-            if (throwable instanceof RuntimeException)
+            if (throwable instanceof RuntimeException runtimeexception)
             {
-                RuntimeException runtimeexception = (RuntimeException)throwable;
                 throw runtimeexception;
             }
             else

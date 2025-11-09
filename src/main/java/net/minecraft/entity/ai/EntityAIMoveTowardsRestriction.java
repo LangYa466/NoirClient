@@ -6,11 +6,11 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIMoveTowardsRestriction extends EntityAIBase
 {
-    private EntityCreature theEntity;
+    private final EntityCreature theEntity;
     private double movePosX;
     private double movePosY;
     private double movePosZ;
-    private double movementSpeed;
+    private final double movementSpeed;
 
     public EntityAIMoveTowardsRestriction(EntityCreature creatureIn, double speedIn)
     {
@@ -28,7 +28,7 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase
         else
         {
             BlockPos blockpos = this.theEntity.getHomePosition();
-            Vector3D vector3D = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vector3D((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ()));
+            Vector3D vector3D = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 16, 7, new Vector3D(blockpos.getX(), blockpos.getY(), blockpos.getZ()));
 
             if (vector3D == null)
             {
@@ -36,9 +36,9 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase
             }
             else
             {
-                this.movePosX = vector3D.x;
-                this.movePosY = vector3D.y;
-                this.movePosZ = vector3D.z;
+                this.movePosX = vector3D.x();
+                this.movePosY = vector3D.y();
+                this.movePosZ = vector3D.z();
                 return true;
             }
         }

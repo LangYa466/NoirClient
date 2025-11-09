@@ -1726,8 +1726,8 @@ public class GameSettings {
             return switch (this.ofTrees) {
                 case 1 -> s + Lang.getFast();
                 case 2 -> s + Lang.getFancy();
-                default -> s + Lang.getDefault();
                 case 4 -> s + Lang.get("of.general.smart");
+                default -> s + Lang.getDefault();
             };
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.DROPPED_ITEMS) {
             return switch (this.ofDroppedItems) {

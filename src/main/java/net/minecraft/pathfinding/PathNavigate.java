@@ -71,7 +71,7 @@ public abstract class PathNavigate
 
     public boolean tryMoveToXYZ(double x, double y, double z, double speedIn)
     {
-        PathEntity pathentity = this.getPathToXYZ((double)MathHelper.floor_double(x), (double)((int)y), (double)MathHelper.floor_double(z));
+        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), (int)y, MathHelper.floor_double(z));
         return this.setPath(pathentity, speedIn);
     }
 
@@ -102,7 +102,7 @@ public abstract class PathNavigate
     public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn)
     {
         PathEntity pathentity = this.getPathToEntityLiving(entityIn);
-        return pathentity != null ? this.setPath(pathentity, speedIn) : false;
+        return pathentity != null && this.setPath(pathentity, speedIn);
     }
 
     public boolean setPath(PathEntity pathentityIn, double speedIn)
@@ -156,7 +156,7 @@ public abstract class PathNavigate
                 Vector3D vector3D = this.getEntityPosition();
                 Vector3D vec31D = this.currentPath.getVectorFromIndex(this.theEntity, this.currentPath.getCurrentPathIndex());
 
-                if (vector3D.y > vec31D.y && !this.theEntity.onGround && MathHelper.floor_double(vector3D.x) == MathHelper.floor_double(vec31D.x) && MathHelper.floor_double(vector3D.z) == MathHelper.floor_double(vec31D.z))
+                if (vector3D.y() > vec31D.y() && !this.theEntity.onGround && MathHelper.floor_double(vector3D.x()) == MathHelper.floor_double(vec31D.x()) && MathHelper.floor_double(vector3D.z()) == MathHelper.floor_double(vec31D.z()))
                 {
                     this.currentPath.setCurrentPathIndex(this.currentPath.getCurrentPathIndex() + 1);
                 }
@@ -168,7 +168,7 @@ public abstract class PathNavigate
 
                 if (vec32D != null)
                 {
-                    AxisAlignedBB axisalignedbb1 = (new AxisAlignedBB(vec32D.x, vec32D.y, vec32D.z, vec32D.x, vec32D.y, vec32D.z)).expand(0.5D, 0.5D, 0.5D);
+                    AxisAlignedBB axisalignedbb1 = (new AxisAlignedBB(vec32D.x(), vec32D.y(), vec32D.z(), vec32D.x(), vec32D.y(), vec32D.z())).expand(0.5D, 0.5D, 0.5D);
                     List<AxisAlignedBB> list = this.worldObj.getCollidingBoundingBoxes(this.theEntity, axisalignedbb1.addCoord(0.0D, -1.0D, 0.0D));
                     double d0 = -1.0D;
                     axisalignedbb1 = axisalignedbb1.offset(0.0D, 1.0D, 0.0D);
@@ -178,7 +178,7 @@ public abstract class PathNavigate
                         d0 = axisalignedbb.calculateYOffset(axisalignedbb1, d0);
                     }
 
-                    this.theEntity.getMoveHelper().setMoveTo(vec32D.x, vec32D.y + d0, vec32D.z, this.speed);
+                    this.theEntity.getMoveHelper().setMoveTo(vec32D.x(), vec32D.y() + d0, vec32D.z(), this.speed);
                 }
             }
         }
@@ -191,7 +191,7 @@ public abstract class PathNavigate
 
         for (int j = this.currentPath.getCurrentPathIndex(); j < this.currentPath.getCurrentPathLength(); ++j)
         {
-            if (this.currentPath.getPathPointFromIndex(j).yCoord != (int) vector3D.y)
+            if (this.currentPath.getPathPointFromIndex(j).yCoord != (int) vector3D.y())
             {
                 i = j;
                 break;

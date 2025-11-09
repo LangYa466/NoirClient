@@ -238,32 +238,32 @@ public class ChatStyle
 
             if (this.getColor() != null)
             {
-                stringbuilder.append((Object)this.getColor());
+                stringbuilder.append(this.getColor());
             }
 
             if (this.getBold())
             {
-                stringbuilder.append((Object)EnumChatFormatting.BOLD);
+                stringbuilder.append(EnumChatFormatting.BOLD);
             }
 
             if (this.getItalic())
             {
-                stringbuilder.append((Object)EnumChatFormatting.ITALIC);
+                stringbuilder.append(EnumChatFormatting.ITALIC);
             }
 
             if (this.getUnderlined())
             {
-                stringbuilder.append((Object)EnumChatFormatting.UNDERLINE);
+                stringbuilder.append(EnumChatFormatting.UNDERLINE);
             }
 
             if (this.getObfuscated())
             {
-                stringbuilder.append((Object)EnumChatFormatting.OBFUSCATED);
+                stringbuilder.append(EnumChatFormatting.OBFUSCATED);
             }
 
             if (this.getStrikethrough())
             {
-                stringbuilder.append((Object)EnumChatFormatting.STRIKETHROUGH);
+                stringbuilder.append(EnumChatFormatting.STRIKETHROUGH);
             }
 
             return stringbuilder.toString();
@@ -286,7 +286,7 @@ public class ChatStyle
         {
             return true;
         }
-        else if (!(p_equals_1_ instanceof ChatStyle))
+        else if (!(p_equals_1_ instanceof ChatStyle chatstyle))
         {
             return false;
         }
@@ -295,7 +295,6 @@ public class ChatStyle
             boolean flag;
             label0:
             {
-                ChatStyle chatstyle = (ChatStyle)p_equals_1_;
 
                 if (this.getBold() == chatstyle.getBold() && this.getColor() == chatstyle.getColor() && this.getItalic() == chatstyle.getItalic() && this.getObfuscated() == chatstyle.getObfuscated() && this.getStrikethrough() == chatstyle.getStrikethrough() && this.getUnderlined() == chatstyle.getUnderlined())
                 {
@@ -434,7 +433,7 @@ public class ChatStyle
 
                     if (jsonobject.has("color"))
                     {
-                        chatstyle.color = (EnumChatFormatting)p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
+                        chatstyle.color = p_deserialize_3_.deserialize(jsonobject.get("color"), EnumChatFormatting.class);
                     }
 
                     if (jsonobject.has("insertion"))
@@ -468,7 +467,7 @@ public class ChatStyle
                         {
                             JsonPrimitive jsonprimitive2 = jsonobject2.getAsJsonPrimitive("action");
                             HoverEvent.Action hoverevent$action = jsonprimitive2 == null ? null : HoverEvent.Action.getValueByCanonicalName(jsonprimitive2.getAsString());
-                            IChatComponent ichatcomponent = (IChatComponent)p_deserialize_3_.deserialize(jsonobject2.get("value"), IChatComponent.class);
+                            IChatComponent ichatcomponent = p_deserialize_3_.deserialize(jsonobject2.get("value"), IChatComponent.class);
 
                             if (hoverevent$action != null && ichatcomponent != null && hoverevent$action.shouldAllowInChat())
                             {
@@ -534,16 +533,16 @@ public class ChatStyle
                 if (p_serialize_1_.chatClickEvent != null)
                 {
                     JsonObject jsonobject1 = new JsonObject();
-                    jsonobject1.addProperty("action", p_serialize_1_.chatClickEvent.getAction().getCanonicalName());
-                    jsonobject1.addProperty("value", p_serialize_1_.chatClickEvent.getValue());
+                    jsonobject1.addProperty("action", p_serialize_1_.chatClickEvent.action().getCanonicalName());
+                    jsonobject1.addProperty("value", p_serialize_1_.chatClickEvent.value());
                     jsonobject.add("clickEvent", jsonobject1);
                 }
 
                 if (p_serialize_1_.chatHoverEvent != null)
                 {
                     JsonObject jsonobject2 = new JsonObject();
-                    jsonobject2.addProperty("action", p_serialize_1_.chatHoverEvent.getAction().getCanonicalName());
-                    jsonobject2.add("value", p_serialize_3_.serialize(p_serialize_1_.chatHoverEvent.getValue()));
+                    jsonobject2.addProperty("action", p_serialize_1_.chatHoverEvent.action().getCanonicalName());
+                    jsonobject2.add("value", p_serialize_3_.serialize(p_serialize_1_.chatHoverEvent.value()));
                     jsonobject.add("hoverEvent", jsonobject2);
                 }
 

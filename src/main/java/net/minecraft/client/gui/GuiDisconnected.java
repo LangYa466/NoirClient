@@ -7,8 +7,8 @@ import net.minecraft.util.IChatComponent;
 
 public class GuiDisconnected extends GuiScreen
 {
-    private String reason;
-    private IChatComponent message;
+    private final String reason;
+    private final IChatComponent message;
     private List<String> multilineMessage;
     private final GuiScreen parentScreen;
     private int field_175353_i;
@@ -16,7 +16,7 @@ public class GuiDisconnected extends GuiScreen
     public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp)
     {
         this.parentScreen = screen;
-        this.reason = LocalizationHelper.translate(reasonLocalizationKey, new Object[0]);
+        this.reason = LocalizationHelper.translate(reasonLocalizationKey);
         this.message = chatComp;
     }
 
@@ -26,10 +26,10 @@ public class GuiDisconnected extends GuiScreen
 
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
         this.multilineMessage = this.fontRendererObject.listFormattedStringToWidth(this.message.getFormattedText(), this.width - 50);
         this.field_175353_i = this.multilineMessage.size() * this.fontRendererObject.FONT_HEIGHT;
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObject.FONT_HEIGHT, LocalizationHelper.translate("gui.toMenu", new Object[0])));
+        buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height / 2 + this.field_175353_i / 2 + this.fontRendererObject.FONT_HEIGHT, LocalizationHelper.translate("gui.toMenu")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException

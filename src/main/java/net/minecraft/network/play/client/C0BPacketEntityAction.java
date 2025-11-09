@@ -32,7 +32,7 @@ public class C0BPacketEntityAction implements IPacket<INetHandlerPlayServer>
     public void readPacketData(PacketBuffer buf) throws IOException
     {
         this.entityID = buf.readVarIntFromBuffer();
-        this.action = (C0BPacketEntityAction.Action)buf.readEnumValue(C0BPacketEntityAction.Action.class);
+        this.action = buf.readEnumValue(Action.class);
         this.auxData = buf.readVarIntFromBuffer();
     }
 
@@ -58,7 +58,7 @@ public class C0BPacketEntityAction implements IPacket<INetHandlerPlayServer>
         return this.auxData;
     }
 
-    public static enum Action
+    public enum Action
     {
         START_SNEAKING,
         STOP_SNEAKING,
@@ -66,6 +66,6 @@ public class C0BPacketEntityAction implements IPacket<INetHandlerPlayServer>
         START_SPRINTING,
         STOP_SPRINTING,
         RIDING_JUMP,
-        OPEN_INVENTORY;
+        OPEN_INVENTORY
     }
 }

@@ -20,23 +20,23 @@ public class ScreenChatOptions extends GuiScreen
     public void initGui()
     {
         int i = 0;
-        this.field_146401_i = LocalizationHelper.translate("options.chat.title", new Object[0]);
+        this.field_146401_i = LocalizationHelper.translate("options.chat.title");
 
         for (GameSettings.Options gamesettings$options : field_146399_a)
         {
             if (gamesettings$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options));
+                buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options, this.game_settings.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, this.height / 6 + 24 * (i >> 1), gamesettings$options, this.game_settings.getKeyBinding(gamesettings$options)));
             }
 
             ++i;
         }
 
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 120, LocalizationHelper.translate("gui.done", new Object[0])));
+        buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 120, LocalizationHelper.translate("gui.done")));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException

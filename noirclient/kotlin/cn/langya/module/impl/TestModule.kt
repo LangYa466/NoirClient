@@ -2,7 +2,6 @@ package cn.langya.module.impl
 
 import cn.langya.event.Render2DEvent
 import cn.langya.module.Module
-import cn.langya.module.value.BooleanValue
 import cn.langya.util.render.FontRenderer
 import cn.langya.util.render.RoundedRect
 import com.darkmagician6.eventapi.EventTarget

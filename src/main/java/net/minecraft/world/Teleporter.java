@@ -19,7 +19,7 @@ public class Teleporter
     private final WorldServer worldServerInstance;
     private final Random random;
     private final LongHashMap<Teleporter.PortalPosition> destinationCoordinateCache = new LongHashMap();
-    private final List<Long> destinationCoordinateKeys = Lists.<Long>newArrayList();
+    private final List<Long> destinationCoordinateKeys = Lists.newArrayList();
 
     public Teleporter(WorldServer worldIn)
     {
@@ -60,7 +60,7 @@ public class Teleporter
                 }
             }
 
-            entityIn.setLocationAndAngles((double)i, (double)j, (double)k, entityIn.rotationYaw, 0.0F);
+            entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0.0F);
             entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
         }
     }
@@ -77,7 +77,7 @@ public class Teleporter
 
         if (this.destinationCoordinateCache.containsItem(l))
         {
-            Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(l);
+            Teleporter.PortalPosition teleporter$portalposition = this.destinationCoordinateCache.getValueByKey(l);
             d0 = 0.0D;
             blockpos = teleporter$portalposition;
             teleporter$portalposition.lastUpdateTime = this.worldServerInstance.getTotalWorldTime();
@@ -131,7 +131,7 @@ public class Teleporter
             BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
             boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
             double d2 = blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X ? (double)blockpattern$patternhelper.getPos().getZ() : (double)blockpattern$patternhelper.getPos().getX();
-            d6 = (double)(blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().y * (double)blockpattern$patternhelper.func_181119_e();
+            d6 = (double)(blockpattern$patternhelper.getPos().getY() + 1) - entityIn.func_181014_aG().y() * (double)blockpattern$patternhelper.func_181119_e();
 
             if (flag1)
             {
@@ -140,11 +140,11 @@ public class Teleporter
 
             if (blockpattern$patternhelper.getFinger().getAxis() == EnumFacing.Axis.X)
             {
-                d7 = d2 + (1.0D - entityIn.func_181014_aG().x) * (double)blockpattern$patternhelper.func_181118_d() * (double)blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d7 = d2 + (1.0D - entityIn.func_181014_aG().x()) * (double)blockpattern$patternhelper.func_181118_d() * (double)blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             }
             else
             {
-                d5 = d2 + (1.0D - entityIn.func_181014_aG().x) * (double)blockpattern$patternhelper.func_181118_d() * (double)blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
+                d5 = d2 + (1.0D - entityIn.func_181014_aG().x()) * (double)blockpattern$patternhelper.func_181118_d() * (double)blockpattern$patternhelper.getFinger().rotateY().getAxisDirection().getOffset();
             }
 
             float f = 0.0F;
@@ -399,8 +399,8 @@ public class Teleporter
 
             while (iterator.hasNext())
             {
-                Long olong = (Long)iterator.next();
-                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                Long olong = iterator.next();
+                Teleporter.PortalPosition teleporter$portalposition = this.destinationCoordinateCache.getValueByKey(olong.longValue());
 
                 if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i)
                 {

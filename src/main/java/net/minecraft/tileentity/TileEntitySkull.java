@@ -50,7 +50,7 @@ public class TileEntitySkull extends TileEntity
 
                 if (!StringUtils.isNullOrEmpty(s))
                 {
-                    this.playerProfile = new GameProfile((UUID)null, s);
+                    this.playerProfile = new GameProfile(null, s);
                     this.updatePlayerProfile();
                 }
             }
@@ -110,7 +110,7 @@ public class TileEntitySkull extends TileEntity
                 }
                 else
                 {
-                    Property property = (Property)Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
+                    Property property = Iterables.getFirst(gameprofile.getProperties().get("textures"), null);
 
                     if (property == null)
                     {

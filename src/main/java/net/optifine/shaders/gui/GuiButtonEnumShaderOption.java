@@ -22,7 +22,7 @@ public class GuiButtonEnumShaderOption extends GuiButton
 
     private static String getButtonText(EnumShaderOption eso)
     {
-        String s = LocalizationHelper.translate(eso.getResourceKey(), new Object[0]) + ": ";
+        String s = LocalizationHelper.translate(eso.getResourceKey()) + ": ";
 
         switch (eso)
         {

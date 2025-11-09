@@ -5,8 +5,8 @@ import net.minecraft.client.resources.LocalizationHelper;
 
 public class GuiErrorScreen extends GuiScreen
 {
-    private String field_146313_a;
-    private String field_146312_f;
+    private final String field_146313_a;
+    private final String field_146312_f;
 
     public GuiErrorScreen(String p_i46319_1_, String p_i46319_2_)
     {
@@ -17,7 +17,7 @@ public class GuiErrorScreen extends GuiScreen
     public void initGui()
     {
         super.initGui();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, 140, LocalizationHelper.translate("gui.cancel", new Object[0])));
+        buttonList.add(new GuiButton(0, this.width / 2 - 100, 140, LocalizationHelper.translate("gui.cancel")));
     }
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
@@ -34,6 +34,6 @@ public class GuiErrorScreen extends GuiScreen
 
     protected void actionPerformed(GuiButton button) throws IOException
     {
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
     }
 }

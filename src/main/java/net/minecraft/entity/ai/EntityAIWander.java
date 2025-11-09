@@ -5,11 +5,11 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIWander extends EntityAIBase
 {
-    private EntityCreature entity;
+    private final EntityCreature entity;
     private double xPosition;
     private double yPosition;
     private double zPosition;
-    private double speed;
+    private final double speed;
     private int executionChance;
     private boolean mustUpdate;
 
@@ -49,9 +49,9 @@ public class EntityAIWander extends EntityAIBase
         }
         else
         {
-            this.xPosition = vector3D.x;
-            this.yPosition = vector3D.y;
-            this.zPosition = vector3D.z;
+            this.xPosition = vector3D.x();
+            this.yPosition = vector3D.y();
+            this.zPosition = vector3D.z();
             this.mustUpdate = false;
             return true;
         }

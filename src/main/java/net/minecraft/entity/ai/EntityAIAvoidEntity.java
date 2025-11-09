@@ -14,18 +14,18 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
 {
     private final Predicate<Entity> canBeSeenSelector;
     protected EntityCreature theEntity;
-    private double farSpeed;
-    private double nearSpeed;
+    private final double farSpeed;
+    private final double nearSpeed;
     protected T closestLivingEntity;
-    private float avoidDistance;
+    private final float avoidDistance;
     private PathEntity entityPathEntity;
-    private PathNavigate entityPathNavigate;
-    private Class<T> classToAvoid;
-    private Predicate <? super T > avoidTargetSelector;
+    private final PathNavigate entityPathNavigate;
+    private final Class<T> classToAvoid;
+    private final Predicate <? super T > avoidTargetSelector;
 
     public EntityAIAvoidEntity(EntityCreature theEntityIn, Class<T> classToAvoidIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
     {
-        this(theEntityIn, classToAvoidIn, Predicates.<T>alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
+        this(theEntityIn, classToAvoidIn, Predicates.alwaysTrue(), avoidDistanceIn, farSpeedIn, nearSpeedIn);
     }
 
     public EntityAIAvoidEntity(EntityCreature theEntityIn, Class<T> classToAvoidIn, Predicate <? super T > avoidTargetSelectorIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn)
@@ -49,7 +49,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
 
     public boolean shouldExecute()
     {
-        List<T> list = this.theEntity.worldObj.<T>getEntitiesWithinAABB(this.classToAvoid, this.theEntity.getEntityBoundingBox().expand((double)this.avoidDistance, 3.0D, (double)this.avoidDistance), Predicates.and(new Predicate[] {EntitySelectors.NOT_SPECTATING, this.canBeSeenSelector, this.avoidTargetSelector}));
+        List<T> list = this.theEntity.worldObj.getEntitiesWithinAABB(this.classToAvoid, this.theEntity.getEntityBoundingBox().expand(this.avoidDistance, 3.0D, this.avoidDistance), Predicates.and(EntitySelectors.NOT_SPECTATING, this.canBeSeenSelector, this.avoidTargetSelector));
 
         if (list.isEmpty())
         {
@@ -64,14 +64,14 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
             {
                 return false;
             }
-            else if (this.closestLivingEntity.getDistanceSq(vector3D.x, vector3D.y, vector3D.z) < this.closestLivingEntity.getDistanceSqToEntity(this.theEntity))
+            else if (this.closestLivingEntity.getDistanceSq(vector3D.x(), vector3D.y(), vector3D.z()) < this.closestLivingEntity.getDistanceSqToEntity(this.theEntity))
             {
                 return false;
             }
             else
             {
-                this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vector3D.x, vector3D.y, vector3D.z);
-                return this.entityPathEntity == null ? false : this.entityPathEntity.isDestinationSame(vector3D);
+                this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vector3D.x(), vector3D.y(), vector3D.z());
+                return this.entityPathEntity != null && this.entityPathEntity.isDestinationSame(vector3D);
             }
         }
     }

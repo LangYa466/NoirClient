@@ -25,7 +25,7 @@ public class GuiBeacon extends GuiContainer
 {
     private static final Logger logger = LogManager.getLogger();
     private static final ResourceLocation beaconGuiTextures = new ResourceLocation("textures/gui/container/beacon.png");
-    private IInventory tileBeacon;
+    private final IInventory tileBeacon;
     private GuiBeacon.ConfirmButton beaconConfirmButton;
     private boolean buttonsNotDrawn;
 
@@ -40,8 +40,8 @@ public class GuiBeacon extends GuiContainer
     public void initGui()
     {
         super.initGui();
-        this.buttonList.add(this.beaconConfirmButton = new GuiBeacon.ConfirmButton(-1, this.guiLeft + 164, this.guiTop + 107));
-        this.buttonList.add(new GuiBeacon.CancelButton(-2, this.guiLeft + 190, this.guiTop + 107));
+        buttonList.add(this.beaconConfirmButton = new GuiBeacon.ConfirmButton(-1, this.guiLeft + 164, this.guiTop + 107));
+        buttonList.add(new GuiBeacon.CancelButton(-2, this.guiLeft + 190, this.guiTop + 107));
         this.buttonsNotDrawn = true;
         this.beaconConfirmButton.enabled = false;
     }
@@ -66,7 +66,7 @@ public class GuiBeacon extends GuiContainer
                 {
                     int l1 = TileEntityBeacon.effectsList[l][k1].id;
                     GuiBeacon.PowerButton guibeacon$powerbutton = new GuiBeacon.PowerButton(l << 8 | l1, this.guiLeft + 76 + k1 * 24 - j1 / 2, this.guiTop + 22 + l * 25, l1, l);
-                    this.buttonList.add(guibeacon$powerbutton);
+                    buttonList.add(guibeacon$powerbutton);
 
                     if (l >= i)
                     {
@@ -87,7 +87,7 @@ public class GuiBeacon extends GuiContainer
             {
                 int i3 = TileEntityBeacon.effectsList[i2][l2].id;
                 GuiBeacon.PowerButton guibeacon$powerbutton2 = new GuiBeacon.PowerButton(i2 << 8 | i3, this.guiLeft + 167 + l2 * 24 - k2 / 2, this.guiTop + 47, i3, i2);
-                this.buttonList.add(guibeacon$powerbutton2);
+                buttonList.add(guibeacon$powerbutton2);
 
                 if (i2 >= i)
                 {
@@ -102,7 +102,7 @@ public class GuiBeacon extends GuiContainer
             if (j > 0)
             {
                 GuiBeacon.PowerButton guibeacon$powerbutton1 = new GuiBeacon.PowerButton(i2 << 8 | j, this.guiLeft + 167 + (j2 - 1) * 24 - k2 / 2, this.guiTop + 47, j, i2);
-                this.buttonList.add(guibeacon$powerbutton1);
+                buttonList.add(guibeacon$powerbutton1);
 
                 if (i2 >= i)
                 {
@@ -122,7 +122,7 @@ public class GuiBeacon extends GuiContainer
     {
         if (button.id == -2)
         {
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (button.id == -1)
         {
@@ -131,7 +131,7 @@ public class GuiBeacon extends GuiContainer
             packetbuffer.writeInt(this.tileBeacon.getField(1));
             packetbuffer.writeInt(this.tileBeacon.getField(2));
             this.mc.getNetHandler().addToSendQueue(new C17PacketCustomPayload(s, packetbuffer));
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
         }
         else if (button instanceof GuiBeacon.PowerButton)
         {
@@ -153,7 +153,7 @@ public class GuiBeacon extends GuiContainer
                 this.tileBeacon.setField(2, k);
             }
 
-            this.buttonList.clear();
+            buttonList.clear();
             this.initGui();
             this.updateScreen();
         }
@@ -162,10 +162,10 @@ public class GuiBeacon extends GuiContainer
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
         RenderHelper.disableStandardItemLighting();
-        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("tile.beacon.primary", new Object[0]), 62, 10, 14737632);
-        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("tile.beacon.secondary", new Object[0]), 169, 10, 14737632);
+        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("tile.beacon.primary"), 62, 10, 14737632);
+        this.drawCenteredString(this.fontRendererObject, LocalizationHelper.translate("tile.beacon.secondary"), 169, 10, 14737632);
 
-        for (GuiButton guibutton : this.buttonList)
+        for (GuiButton guibutton : buttonList)
         {
             if (guibutton.isMouseOver())
             {
@@ -223,7 +223,7 @@ public class GuiBeacon extends GuiContainer
                 }
                 else if (this.field_146142_r)
                 {
-                    j += this.width * 1;
+                    j += this.width;
                 }
                 else if (this.hovered)
                 {
@@ -261,7 +261,7 @@ public class GuiBeacon extends GuiContainer
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY)
         {
-            GuiBeacon.this.drawCreativeTabHoveringText(LocalizationHelper.translate("gui.cancel", new Object[0]), mouseX, mouseY);
+            GuiBeacon.this.drawCreativeTabHoveringText(LocalizationHelper.translate("gui.cancel"), mouseX, mouseY);
         }
     }
 
@@ -274,7 +274,7 @@ public class GuiBeacon extends GuiContainer
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY)
         {
-            GuiBeacon.this.drawCreativeTabHoveringText(LocalizationHelper.translate("gui.done", new Object[0]), mouseX, mouseY);
+            GuiBeacon.this.drawCreativeTabHoveringText(LocalizationHelper.translate("gui.done"), mouseX, mouseY);
         }
     }
 
@@ -285,14 +285,14 @@ public class GuiBeacon extends GuiContainer
 
         public PowerButton(int p_i1076_2_, int p_i1076_3_, int p_i1076_4_, int p_i1076_5_, int p_i1076_6_)
         {
-            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, 0 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() / 8 * 18);
+            super(p_i1076_2_, p_i1076_3_, p_i1076_4_, GuiContainer.inventoryBackground, Potion.potionTypes[p_i1076_5_].getStatusIconIndex() % 8 * 18, 198 + Potion.potionTypes[p_i1076_5_].getStatusIconIndex() / 8 * 18);
             this.field_146149_p = p_i1076_5_;
             this.field_146148_q = p_i1076_6_;
         }
 
         public void drawButtonForegroundLayer(int mouseX, int mouseY)
         {
-            String s = LocalizationHelper.translate(Potion.potionTypes[this.field_146149_p].getName(), new Object[0]);
+            String s = LocalizationHelper.translate(Potion.potionTypes[this.field_146149_p].getName());
 
             if (this.field_146148_q >= 3 && this.field_146149_p != Potion.regeneration.id)
             {

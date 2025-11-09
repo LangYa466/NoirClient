@@ -29,7 +29,7 @@ public class C19PacketResourcePackStatus implements IPacket<INetHandlerPlayServe
     public void readPacketData(PacketBuffer buf) throws IOException
     {
         this.hash = buf.readStringFromBuffer(40);
-        this.status = (C19PacketResourcePackStatus.Action)buf.readEnumValue(C19PacketResourcePackStatus.Action.class);
+        this.status = buf.readEnumValue(Action.class);
     }
 
     public void writePacketData(PacketBuffer buf) throws IOException
@@ -43,11 +43,11 @@ public class C19PacketResourcePackStatus implements IPacket<INetHandlerPlayServe
         handler.handleResourcePackStatus(this);
     }
 
-    public static enum Action
+    public enum Action
     {
         SUCCESSFULLY_LOADED,
         DECLINED,
         FAILED_DOWNLOAD,
-        ACCEPTED;
+        ACCEPTED
     }
 }

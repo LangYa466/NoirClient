@@ -224,9 +224,9 @@ public class AxisAlignedBB {
      * @return True if the Vec3 is inside the box, otherwise false
      */
     public boolean contains(Vector3D vec) {
-        boolean xInside = vec.x > this.minX && vec.x < this.maxX;
-        boolean yInside = vec.y > this.minY && vec.y < this.maxY;
-        boolean zInside = vec.z > this.minZ && vec.z < this.maxZ;
+        boolean xInside = vec.x() > this.minX && vec.x() < this.maxX;
+        boolean yInside = vec.y() > this.minY && vec.y() < this.maxY;
+        boolean zInside = vec.z() > this.minZ && vec.z() < this.maxZ;
         return xInside && yInside && zInside;
     }
 
@@ -289,9 +289,9 @@ public class AxisAlignedBB {
     }
 
     private boolean isVecInBox(Vector3D vec) {
-        return vec != null && vec.x >= this.minX && vec.x <= this.maxX &&
-                vec.y >= this.minY && vec.y <= this.maxY &&
-                vec.z >= this.minZ && vec.z <= this.maxZ;
+        return vec != null && vec.x() >= this.minX && vec.x() <= this.maxX &&
+                vec.y() >= this.minY && vec.y() <= this.maxY &&
+                vec.z() >= this.minZ && vec.z() <= this.maxZ;
     }
 
     private int getMinIndex(double[] array) {
@@ -325,9 +325,9 @@ public class AxisAlignedBB {
      * The point is considered inside if it lies strictly between the min and max coordinates on all axes (X, Y, Z).
      */
     public boolean isVecInside(Vector3D vec) {
-        return vec.x > this.minX && vec.x < this.maxX &&
-                vec.y > this.minY && vec.y < this.maxY &&
-                vec.z > this.minZ && vec.z < this.maxZ;
+        return vec.x() > this.minX && vec.x() < this.maxX &&
+                vec.y() > this.minY && vec.y() < this.maxY &&
+                vec.z() > this.minZ && vec.z() < this.maxZ;
     }
 
     /**

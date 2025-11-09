@@ -48,7 +48,7 @@ public class ResourcePackListEntryDefault extends ResourcePackListEntry
                     CommonResourceElement.Companion.getResourcePackRepository().rprMetadataSerializer, "pack");
 
             if (packMetadataSection != null) {
-                return packMetadataSection.getPackDescription().getFormattedText();
+                return packMetadataSection.packDescription().getFormattedText();
             } else {
                 logger.error("No metadata found in pack.mcmeta for this resource pack");
                 logger.error("Expected pack.mcmeta to be in the same directory as the resource pack: " + field_148320_d.getPackName());

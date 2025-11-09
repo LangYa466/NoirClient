@@ -37,8 +37,8 @@ public class GuiScreenBook extends GuiScreen
     private boolean bookIsModified;
     private boolean bookGettingSigned;
     private int updateCount;
-    private int bookImageWidth = 192;
-    private int bookImageHeight = 192;
+    private final int bookImageWidth = 192;
+    private final int bookImageHeight = 192;
     private int bookTotalPages = 1;
     private int currPage;
     private NBTTagList bookPages;
@@ -91,25 +91,25 @@ public class GuiScreenBook extends GuiScreen
 
     public void initGui()
     {
-        this.buttonList.clear();
+        buttonList.clear();
         Keyboard.enableRepeatEvents(true);
 
         if (this.bookIsUnsigned)
         {
-            this.buttonList.add(this.buttonSign = new GuiButton(3, this.width / 2 - 100, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("book.signButton", new Object[0])));
-            this.buttonList.add(this.buttonDone = new GuiButton(0, this.width / 2 + 2, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("gui.done", new Object[0])));
-            this.buttonList.add(this.buttonFinalize = new GuiButton(5, this.width / 2 - 100, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("book.finalizeButton", new Object[0])));
-            this.buttonList.add(this.buttonCancel = new GuiButton(4, this.width / 2 + 2, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("gui.cancel", new Object[0])));
+            buttonList.add(this.buttonSign = new GuiButton(3, this.width / 2 - 100, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("book.signButton")));
+            buttonList.add(this.buttonDone = new GuiButton(0, this.width / 2 + 2, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("gui.done")));
+            buttonList.add(this.buttonFinalize = new GuiButton(5, this.width / 2 - 100, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("book.finalizeButton")));
+            buttonList.add(this.buttonCancel = new GuiButton(4, this.width / 2 + 2, 4 + this.bookImageHeight, 98, 20, LocalizationHelper.translate("gui.cancel")));
         }
         else
         {
-            this.buttonList.add(this.buttonDone = new GuiButton(0, this.width / 2 - 100, 4 + this.bookImageHeight, 200, 20, LocalizationHelper.translate("gui.done", new Object[0])));
+            buttonList.add(this.buttonDone = new GuiButton(0, this.width / 2 - 100, 4 + this.bookImageHeight, 200, 20, LocalizationHelper.translate("gui.done")));
         }
 
         int i = (this.width - this.bookImageWidth) / 2;
         int j = 2;
-        this.buttonList.add(this.buttonNextPage = new GuiScreenBook.NextPageButton(1, i + 120, j + 154, true));
-        this.buttonList.add(this.buttonPreviousPage = new GuiScreenBook.NextPageButton(2, i + 38, j + 154, false));
+        buttonList.add(this.buttonNextPage = new GuiScreenBook.NextPageButton(1, i + 120, j + 154, true));
+        buttonList.add(this.buttonPreviousPage = new GuiScreenBook.NextPageButton(2, i + 38, j + 154, false));
         this.updateButtons();
     }
 
@@ -193,7 +193,7 @@ public class GuiScreenBook extends GuiScreen
         {
             if (button.id == 0)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
                 this.sendBookToServer(false);
             }
             else if (button.id == 3 && this.bookIsUnsigned)
@@ -226,7 +226,7 @@ public class GuiScreenBook extends GuiScreen
             else if (button.id == 5 && this.bookGettingSigned)
             {
                 this.sendBookToServer(true);
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
             else if (button.id == 4 && this.bookGettingSigned)
             {
@@ -316,7 +316,7 @@ public class GuiScreenBook extends GuiScreen
                 if (!this.bookTitle.isEmpty())
                 {
                     this.sendBookToServer(true);
-                    this.mc.displayGuiScreen((GuiScreen)null);
+                    this.mc.displayGuiScreen(null);
                 }
 
                 return;
@@ -324,7 +324,7 @@ public class GuiScreenBook extends GuiScreen
             default:
                 if (this.bookTitle.length() < 16 && ChatAllowedCharacters.isAllowedCharacter(p_146460_1_))
                 {
-                    this.bookTitle = this.bookTitle + Character.toString(p_146460_1_);
+                    this.bookTitle = this.bookTitle + p_146460_1_;
                     this.updateButtons();
                     this.bookIsModified = true;
                 }
@@ -349,7 +349,7 @@ public class GuiScreenBook extends GuiScreen
     {
         String s = this.pageGetCurrent();
         String s1 = s + p_146459_1_;
-        int i = this.fontRendererObject.splitStringWidth(s1 + "" + EnumChatFormatting.BLACK + "_", 118);
+        int i = this.fontRendererObject.splitStringWidth(s1 + EnumChatFormatting.BLACK + "_", 118);
 
         if (i <= 128 && s1.length() < 256)
         {
@@ -373,28 +373,28 @@ public class GuiScreenBook extends GuiScreen
             {
                 if (this.updateCount / 6 % 2 == 0)
                 {
-                    s = s + "" + EnumChatFormatting.BLACK + "_";
+                    s = s + EnumChatFormatting.BLACK + "_";
                 }
                 else
                 {
-                    s = s + "" + EnumChatFormatting.GRAY + "_";
+                    s = s + EnumChatFormatting.GRAY + "_";
                 }
             }
 
-            String s1 = LocalizationHelper.translate("book.editTitle", new Object[0]);
+            String s1 = LocalizationHelper.translate("book.editTitle");
             int k = this.fontRendererObject.getStringWidth(s1);
             this.fontRendererObject.drawString(s1, i + 36 + (116 - k) / 2, j + 16 + 16, 0);
             int l = this.fontRendererObject.getStringWidth(s);
             this.fontRendererObject.drawString(s, i + 36 + (116 - l) / 2, j + 48, 0);
-            String s2 = LocalizationHelper.translate("book.byAuthor", new Object[] {this.editingPlayer.getName()});
+            String s2 = LocalizationHelper.translate("book.byAuthor", this.editingPlayer.getName());
             int i1 = this.fontRendererObject.getStringWidth(s2);
             this.fontRendererObject.drawString(EnumChatFormatting.DARK_GRAY + s2, i + 36 + (116 - i1) / 2, j + 48 + 10, 0);
-            String s3 = LocalizationHelper.translate("book.finalizeWarning", new Object[0]);
+            String s3 = LocalizationHelper.translate("book.finalizeWarning");
             this.fontRendererObject.drawSplitString(s3, i + 36, j + 80, 116, 0);
         }
         else
         {
-            String s4 = LocalizationHelper.translate("book.pageIndicator", new Object[] {Integer.valueOf(this.currPage + 1), Integer.valueOf(this.bookTotalPages)});
+            String s4 = LocalizationHelper.translate("book.pageIndicator", Integer.valueOf(this.currPage + 1), Integer.valueOf(this.bookTotalPages));
             String s5 = "";
 
             if (this.bookPages != null && this.currPage >= 0 && this.currPage < this.bookPages.tagCount())
@@ -410,11 +410,11 @@ public class GuiScreenBook extends GuiScreen
                 }
                 else if (this.updateCount / 6 % 2 == 0)
                 {
-                    s5 = s5 + "" + EnumChatFormatting.BLACK + "_";
+                    s5 = s5 + EnumChatFormatting.BLACK + "_";
                 }
                 else
                 {
-                    s5 = s5 + "" + EnumChatFormatting.GRAY + "_";
+                    s5 = s5 + EnumChatFormatting.GRAY + "_";
                 }
             }
             else if (this.field_175387_B != this.currPage)
@@ -433,7 +433,7 @@ public class GuiScreenBook extends GuiScreen
                 }
                 else
                 {
-                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED.toString() + "* Invalid book tag *");
+                    ChatComponentText chatcomponenttext = new ChatComponentText(EnumChatFormatting.DARK_RED + "* Invalid book tag *");
                     this.field_175386_A = Lists.newArrayList(chatcomponenttext);
                 }
 
@@ -453,7 +453,7 @@ public class GuiScreenBook extends GuiScreen
 
                 for (int l1 = 0; l1 < k1; ++l1)
                 {
-                    IChatComponent ichatcomponent2 = (IChatComponent)this.field_175386_A.get(l1);
+                    IChatComponent ichatcomponent2 = this.field_175386_A.get(l1);
                     this.fontRendererObject.drawString(ichatcomponent2.getUnformattedText(), i + 36, j + 16 + 16 + l1 * this.fontRendererObject.FONT_HEIGHT, 0);
                 }
 
@@ -492,9 +492,9 @@ public class GuiScreenBook extends GuiScreen
         {
             return false;
         }
-        else if (clickevent.getAction() == ClickEvent.Action.CHANGE_PAGE)
+        else if (clickevent.action() == ClickEvent.Action.CHANGE_PAGE)
         {
-            String s = clickevent.getValue();
+            String s = clickevent.value();
 
             try
             {
@@ -509,7 +509,6 @@ public class GuiScreenBook extends GuiScreen
             }
             catch (Throwable var5)
             {
-                ;
             }
 
             return false;
@@ -518,9 +517,9 @@ public class GuiScreenBook extends GuiScreen
         {
             boolean flag = super.handleComponentClick(component);
 
-            if (flag && clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
+            if (flag && clickevent.action() == ClickEvent.Action.RUN_COMMAND)
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
 
             return flag;
@@ -548,7 +547,7 @@ public class GuiScreenBook extends GuiScreen
 
                     if (l >= 0 && l < this.field_175386_A.size())
                     {
-                        IChatComponent ichatcomponent = (IChatComponent)this.field_175386_A.get(l);
+                        IChatComponent ichatcomponent = this.field_175386_A.get(l);
                         int i1 = 0;
 
                         for (IChatComponent ichatcomponent1 : ichatcomponent)

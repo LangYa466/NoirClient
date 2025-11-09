@@ -91,7 +91,7 @@ public class TileEntitySign extends TileEntity
 
                 try
                 {
-                    this.signText[i] = ChatComponentProcessor.processComponent(icommandsender, ichatcomponent, (Entity)null);
+                    this.signText[i] = ChatComponentProcessor.processComponent(icommandsender, ichatcomponent, null);
                 }
                 catch (CommandException var7)
                 {
@@ -197,9 +197,9 @@ public class TileEntitySign extends TileEntity
             {
                 ClickEvent clickevent = chatstyle.getChatClickEvent();
 
-                if (clickevent.getAction() == ClickEvent.Action.RUN_COMMAND)
+                if (clickevent.action() == ClickEvent.Action.RUN_COMMAND)
                 {
-                    MinecraftServer.getServer().getCommandManager().executeCommand(icommandsender, clickevent.getValue());
+                    MinecraftServer.getServer().getCommandManager().executeCommand(icommandsender, clickevent.value());
                 }
             }
         }

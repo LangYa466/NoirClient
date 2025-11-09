@@ -400,7 +400,7 @@ public class EntityTrackerEntry {
             }
 
             if (entityfireball.shootingEntity != null) {
-                s0epacketspawnobject2 = new S0EPacketSpawnObject(this.trackedEntity, i, ((EntityFireball) this.trackedEntity).shootingEntity.getEntityId());
+                s0epacketspawnobject2 = new S0EPacketSpawnObject(this.trackedEntity, i, entityfireball.shootingEntity.getEntityId());
             } else {
                 s0epacketspawnobject2 = new S0EPacketSpawnObject(this.trackedEntity, i, 0);
             }

@@ -71,7 +71,7 @@ public class S21PacketChunkData implements IPacket<INetHandlerPlayClient>
     {
         ExtendedBlockStorage[] aextendedblockstorage = p_179756_0_.getBlockStorageArray();
         S21PacketChunkData.Extracted s21packetchunkdata$extracted = new S21PacketChunkData.Extracted();
-        List<ExtendedBlockStorage> list = Lists.<ExtendedBlockStorage>newArrayList();
+        List<ExtendedBlockStorage> list = Lists.newArrayList();
 
         for (int i = 0; i < aextendedblockstorage.length; ++i)
         {
@@ -100,14 +100,14 @@ public class S21PacketChunkData implements IPacket<INetHandlerPlayClient>
 
         for (ExtendedBlockStorage extendedblockstorage2 : list)
         {
-            j = func_179757_a(extendedblockstorage2.getBlocklightArray().getData(), s21packetchunkdata$extracted.data, j);
+            j = func_179757_a(extendedblockstorage2.getBlocklightArray().data(), s21packetchunkdata$extracted.data, j);
         }
 
         if (p_179756_2_)
         {
             for (ExtendedBlockStorage extendedblockstorage3 : list)
             {
-                j = func_179757_a(extendedblockstorage3.getSkylightArray().getData(), s21packetchunkdata$extracted.data, j);
+                j = func_179757_a(extendedblockstorage3.getSkylightArray().data(), s21packetchunkdata$extracted.data, j);
             }
         }
 

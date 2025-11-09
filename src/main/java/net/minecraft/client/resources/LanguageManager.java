@@ -40,7 +40,7 @@ public class LanguageManager implements IResourceManagerReloadListener
 
                 if (languagemetadatasection != null)
                 {
-                    for (Language language : languagemetadatasection.getLanguages())
+                    for (Language language : languagemetadatasection.languages())
                     {
                         if (!this.languageMap.containsKey(language.getLanguageCode()))
                         {

@@ -14,6 +14,6 @@ public class GuiResourcePackAvailable extends GuiResourcePackList
 
     protected String getListHeader()
     {
-        return LocalizationHelper.translate("resourcePack.available.title", new Object[0]);
+        return LocalizationHelper.translate("resourcePack.available.title");
     }
 }

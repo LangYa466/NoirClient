@@ -33,7 +33,7 @@ public class FaceBakery
 
         if (p_makeBakedQuad_8_)
         {
-            this.lockUv(aint, enumfacing, p_makeBakedQuad_3_.blockFaceUV, p_makeBakedQuad_4_);
+            this.lockUv(aint, enumfacing, p_makeBakedQuad_3_.blockFaceUV(), p_makeBakedQuad_4_);
         }
 
         if (p_makeBakedQuad_7_ == null)
@@ -43,10 +43,10 @@ public class FaceBakery
 
         if (Reflector.ForgeHooksClient_fillNormal.exists())
         {
-            Reflector.call(Reflector.ForgeHooksClient_fillNormal, new Object[] {aint, enumfacing});
+            Reflector.call(Reflector.ForgeHooksClient_fillNormal, aint, enumfacing);
         }
 
-        return new BakedQuad(aint, p_makeBakedQuad_3_.tintIndex, enumfacing);
+        return new BakedQuad(aint, p_makeBakedQuad_3_.tintIndex(), enumfacing);
     }
 
     private int[] makeQuadVertexData(BlockPartFace p_makeQuadVertexData_1_, TextureAtlasSprite p_makeQuadVertexData_2_, EnumFacing p_makeQuadVertexData_3_, float[] p_makeQuadVertexData_4_, ITransformation p_makeQuadVertexData_5_, BlockPartRotation p_makeQuadVertexData_6_, boolean p_makeQuadVertexData_7_, boolean p_makeQuadVertexData_8_)
@@ -134,7 +134,7 @@ public class FaceBakery
         this.rotatePart(vector3f, p_fillVertexData_8_);
         int j = this.rotateVertex(vector3f, p_fillVertexData_3_, p_fillVertexData_2_, p_fillVertexData_7_, p_fillVertexData_9_);
         BlockModelUtils.snapVertexPosition(vector3f);
-        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, p_fillVertexData_6_, p_fillVertexData_4_.blockFaceUV);
+        this.storeVertexData(p_fillVertexData_1_, j, p_fillVertexData_2_, vector3f, i, p_fillVertexData_6_, p_fillVertexData_4_.blockFaceUV());
     }
 
     private void storeVertexData(int[] faceData, int storeIndex, int vertexIndex, Vector3f position, int shadeColor, TextureAtlasSprite sprite, BlockFaceUV faceUV)
@@ -156,26 +156,26 @@ public class FaceBakery
             Matrix4f matrix4f = this.getMatrixIdentity();
             Vector3f vector3f = new Vector3f(0.0F, 0.0F, 0.0F);
 
-            switch (partRotation.axis)
+            switch (partRotation.axis())
             {
                 case X:
-                    Matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
+                    Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(1.0F, 0.0F, 0.0F), matrix4f, matrix4f);
                     vector3f.set(0.0F, 1.0F, 1.0F);
                     break;
 
                 case Y:
-                    Matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f, matrix4f);
+                    Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0.0F, 1.0F, 0.0F), matrix4f, matrix4f);
                     vector3f.set(1.0F, 0.0F, 1.0F);
                     break;
 
                 case Z:
-                    Matrix4f.rotate(partRotation.angle * 0.017453292F, new Vector3f(0.0F, 0.0F, 1.0F), matrix4f, matrix4f);
+                    Matrix4f.rotate(partRotation.angle() * 0.017453292F, new Vector3f(0.0F, 0.0F, 1.0F), matrix4f, matrix4f);
                     vector3f.set(1.0F, 1.0F, 0.0F);
             }
 
-            if (partRotation.rescale)
+            if (partRotation.rescale())
             {
-                if (Math.abs(partRotation.angle) == 22.5F)
+                if (Math.abs(partRotation.angle()) == 22.5F)
                 {
                     vector3f.scale(SCALE_ROTATION_22_5);
                 }
@@ -191,7 +191,7 @@ public class FaceBakery
                 vector3f.set(1.0F, 1.0F, 1.0F);
             }
 
-            this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
+            this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin()), matrix4f, vector3f);
         }
     }
 
@@ -210,7 +210,7 @@ public class FaceBakery
         {
             if (Reflector.ForgeHooksClient_transform.exists())
             {
-                Reflector.call(Reflector.ForgeHooksClient_transform, new Object[] {p_rotateVertex_1_, p_rotateVertex_4_.getMatrix()});
+                Reflector.call(Reflector.ForgeHooksClient_transform, p_rotateVertex_1_, p_rotateVertex_4_.getMatrix());
             }
             else
             {
@@ -252,7 +252,7 @@ public class FaceBakery
         Vector3f.sub(vector3f, vector3f1, vector3f3);
         Vector3f.sub(vector3f2, vector3f1, vector3f4);
         Vector3f.cross(vector3f4, vector3f3, vector3f5);
-        float f = (float)Math.sqrt((double)(vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z));
+        float f = (float)Math.sqrt(vector3f5.x * vector3f5.x + vector3f5.y * vector3f5.y + vector3f5.z * vector3f5.z);
         vector3f5.x /= f;
         vector3f5.y /= f;
         vector3f5.z /= f;
@@ -429,7 +429,7 @@ public class FaceBakery
         }
 
         int k = p_178401_4_.func_178345_c(p_178401_1_) * i;
-        p_178401_2_[k + 4] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedU((double)f3));
-        p_178401_2_[k + 4 + 1] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedV((double)f4));
+        p_178401_2_[k + 4] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedU(f3));
+        p_178401_2_[k + 4 + 1] = Float.floatToRawIntBits(p_178401_5_.getInterpolatedV(f4));
     }
 }

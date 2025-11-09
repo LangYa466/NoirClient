@@ -13,12 +13,12 @@ import net.minecraft.village.VillageDoorInfo;
 
 public class EntityAIMoveThroughVillage extends EntityAIBase
 {
-    private EntityCreature theEntity;
-    private double movementSpeed;
+    private final EntityCreature theEntity;
+    private final double movementSpeed;
     private PathEntity entityPathNavigate;
     private VillageDoorInfo doorInfo;
-    private boolean isNocturnal;
-    private List<VillageDoorInfo> doorList = Lists.<VillageDoorInfo>newArrayList();
+    private final boolean isNocturnal;
+    private final List<VillageDoorInfo> doorList = Lists.newArrayList();
 
     public EntityAIMoveThroughVillage(EntityCreature theEntityIn, double movementSpeedIn, boolean isNocturnalIn)
     {
@@ -71,7 +71,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
                     }
                     else
                     {
-                        Vector3D vector3D = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 10, 7, new Vector3D((double)this.doorInfo.getDoorBlockPos().getX(), (double)this.doorInfo.getDoorBlockPos().getY(), (double)this.doorInfo.getDoorBlockPos().getZ()));
+                        Vector3D vector3D = RandomPositionGenerator.findRandomTargetBlockTowards(this.theEntity, 10, 7, new Vector3D(this.doorInfo.getDoorBlockPos().getX(), this.doorInfo.getDoorBlockPos().getY(), this.doorInfo.getDoorBlockPos().getZ()));
 
                         if (vector3D == null)
                         {
@@ -80,7 +80,7 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
                         else
                         {
                             pathnavigateground.setBreakDoors(false);
-                            this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ(vector3D.x, vector3D.y, vector3D.z);
+                            this.entityPathNavigate = this.theEntity.getNavigator().getPathToXYZ(vector3D.x(), vector3D.y(), vector3D.z());
                             pathnavigateground.setBreakDoors(flag);
                             return this.entityPathNavigate != null;
                         }

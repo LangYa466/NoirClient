@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -57,7 +56,7 @@ public class BlockDispenser extends BlockContainer
     {
         if (!worldIn.isRemote)
         {
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
             boolean flag = worldIn.getBlockState(pos.north()).getBlock().isFullBlock();
             boolean flag1 = worldIn.getBlockState(pos.south()).getBlock().isFullBlock();
 
@@ -119,7 +118,7 @@ public class BlockDispenser extends BlockContainer
     protected void dispense(World worldIn, BlockPos pos)
     {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
-        TileEntityDispenser tileentitydispenser = (TileEntityDispenser)blocksourceimpl.getBlockTileEntity();
+        TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 
         if (tileentitydispenser != null)
         {
@@ -145,13 +144,13 @@ public class BlockDispenser extends BlockContainer
 
     protected IBehaviorDispenseItem getBehavior(ItemStack stack)
     {
-        return (IBehaviorDispenseItem)dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
+        return dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
     {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-        boolean flag1 = ((Boolean)state.getValue(TRIGGERED)).booleanValue();
+        boolean flag1 = state.getValue(TRIGGERED).booleanValue();
 
         if (flag && !flag1)
         {
@@ -213,9 +212,9 @@ public class BlockDispenser extends BlockContainer
     public static IPosition getDispensePosition(IBlockSource coords)
     {
         EnumFacing enumfacing = getFacing(coords.getBlockMetadata());
-        double d0 = coords.getX() + 0.7D * (double)enumfacing.getFrontOffsetX();
-        double d1 = coords.getY() + 0.7D * (double)enumfacing.getFrontOffsetY();
-        double d2 = coords.getZ() + 0.7D * (double)enumfacing.getFrontOffsetZ();
+        double d0 = coords.x() + 0.7D * (double)enumfacing.getFrontOffsetX();
+        double d1 = coords.y() + 0.7D * (double)enumfacing.getFrontOffsetY();
+        double d2 = coords.z() + 0.7D * (double)enumfacing.getFrontOffsetZ();
         return new PositionImpl(d0, d1, d2);
     }
 
@@ -252,9 +251,9 @@ public class BlockDispenser extends BlockContainer
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean)state.getValue(TRIGGERED)).booleanValue())
+        if (state.getValue(TRIGGERED).booleanValue())
         {
             i |= 8;
         }
@@ -264,6 +263,6 @@ public class BlockDispenser extends BlockContainer
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {FACING, TRIGGERED});
+        return new BlockState(this, FACING, TRIGGERED);
     }
 }

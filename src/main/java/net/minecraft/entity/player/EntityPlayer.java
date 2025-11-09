@@ -358,11 +358,11 @@ public abstract class EntityPlayer extends EntityLivingBase
 
                 if (itemStackIn.getHasSubtypes())
                 {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31D.x, vec31D.y, vec31D.z, vector3D.x, vector3D.y + 0.05D, vector3D.z, Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
+                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31D.x(), vec31D.y(), vec31D.z(), vector3D.x(), vector3D.y() + 0.05D, vector3D.z(), Item.getIdFromItem(itemStackIn.getItem()), itemStackIn.getMetadata());
                 }
                 else
                 {
-                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31D.x, vec31D.y, vec31D.z, vector3D.x, vector3D.y + 0.05D, vector3D.z, Item.getIdFromItem(itemStackIn.getItem()));
+                    this.worldObj.spawnParticle(EnumParticleTypes.ITEM_CRACK, vec31D.x(), vec31D.y(), vec31D.z(), vector3D.x(), vector3D.y() + 0.05D, vector3D.z(), Item.getIdFromItem(itemStackIn.getItem()));
                 }
             }
 
@@ -2021,7 +2021,7 @@ public abstract class EntityPlayer extends EntityLivingBase
         else
         {
             ItemStack itemstack = this.getCurrentEquippedItem();
-            return itemstack != null && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.getLock());
+            return itemstack != null && itemstack.hasDisplayName() && itemstack.getDisplayName().equals(code.lock());
         }
     }
 

@@ -402,13 +402,13 @@ public class EntityRenderer implements IResourceManagerReloadListener
         }
 
         Vector3D lookVector = playerEntity.getLook(partialTicks);
-        Vector3D endVector = playerEyes.addVector(lookVector.x * reachDistance, lookVector.y * reachDistance, lookVector.z * reachDistance);
+        Vector3D endVector = playerEyes.addVector(lookVector.x() * reachDistance, lookVector.y() * reachDistance, lookVector.z() * reachDistance);
 
         Entity hitEntity = null;
         Vector3D hitVector = null;
         float collisionExpansion = 1.0F;
         List<Entity> entitiesInRange = mc.theWorld.getEntitiesInAABBexcluding(playerEntity,
-                playerEntity.getEntityBoundingBox().addCoord(lookVector.x * reachDistance, lookVector.y * reachDistance, lookVector.z * reachDistance)
+                playerEntity.getEntityBoundingBox().addCoord(lookVector.x() * reachDistance, lookVector.y() * reachDistance, lookVector.z() * reachDistance)
                         .expand(collisionExpansion, collisionExpansion, collisionExpansion),
                 Entity::canBeCollidedWith);
 
@@ -2066,14 +2066,14 @@ public class EntityRenderer implements IResourceManagerReloadListener
         f = 1.0F - (float)Math.pow(f, 0.25D);
         Vector3D vector3D = world.getSkyColor(this.mc.getRenderViewEntity(), partialTicks);
         vector3D = CustomColors.getWorldSkyColor(vector3D, world, this.mc.getRenderViewEntity(), partialTicks);
-        float f1 = (float) vector3D.x;
-        float f2 = (float) vector3D.y;
-        float f3 = (float) vector3D.z;
+        float f1 = (float) vector3D.x();
+        float f2 = (float) vector3D.y();
+        float f3 = (float) vector3D.z();
         Vector3D vec31D = world.getFogColor(partialTicks);
         vec31D = CustomColors.getWorldFogColor(vec31D, world, this.mc.getRenderViewEntity(), partialTicks);
-        this.fogColorRed = (float) vec31D.x;
-        this.fogColorGreen = (float) vec31D.y;
-        this.fogColorBlue = (float) vec31D.z;
+        this.fogColorRed = (float) vec31D.x();
+        this.fogColorGreen = (float) vec31D.y();
+        this.fogColorBlue = (float) vec31D.z();
 
         if (this.mc.gameSettings.renderDistanceChunks >= 4)
         {
@@ -2129,9 +2129,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
         if (this.cloudFog)
         {
             Vector3D vec33D = world.getCloudColour(partialTicks);
-            this.fogColorRed = (float) vec33D.x;
-            this.fogColorGreen = (float) vec33D.y;
-            this.fogColorBlue = (float) vec33D.z;
+            this.fogColorRed = (float) vec33D.x();
+            this.fogColorGreen = (float) vec33D.y();
+            this.fogColorBlue = (float) vec33D.z();
         }
         else if (block.getMaterial() == Material.water)
         {
@@ -2150,9 +2150,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
             if (vec35D != null)
             {
-                this.fogColorRed = (float) vec35D.x;
-                this.fogColorGreen = (float) vec35D.y;
-                this.fogColorBlue = (float) vec35D.z;
+                this.fogColorRed = (float) vec35D.x();
+                this.fogColorGreen = (float) vec35D.y();
+                this.fogColorBlue = (float) vec35D.z();
             }
         }
         else if (block.getMaterial() == Material.lava)
@@ -2164,9 +2164,9 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
             if (vec34D != null)
             {
-                this.fogColorRed = (float) vec34D.x;
-                this.fogColorGreen = (float) vec34D.y;
-                this.fogColorBlue = (float) vec34D.z;
+                this.fogColorRed = (float) vec34D.x();
+                this.fogColorGreen = (float) vec34D.y();
+                this.fogColorBlue = (float) vec34D.z();
             }
         }
 

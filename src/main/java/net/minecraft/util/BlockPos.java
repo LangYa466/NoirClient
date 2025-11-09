@@ -33,7 +33,7 @@ public class BlockPos extends Vec3i
 
     public BlockPos(Vector3D source)
     {
-        this(source.x, source.y, source.z);
+        this(source.x(), source.y(), source.z());
     }
 
     public BlockPos(Vec3i source)

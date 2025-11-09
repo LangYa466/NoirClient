@@ -19,12 +19,12 @@ public class GuiShareToLAN extends GuiScreen {
     }
 
     public void initGui() {
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, LocalizationHelper.translate("lanServer.start")));
-        this.buttonList.add(new GuiButton(102, this.width / 2 + 5, this.height - 28, 150, 20, LocalizationHelper.translate("gui.cancel")));
+        buttonList.clear();
+        buttonList.add(new GuiButton(101, this.width / 2 - 155, this.height - 28, 150, 20, LocalizationHelper.translate("lanServer.start")));
+        buttonList.add(new GuiButton(102, this.width / 2 + 5, this.height - 28, 150, 20, LocalizationHelper.translate("gui.cancel")));
 
-        this.buttonList.add(this.cancelButton = new GuiButton(104, this.width / 2 - 155, 100, 150, 20, LocalizationHelper.translate("selectWorld.gameMode")));
-        this.buttonList.add(this.startButton = new GuiButton(103, this.width / 2 + 5, 100, 150, 20, LocalizationHelper.translate("selectWorld.allowCommands")));
+        buttonList.add(this.cancelButton = new GuiButton(104, this.width / 2 - 155, 100, 150, 20, LocalizationHelper.translate("selectWorld.gameMode")));
+        buttonList.add(this.startButton = new GuiButton(103, this.width / 2 + 5, 100, 150, 20, LocalizationHelper.translate("selectWorld.allowCommands")));
         this.updateButtonText();
     }
 

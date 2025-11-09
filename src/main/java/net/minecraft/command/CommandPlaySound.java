@@ -28,7 +28,7 @@ public class CommandPlaySound extends CommandBase
     {
         if (args.length < 2)
         {
-            throw new WrongUsageException(this.getCommandUsage(sender), new Object[0]);
+            throw new WrongUsageException(this.getCommandUsage(sender));
         }
         else
         {
@@ -36,21 +36,21 @@ public class CommandPlaySound extends CommandBase
             String s = args[i++];
             EntityPlayerMP entityplayermp = getPlayer(sender, args[i++]);
             Vector3D vector3D = sender.getPositionVector();
-            double d0 = vector3D.x;
+            double d0 = vector3D.x();
 
             if (args.length > i)
             {
                 d0 = parseDouble(d0, args[i++], true);
             }
 
-            double d1 = vector3D.y;
+            double d1 = vector3D.y();
 
             if (args.length > i)
             {
                 d1 = parseDouble(d1, args[i++], 0, 0, false);
             }
 
-            double d2 = vector3D.z;
+            double d2 = vector3D.z();
 
             if (args.length > i)
             {
@@ -85,7 +85,7 @@ public class CommandPlaySound extends CommandBase
             {
                 if (d5 <= 0.0D)
                 {
-                    throw new CommandException("commands.playsound.playerTooFar", new Object[] {entityplayermp.getName()});
+                    throw new CommandException("commands.playsound.playerTooFar", entityplayermp.getName());
                 }
 
                 double d8 = d0 - entityplayermp.posX;
@@ -104,7 +104,7 @@ public class CommandPlaySound extends CommandBase
             }
 
             entityplayermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(s, d0, d1, d2, (float)d3, (float)d4));
-            notifyOperators(sender, this, "commands.playsound.success", new Object[] {s, entityplayermp.getName()});
+            notifyOperators(sender, this, "commands.playsound.success", s, entityplayermp.getName());
         }
     }
 

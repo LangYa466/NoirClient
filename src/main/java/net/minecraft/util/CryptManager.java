@@ -64,7 +64,7 @@ public class CryptManager
     {
         try
         {
-            return digestOperation("SHA-1", new byte[][] {serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded()});
+            return digestOperation("SHA-1", serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded());
         }
         catch (UnsupportedEncodingException unsupportedencodingexception)
         {
@@ -103,11 +103,9 @@ public class CryptManager
         }
         catch (NoSuchAlgorithmException var3)
         {
-            ;
         }
         catch (InvalidKeySpecException var4)
         {
-            ;
         }
 
         LOGGER.error("Public key reconstitute failed!");

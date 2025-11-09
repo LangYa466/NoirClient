@@ -9,9 +9,9 @@ import net.minecraft.client.settings.KeyBinding;
 public class GuiControls extends GuiScreen
 {
     private static final GameSettings.Options[] optionsArr = new GameSettings.Options[] {GameSettings.Options.INVERT_MOUSE, GameSettings.Options.SENSITIVITY, GameSettings.Options.TOUCHSCREEN};
-    private GuiScreen parentScreen;
+    private final GuiScreen parentScreen;
     protected String screenTitle = "Controls";
-    private GameSettings options;
+    private final GameSettings options;
     public KeyBinding buttonId = null;
     public long time;
     private GuiKeyBindingList keyBindingList;
@@ -26,20 +26,20 @@ public class GuiControls extends GuiScreen
     public void initGui()
     {
         this.keyBindingList = new GuiKeyBindingList(this, this.mc);
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height - 29, 150, 20, LocalizationHelper.translate("gui.done", new Object[0])));
-        this.buttonList.add(this.buttonReset = new GuiButton(201, this.width / 2 - 155 + 160, this.height - 29, 150, 20, LocalizationHelper.translate("controls.resetAll", new Object[0])));
-        this.screenTitle = LocalizationHelper.translate("controls.title", new Object[0]);
+        buttonList.add(new GuiButton(200, this.width / 2 - 155, this.height - 29, 150, 20, LocalizationHelper.translate("gui.done")));
+        buttonList.add(this.buttonReset = new GuiButton(201, this.width / 2 - 155 + 160, this.height - 29, 150, 20, LocalizationHelper.translate("controls.resetAll")));
+        this.screenTitle = LocalizationHelper.translate("controls.title");
         int i = 0;
 
         for (GameSettings.Options gamesettings$options : optionsArr)
         {
             if (gamesettings$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
+                buttonList.add(new GuiOptionSlider(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options));
             }
             else
             {
-                this.buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options, this.options.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButton(gamesettings$options.returnEnumOrdinal(), this.width / 2 - 155 + i % 2 * 160, 18 + 24 * (i >> 1), gamesettings$options, this.options.getKeyBinding(gamesettings$options)));
             }
 
             ++i;

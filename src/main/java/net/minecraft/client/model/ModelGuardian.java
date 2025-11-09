@@ -8,10 +8,10 @@ import net.minecraft.util.Vector3D;
 
 public class ModelGuardian extends ModelBase
 {
-    private ModelRenderer guardianBody;
-    private ModelRenderer guardianEye;
-    private ModelRenderer[] guardianSpines;
-    private ModelRenderer[] guardianTail;
+    private final ModelRenderer guardianBody;
+    private final ModelRenderer guardianEye;
+    private final ModelRenderer[] guardianSpines;
+    private final ModelRenderer[] guardianTail;
 
     public ModelGuardian()
     {
@@ -95,7 +95,7 @@ public class ModelGuardian extends ModelBase
         {
             Vector3D vector3D = entity.getPositionEyes(0.0F);
             Vector3D vec31D = entityIn.getPositionEyes(0.0F);
-            double d0 = vector3D.y - vec31D.y;
+            double d0 = vector3D.y() - vec31D.y();
 
             if (d0 > 0.0D)
             {
@@ -107,8 +107,8 @@ public class ModelGuardian extends ModelBase
             }
 
             Vector3D vec32D = entityIn.getLook(0.0F);
-            vec32D = new Vector3D(vec32D.x, 0.0D, vec32D.z);
-            Vector3D vec33D = (new Vector3D(vec31D.x - vector3D.x, 0.0D, vec31D.z - vector3D.z)).normalize().rotateYaw(((float)Math.PI / 2F));
+            vec32D = new Vector3D(vec32D.x(), 0.0D, vec32D.z());
+            Vector3D vec33D = (new Vector3D(vec31D.x() - vector3D.x(), 0.0D, vec31D.z() - vector3D.z())).normalize().rotateYaw(((float)Math.PI / 2F));
             double d1 = vec32D.dotProduct(vec33D);
             this.guardianEye.rotationPointX = MathHelper.sqrt_float((float)Math.abs(d1)) * 2.0F * (float)Math.signum(d1);
         }

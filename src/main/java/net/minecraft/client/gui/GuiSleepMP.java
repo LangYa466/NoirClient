@@ -10,7 +10,7 @@ public class GuiSleepMP extends GuiChat
     public void initGui()
     {
         super.initGui();
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, LocalizationHelper.translate("multiplayer.stopSleeping", new Object[0])));
+        buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 40, LocalizationHelper.translate("multiplayer.stopSleeping")));
     }
 
     protected void keyTyped(char typedChar, int keyCode) throws IOException

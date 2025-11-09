@@ -43,7 +43,7 @@ public class WorldProviderEnd extends WorldProvider
         f1 = f1 * (f * 0.0F + 0.15F);
         f2 = f2 * (f * 0.0F + 0.15F);
         f3 = f3 * (f * 0.0F + 0.15F);
-        return new Vector3D((double)f1, (double)f2, (double)f3);
+        return new Vector3D(f1, f2, f3);
     }
 
     public boolean isSkyColored()

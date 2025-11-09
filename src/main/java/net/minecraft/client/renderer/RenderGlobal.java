@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.chunk.*;
@@ -1388,9 +1387,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 if (Config.isCustomColors()) {
                     Vector3D vector3D = new Vector3D((double) j / 255.0D, (double) k / 255.0D, (double) l / 255.0D);
                     vector3D = CustomColors.getWorldSkyColor(vector3D, this.theWorld, this.mc.getRenderViewEntity(), 0.0F);
-                    j = (int) (vector3D.x * 255.0D);
-                    k = (int) (vector3D.y * 255.0D);
-                    l = (int) (vector3D.z * 255.0D);
+                    j = (int) (vector3D.x() * 255.0D);
+                    k = (int) (vector3D.y() * 255.0D);
+                    l = (int) (vector3D.z() * 255.0D);
                 }
 
                 worldrenderer.pos(-100.0D, -100.0D, -100.0D).tex(0.0D, 0.0D).color(j, k, l, 255).endVertex();
@@ -1436,9 +1435,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                 Shaders.setSkyColor(vector3D);
             }
 
-            float f = (float) vector3D.x;
-            float f1 = (float) vector3D.y;
-            float f2 = (float) vector3D.z;
+            float f = (float) vector3D.x();
+            float f1 = (float) vector3D.y();
+            float f2 = (float) vector3D.z();
 
             if (pass != 2) {
                 float f3 = (f * 30.0F + f1 * 59.0F + f2 * 11.0F) / 100.0F;
@@ -1625,7 +1624,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             }
 
             GlStateManager.color(0.0F, 0.0F, 0.0F);
-            double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).y - this.theWorld.getHorizon();
+            double d0 = this.mc.thePlayer.getPositionEyes(partialTicks).y() - this.theWorld.getHorizon();
 
             if (d0 < 0.0D) {
                 GlStateManager.pushMatrix();
@@ -1739,9 +1738,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     GlStateManager.enableBlend();
                     GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
                     Vector3D vector3D = this.theWorld.getCloudColour(partialTicks);
-                    float f = (float) vector3D.x;
-                    float f1 = (float) vector3D.y;
-                    float f2 = (float) vector3D.z;
+                    float f = (float) vector3D.x();
+                    float f1 = (float) vector3D.y();
+                    float f2 = (float) vector3D.z();
                     this.cloudRenderer.prepareToRender(false, this.cloudTickCounter, f9, vector3D);
 
                     if (this.cloudRenderer.shouldUpdateGlList()) {
@@ -1821,9 +1820,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         Vector3D vector3D = this.theWorld.getCloudColour(partialTicks);
-        float f4 = (float) vector3D.x;
-        float f5 = (float) vector3D.y;
-        float f6 = (float) vector3D.z;
+        float f4 = (float) vector3D.x();
+        float f5 = (float) vector3D.y();
+        float f6 = (float) vector3D.z();
         this.cloudRenderer.prepareToRender(true, this.cloudTickCounter, partialTicks, vector3D);
 
         if (pass != 2) {

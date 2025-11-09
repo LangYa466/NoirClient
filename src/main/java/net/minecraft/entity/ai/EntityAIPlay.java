@@ -7,9 +7,9 @@ import net.minecraft.util.Vector3D;
 
 public class EntityAIPlay extends EntityAIBase
 {
-    private EntityVillager villagerObj;
+    private final EntityVillager villagerObj;
     private EntityLivingBase targetVillager;
-    private double speed;
+    private final double speed;
     private int playTime;
 
     public EntityAIPlay(EntityVillager villagerObjIn, double speedIn)
@@ -31,7 +31,7 @@ public class EntityAIPlay extends EntityAIBase
         }
         else
         {
-            List<EntityVillager> list = this.villagerObj.worldObj.<EntityVillager>getEntitiesWithinAABB(EntityVillager.class, this.villagerObj.getEntityBoundingBox().expand(6.0D, 3.0D, 6.0D));
+            List<EntityVillager> list = this.villagerObj.worldObj.getEntitiesWithinAABB(EntityVillager.class, this.villagerObj.getEntityBoundingBox().expand(6.0D, 3.0D, 6.0D));
             double d0 = Double.MAX_VALUE;
 
             for (EntityVillager entityvillager : list)
@@ -52,10 +52,7 @@ public class EntityAIPlay extends EntityAIBase
             {
                 Vector3D vector3D = RandomPositionGenerator.findRandomTarget(this.villagerObj, 16, 3);
 
-                if (vector3D == null)
-                {
-                    return false;
-                }
+                return vector3D != null;
             }
 
             return true;
@@ -103,7 +100,7 @@ public class EntityAIPlay extends EntityAIBase
                 return;
             }
 
-            this.villagerObj.getNavigator().tryMoveToXYZ(vector3D.x, vector3D.y, vector3D.z, this.speed);
+            this.villagerObj.getNavigator().tryMoveToXYZ(vector3D.x(), vector3D.y(), vector3D.z(), this.speed);
         }
     }
 }

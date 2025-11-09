@@ -1016,7 +1016,7 @@ public abstract class Entity implements ICommandSender {
     public MovingObjectPosition rayTrace(double blockReachDistance, float partialTicks) {
         Vector3D vector3D = this.getPositionEyes(partialTicks);
         Vector3D vec31D = this.getLook(partialTicks);
-        Vector3D vec32D = vector3D.addVector(vec31D.x * blockReachDistance, vec31D.y * blockReachDistance, vec31D.z * blockReachDistance);
+        Vector3D vec32D = vector3D.addVector(vec31D.x() * blockReachDistance, vec31D.y() * blockReachDistance, vec31D.z() * blockReachDistance);
         return this.worldObj.rayTraceBlocks(vector3D, vec32D, false, false, true);
     }
 

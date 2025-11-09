@@ -20,7 +20,7 @@ import net.optifine.util.StrUtils;
 
 public class BlockAliases
 {
-    private static BlockAlias[][] blockAliases = (BlockAlias[][])null;
+    private static BlockAlias[][] blockAliases = null;
     private static PropertiesOrdered blockLayerPropertes = null;
     private static boolean updateOnResourcesReloaded;
 
@@ -92,7 +92,7 @@ public class BlockAliases
 
                 loadModBlockAliases(list);
 
-                if (((List)list).size() > 0)
+                if (list.size() > 0)
                 {
                     blockAliases = toArrays(list);
                 }
@@ -116,7 +116,6 @@ public class BlockAliases
             }
             catch (IOException var6)
             {
-                ;
             }
         }
     }
@@ -203,7 +202,7 @@ public class BlockAliases
                 blocksAliases.add(null);
             }
 
-            List<BlockAlias> list = (List)blocksAliases.get(j);
+            List<BlockAlias> list = blocksAliases.get(j);
 
             if (list == null)
             {
@@ -222,11 +221,11 @@ public class BlockAliases
 
         for (int i = 0; i < ablockalias.length; ++i)
         {
-            List<BlockAlias> list = (List)listBlocksAliases.get(i);
+            List<BlockAlias> list = listBlocksAliases.get(i);
 
             if (list != null)
             {
-                ablockalias[i] = (BlockAlias[])((BlockAlias[])list.toArray(new BlockAlias[list.size()]));
+                ablockalias[i] = list.toArray(new BlockAlias[list.size()]);
             }
         }
 
@@ -240,7 +239,7 @@ public class BlockAliases
 
     public static void reset()
     {
-        blockAliases = (BlockAlias[][])null;
+        blockAliases = null;
         blockLayerPropertes = null;
     }
 }

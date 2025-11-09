@@ -201,28 +201,28 @@ public final class Minecraft implements IThreadListener, IPlayerUsage {
 
     public Minecraft(GameConfiguration gameConfig) {
         theMinecraft = this;
-        this.mcDataDir = gameConfig.folderInfo.mcDataDir;
-        this.fileAssets = gameConfig.folderInfo.assetsDir;
-        this.fileResourcepacks = gameConfig.folderInfo.resourcePacksDir;
-        this.launchedVersion = gameConfig.gameInfo.version;
-        this.profileProperties = gameConfig.userInfo.profileProperties;
-        this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo.assetsDir, gameConfig.folderInfo.assetIndex)).getResourceMap());
-        this.proxy = gameConfig.userInfo.proxy == null ? Proxy.NO_PROXY : gameConfig.userInfo.proxy;
-        this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo.proxy, UUID.randomUUID().toString())).createMinecraftSessionService();
-        this.session = gameConfig.userInfo.session;
+        this.mcDataDir = gameConfig.folderInfo().mcDataDir();
+        this.fileAssets = gameConfig.folderInfo().assetsDir();
+        this.fileResourcepacks = gameConfig.folderInfo().resourcePacksDir();
+        this.launchedVersion = gameConfig.gameInfo().version;
+        this.profileProperties = gameConfig.userInfo().profileProperties();
+        this.mcDefaultResourcePack = new DefaultResourcePack((new ResourceIndex(gameConfig.folderInfo().assetsDir(), gameConfig.folderInfo().assetIndex())).getResourceMap());
+        this.proxy = gameConfig.userInfo().proxy() == null ? Proxy.NO_PROXY : gameConfig.userInfo().proxy();
+        this.sessionService = (new YggdrasilAuthenticationService(gameConfig.userInfo().proxy(), UUID.randomUUID().toString())).createMinecraftSessionService();
+        this.session = gameConfig.userInfo().session();
         logger.info("Setting user: " + this.session.getUsername());
         logger.info("(Session ID is " + this.session.getSessionID() + ")");
-        this.displayWidth = gameConfig.displayInfo.width > 0 ? gameConfig.displayInfo.width : 1;
-        this.displayHeight = gameConfig.displayInfo.height > 0 ? gameConfig.displayInfo.height : 1;
-        this.tempDisplayWidth = gameConfig.displayInfo.width;
-        this.tempDisplayHeight = gameConfig.displayInfo.height;
-        this.fullscreen = gameConfig.displayInfo.fullscreen;
+        this.displayWidth = gameConfig.displayInfo().width() > 0 ? gameConfig.displayInfo().width() : 1;
+        this.displayHeight = gameConfig.displayInfo().height() > 0 ? gameConfig.displayInfo().height() : 1;
+        this.tempDisplayWidth = gameConfig.displayInfo().width();
+        this.tempDisplayHeight = gameConfig.displayInfo().height();
+        this.fullscreen = gameConfig.displayInfo().fullscreen();
         this.jvm64bit = isJvm64bit();
         this.theIntegratedServer = new IntegratedServer(this);
 
-        if (gameConfig.serverInfo.serverName != null) {
-            this.serverName = gameConfig.serverInfo.serverName;
-            this.serverPort = gameConfig.serverInfo.serverPort;
+        if (gameConfig.serverInfo().serverName() != null) {
+            this.serverName = gameConfig.serverInfo().serverName();
+            this.serverPort = gameConfig.serverInfo().serverPort();
         }
 
         ImageIO.setUseCache(false);

@@ -11,9 +11,9 @@ import net.minecraft.src.Config;
 
 public class GuiMessage extends GuiScreen
 {
-    private GuiScreen parentScreen;
-    private String messageLine1;
-    private String messageLine2;
+    private final GuiScreen parentScreen;
+    private final String messageLine1;
+    private final String messageLine2;
     private final List listLines2 = Lists.newArrayList();
     protected String confirmButtonText;
     private int ticksUntilEnable;
@@ -23,12 +23,12 @@ public class GuiMessage extends GuiScreen
         this.parentScreen = parentScreen;
         this.messageLine1 = line1;
         this.messageLine2 = line2;
-        this.confirmButtonText = LocalizationHelper.translate("gui.done", new Object[0]);
+        this.confirmButtonText = LocalizationHelper.translate("gui.done");
     }
 
     public void initGui()
     {
-        this.buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, this.confirmButtonText));
+        buttonList.add(new GuiOptionButton(0, this.width / 2 - 74, this.height / 6 + 96, this.confirmButtonText));
         this.listLines2.clear();
         this.listLines2.addAll(this.fontRendererObject.listFormattedStringToWidth(this.messageLine2, this.width - 50));
     }
@@ -57,7 +57,7 @@ public class GuiMessage extends GuiScreen
     {
         this.ticksUntilEnable = ticksUntilEnable;
 
-        for (GuiButton guibutton : this.buttonList)
+        for (GuiButton guibutton : buttonList)
         {
             guibutton.enabled = false;
         }
@@ -72,7 +72,7 @@ public class GuiMessage extends GuiScreen
 
         if (--this.ticksUntilEnable == 0)
         {
-            for (GuiButton guibutton : this.buttonList)
+            for (GuiButton guibutton : buttonList)
             {
                 guibutton.enabled = true;
             }

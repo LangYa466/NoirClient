@@ -8,11 +8,11 @@ import net.minecraft.client.settings.GameSettings;
 
 public class GuiPerformanceSettingsOF extends GuiScreen
 {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
-    private static GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.SMOOTH_FPS, GameSettings.Options.SMOOTH_WORLD, GameSettings.Options.FAST_RENDER, GameSettings.Options.FAST_MATH, GameSettings.Options.CHUNK_UPDATES, GameSettings.Options.CHUNK_UPDATES_DYNAMIC, GameSettings.Options.RENDER_REGIONS, GameSettings.Options.LAZY_CHUNK_LOADING, GameSettings.Options.SMART_ANIMATIONS};
-    private TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderOptions());
+    private final GameSettings settings;
+    private static final GameSettings.Options[] enumOptions = new GameSettings.Options[] {GameSettings.Options.SMOOTH_FPS, GameSettings.Options.SMOOTH_WORLD, GameSettings.Options.FAST_RENDER, GameSettings.Options.FAST_MATH, GameSettings.Options.CHUNK_UPDATES, GameSettings.Options.CHUNK_UPDATES_DYNAMIC, GameSettings.Options.RENDER_REGIONS, GameSettings.Options.LAZY_CHUNK_LOADING, GameSettings.Options.SMART_ANIMATIONS};
+    private final TooltipManager tooltipManager = new TooltipManager(this, new TooltipProviderOptions());
 
     public GuiPerformanceSettingsOF(GuiScreen guiscreen, GameSettings gamesettings)
     {
@@ -22,8 +22,8 @@ public class GuiPerformanceSettingsOF extends GuiScreen
 
     public void initGui()
     {
-        this.title = LocalizationHelper.translate("of.options.performanceTitle", new Object[0]);
-        this.buttonList.clear();
+        this.title = LocalizationHelper.translate("of.options.performanceTitle");
+        buttonList.clear();
 
         for (int i = 0; i < enumOptions.length; ++i)
         {
@@ -33,15 +33,15 @@ public class GuiPerformanceSettingsOF extends GuiScreen
 
             if (!gamesettings$options.getEnumFloat())
             {
-                this.buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
+                buttonList.add(new GuiOptionButtonOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options, this.settings.getKeyBinding(gamesettings$options)));
             }
             else
             {
-                this.buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
+                buttonList.add(new GuiOptionSliderOF(gamesettings$options.returnEnumOrdinal(), j, k, gamesettings$options));
             }
         }
 
-        this.buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done", new Object[0])));
+        buttonList.add(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, LocalizationHelper.translate("gui.done")));
     }
 
     protected void actionPerformed(GuiButton guibutton)
@@ -67,6 +67,6 @@ public class GuiPerformanceSettingsOF extends GuiScreen
         this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObject, this.title, this.width / 2, 15, 16777215);
         super.drawScreen(x, y, f);
-        this.tooltipManager.drawTooltips(x, y, this.buttonList);
+        this.tooltipManager.drawTooltips(x, y, buttonList);
     }
 }

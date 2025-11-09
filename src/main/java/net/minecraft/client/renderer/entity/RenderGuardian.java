@@ -42,12 +42,9 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
                 if (entitylivingbase != null)
                 {
                     Vector3D vector3D = this.func_177110_a(entitylivingbase, (double)entitylivingbase.height * 0.5D, 1.0F);
-                    Vector3D vec31D = this.func_177110_a(livingEntity, (double)livingEntity.getEyeHeight(), 1.0F);
+                    Vector3D vec31D = this.func_177110_a(livingEntity, livingEntity.getEyeHeight(), 1.0F);
 
-                    if (camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31D.x, vec31D.y, vec31D.z, vector3D.x, vector3D.y, vector3D.z)))
-                    {
-                        return true;
-                    }
+                    return camera.isBoundingBoxInFrustum(AxisAlignedBB.fromBounds(vec31D.x(), vec31D.y(), vec31D.z(), vector3D.x(), vector3D.y(), vector3D.z()));
                 }
             }
 
@@ -95,12 +92,12 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
             GlStateManager.pushMatrix();
             GlStateManager.translate((float)x, (float)y + f4, (float)z);
             Vector3D vector3D = this.func_177110_a(entitylivingbase, (double)entitylivingbase.height * 0.5D, partialTicks);
-            Vector3D vec31D = this.func_177110_a(entity, (double)f4, partialTicks);
+            Vector3D vec31D = this.func_177110_a(entity, f4, partialTicks);
             Vector3D vec32D = vector3D.subtract(vec31D);
             double d0 = vec32D.length() + 1.0D;
             vec32D = vec32D.normalize();
-            float f5 = (float)Math.acos(vec32D.y);
-            float f6 = (float)Math.atan2(vec32D.z, vec32D.x);
+            float f5 = (float)Math.acos(vec32D.y());
+            float f6 = (float)Math.atan2(vec32D.z(), vec32D.x());
             GlStateManager.rotate((((float)Math.PI / 2F) + -f6) * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
             GlStateManager.rotate(f5 * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
             int i = 1;
@@ -130,7 +127,7 @@ public class RenderGuardian extends RenderLiving<EntityGuardian>
             double d19 = 0.0D + Math.sin(d1 + (Math.PI * 3D / 2D)) * d2;
             double d20 = 0.0D;
             double d21 = 0.4999D;
-            double d22 = (double)(-1.0F + f3);
+            double d22 = -1.0F + f3;
             double d23 = d0 * (0.5D / d2) + d22;
             worldrenderer.pos(d12, d0, d13).tex(0.4999D, d23).color(j, k, l, 255).endVertex();
             worldrenderer.pos(d12, 0.0D, d13).tex(0.4999D, d22).color(j, k, l, 255).endVertex();

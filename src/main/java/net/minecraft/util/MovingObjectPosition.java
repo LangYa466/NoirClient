@@ -30,7 +30,7 @@ public class MovingObjectPosition
         this.typeOfHit = typeOfHitIn;
         this.blockPos = blockPosIn;
         this.sideHit = sideHitIn;
-        this.hitVec = new Vector3D(hitVecIn.x, hitVecIn.y, hitVecIn.z);
+        this.hitVec = new Vector3D(hitVecIn.x(), hitVecIn.y(), hitVecIn.z());
     }
 
     public MovingObjectPosition(Entity entityHitIn, Vector3D hitVecIn)

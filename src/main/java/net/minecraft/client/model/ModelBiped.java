@@ -220,9 +220,8 @@ public class ModelBiped extends ModelBase
     {
         super.setModelAttributes(model);
 
-        if (model instanceof ModelBiped)
+        if (model instanceof ModelBiped modelbiped)
         {
-            ModelBiped modelbiped = (ModelBiped)model;
             this.heldItemLeft = modelbiped.heldItemLeft;
             this.heldItemRight = modelbiped.heldItemRight;
             this.isSneak = modelbiped.isSneak;

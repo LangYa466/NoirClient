@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 public class VillageSiege
 {
-    private World worldObj;
+    private final World worldObj;
     private boolean field_75535_b;
     private int field_75536_c = -1;
     private int field_75533_d;
@@ -171,7 +171,7 @@ public class VillageSiege
             try
             {
                 entityzombie = new EntityZombie(this.worldObj);
-                entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), (IEntityLivingData)null);
+                entityzombie.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityzombie)), null);
                 entityzombie.setVillager(false);
             }
             catch (Exception exception)
@@ -180,7 +180,7 @@ public class VillageSiege
                 return false;
             }
 
-            entityzombie.setLocationAndAngles(vector3D.x, vector3D.y, vector3D.z, this.worldObj.rand.nextFloat() * 360.0F, 0.0F);
+            entityzombie.setLocationAndAngles(vector3D.x(), vector3D.y(), vector3D.z(), this.worldObj.rand.nextFloat() * 360.0F, 0.0F);
             this.worldObj.spawnEntityInWorld(entityzombie);
             BlockPos blockpos = this.theVillage.getCenter();
             entityzombie.setHomePosAndDistance(blockpos, this.theVillage.getVillageRadius());
@@ -196,7 +196,7 @@ public class VillageSiege
 
             if (this.theVillage.func_179866_a(blockpos) && SpawnerAnimals.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, this.worldObj, blockpos))
             {
-                return new Vector3D((double)blockpos.getX(), (double)blockpos.getY(), (double)blockpos.getZ());
+                return new Vector3D(blockpos.getX(), blockpos.getY(), blockpos.getZ());
             }
         }
 

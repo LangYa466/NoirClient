@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 public class ResourceIndex
 {
     private static final Logger logger = LogManager.getLogger();
-    private final Map<String, File> resourceMap = Maps.<String, File>newHashMap();
+    private final Map<String, File> resourceMap = Maps.newHashMap();
 
     public ResourceIndex(File p_i1047_1_, String p_i1047_2_)
     {
@@ -35,7 +35,7 @@ public class ResourceIndex
                 bufferedreader = Files.newReader(file2, Charsets.UTF_8);
                 JsonElement jsonElement = JsonParser.parseReader(bufferedreader);
                 JsonObject jsonobject = jsonElement.getAsJsonObject();
-                JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "objects", (JsonObject) null);
+                JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "objects", null);
 
                 if (jsonobject1 != null) {
                     for (Entry<String, JsonElement> entry : jsonobject1.entrySet()) {

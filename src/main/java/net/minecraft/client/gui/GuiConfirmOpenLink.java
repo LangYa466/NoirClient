@@ -12,21 +12,21 @@ public class GuiConfirmOpenLink extends GuiYesNo
 
     public GuiConfirmOpenLink(GuiYesNoCallback p_i1084_1_, String linkTextIn, int p_i1084_3_, boolean p_i1084_4_)
     {
-        super(p_i1084_1_, LocalizationHelper.translate(p_i1084_4_ ? "chat.link.confirmTrusted" : "chat.link.confirm", new Object[0]), linkTextIn, p_i1084_3_);
-        this.confirmButtonText = LocalizationHelper.translate(p_i1084_4_ ? "chat.link.open" : "gui.yes", new Object[0]);
-        this.cancelButtonText = LocalizationHelper.translate(p_i1084_4_ ? "gui.cancel" : "gui.no", new Object[0]);
-        this.copyLinkButtonText = LocalizationHelper.translate("chat.copy", new Object[0]);
-        this.openLinkWarning = LocalizationHelper.translate("chat.link.warning", new Object[0]);
+        super(p_i1084_1_, LocalizationHelper.translate(p_i1084_4_ ? "chat.link.confirmTrusted" : "chat.link.confirm"), linkTextIn, p_i1084_3_);
+        this.confirmButtonText = LocalizationHelper.translate(p_i1084_4_ ? "chat.link.open" : "gui.yes");
+        this.cancelButtonText = LocalizationHelper.translate(p_i1084_4_ ? "gui.cancel" : "gui.no");
+        this.copyLinkButtonText = LocalizationHelper.translate("chat.copy");
+        this.openLinkWarning = LocalizationHelper.translate("chat.link.warning");
         this.linkText = linkTextIn;
     }
 
     public void initGui()
     {
         super.initGui();
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 50 - 105, this.height / 6 + 96, 100, 20, this.confirmButtonText));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 50, this.height / 6 + 96, 100, 20, this.copyLinkButtonText));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 50 + 105, this.height / 6 + 96, 100, 20, this.cancelButtonText));
+        buttonList.clear();
+        buttonList.add(new GuiButton(0, this.width / 2 - 50 - 105, this.height / 6 + 96, 100, 20, this.confirmButtonText));
+        buttonList.add(new GuiButton(2, this.width / 2 - 50, this.height / 6 + 96, 100, 20, this.copyLinkButtonText));
+        buttonList.add(new GuiButton(1, this.width / 2 - 50 + 105, this.height / 6 + 96, 100, 20, this.cancelButtonText));
     }
 
     protected void actionPerformed(GuiButton button) throws IOException

@@ -35,7 +35,7 @@ public class ActiveRenderInfo
         float f = (float)((VIEWPORT.get(0) + VIEWPORT.get(2)) / 2);
         float f1 = (float)((VIEWPORT.get(1) + VIEWPORT.get(3)) / 2);
         GLU.gluUnProject(f, f1, 0.0F, MODELVIEW, PROJECTION, VIEWPORT, OBJECTCOORDS);
-        position = new Vector3D((double)OBJECTCOORDS.get(0), (double)OBJECTCOORDS.get(1), (double)OBJECTCOORDS.get(2));
+        position = new Vector3D(OBJECTCOORDS.get(0), OBJECTCOORDS.get(1), OBJECTCOORDS.get(2));
         int i = p_74583_1_ ? 1 : 0;
         float f2 = entityplayerIn.rotationPitch;
         float f3 = entityplayerIn.rotationYaw;
@@ -51,15 +51,15 @@ public class ActiveRenderInfo
         double d0 = p_178806_0_.prevPosX + (p_178806_0_.posX - p_178806_0_.prevPosX) * p_178806_1_;
         double d1 = p_178806_0_.prevPosY + (p_178806_0_.posY - p_178806_0_.prevPosY) * p_178806_1_;
         double d2 = p_178806_0_.prevPosZ + (p_178806_0_.posZ - p_178806_0_.prevPosZ) * p_178806_1_;
-        double d3 = d0 + position.x;
-        double d4 = d1 + position.y;
-        double d5 = d2 + position.z;
+        double d3 = d0 + position.x();
+        double d4 = d1 + position.y();
+        double d5 = d2 + position.z();
         return new Vector3D(d3, d4, d5);
     }
 
     public static Block getBlockAtEntityViewpoint(World worldIn, Entity p_180786_1_, float p_180786_2_)
     {
-        Vector3D vector3D = projectViewFromEntity(p_180786_1_, (double)p_180786_2_);
+        Vector3D vector3D = projectViewFromEntity(p_180786_1_, p_180786_2_);
         BlockPos blockpos = new BlockPos(vector3D);
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
@@ -70,12 +70,12 @@ public class ActiveRenderInfo
 
             if (iblockstate.getBlock() instanceof BlockLiquid)
             {
-                f = BlockLiquid.getLiquidHeightPercent(((Integer)iblockstate.getValue(BlockLiquid.LEVEL)).intValue()) - 0.11111111F;
+                f = BlockLiquid.getLiquidHeightPercent(iblockstate.getValue(BlockLiquid.LEVEL).intValue()) - 0.11111111F;
             }
 
             float f1 = (float)(blockpos.getY() + 1) - f;
 
-            if (vector3D.y >= (double)f1)
+            if (vector3D.y() >= (double)f1)
             {
                 block = worldIn.getBlockState(blockpos.up()).getBlock();
             }
