@@ -108,9 +108,8 @@ class RoundedRect {
             }
         }
 
-        if (this.tex != null) {
-            this.tex!!.deleteGlTexture()
-        }
+        if (this.tex != null) this.tex!!.deleteGlTexture()
+
         this.tex = DynamicTexture(bufferedImage)
     }
 
