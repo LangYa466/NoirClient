@@ -73,20 +73,18 @@ class RoundedRect {
         val halfWidth = width / 2.0
         val halfHeight = height / 2.0
 
-        // --- 超级采样设置 ---
-        val samples = 2 // 2x2 = 4个采样点
+        val samples = 2
         val sampleCount = samples * samples
         val step = 1.0 / samples
         val offset = step / 2.0
 
-        // --------------------
         for (y in 0..<intHeight) {
             for (x in 0..<intWidth) {
                 var totalAlpha = 0.0
-                // 在当前像素 (x, y) 内部进行 2x2 网格采样
+                // 采样
                 for (sY in 0..<samples) {
                     for (sX in 0..<samples) {
-                        // 计算每个子采样点的精确坐标
+                        // 子采样点精确坐标
                         val subPixelX = x + sX * step + offset
                         val subPixelY = y + sY * step + offset
 
@@ -102,7 +100,6 @@ class RoundedRect {
                 }
 
 
-                // 计算平均 alpha 值
                 val averageAlpha = totalAlpha / sampleCount
 
                 val alphaByte = (averageAlpha * 255).toInt()
