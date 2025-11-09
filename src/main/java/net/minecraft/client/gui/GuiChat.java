@@ -3,24 +3,21 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 import net.minecraft.network.play.client.C14PacketTabComplete;
 import net.minecraft.util.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import java.io.IOException;
 import java.util.List;
 
-public class GuiChat extends GuiScreen
-{
-    private static final Logger logger = LogManager.getLogger();
+public class GuiChat extends GuiScreen {
     private String historyBuffer = "";
     private int sentHistoryCursor = -1;
-    private boolean playerNamesFound;
+
+    private final List<String> suggestionList = Lists.newArrayList();
+    private boolean isSuggestionVisible = false;
+    private int selectedSuggestionIndex = 0;
+
     private boolean waitingOnAutocomplete;
-    private int autocompleteIndex;
-    private final List<String> foundPlayerNames = Lists.newArrayList();
     protected GuiTextField inputField;
     private String defaultInputFieldText = "";
 
@@ -56,38 +53,66 @@ public class GuiChat extends GuiScreen
         this.inputField.updateCursorCounter();
     }
 
+    @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
+        if (this.isSuggestionVisible)
+        {
+            switch (keyCode)
+            {
+                case Keyboard.KEY_UP:
+                    this.selectedSuggestionIndex = (this.selectedSuggestionIndex - 1 + this.suggestionList.size()) % this.suggestionList.size();
+                    return;
+
+                case Keyboard.KEY_DOWN:
+                    this.selectedSuggestionIndex = (this.selectedSuggestionIndex + 1) % this.suggestionList.size();
+                    return;
+
+                case Keyboard.KEY_TAB:
+                case Keyboard.KEY_RETURN:
+                case Keyboard.KEY_NUMPADENTER:
+                    this.completeSelectedSuggestion();
+                    if (keyCode == Keyboard.KEY_RETURN || keyCode == Keyboard.KEY_NUMPADENTER) {
+                        return;
+                    }
+                    break;
+
+                case Keyboard.KEY_ESCAPE: // ESC
+                    this.isSuggestionVisible = false;
+                    return;
+            }
+        }
+
         this.waitingOnAutocomplete = false;
 
-        if (keyCode == 15)
+        if (keyCode == Keyboard.KEY_TAB) // 15
         {
-            this.autocompletePlayerNames();
+            this.sendAutocompleteRequest(this.inputField.getText().substring(0, this.inputField.getCursorPosition()));
         }
         else
         {
-            this.playerNamesFound = false;
+            this.isSuggestionVisible = false;
         }
 
-        if (keyCode == 1)
+        if (keyCode == Keyboard.KEY_ESCAPE) // 1
         {
             this.mc.displayGuiScreen(null);
         }
-        else if (keyCode != 28 && keyCode != 156)
+        else if (keyCode != Keyboard.KEY_RETURN && keyCode != Keyboard.KEY_NUMPADENTER) // 28/ 156
         {
-            if (keyCode == 200)
+            if (keyCode == Keyboard.KEY_UP) // 200
             {
                 this.getSentHistory(-1);
             }
-            else if (keyCode == 208)
+            else if (keyCode == Keyboard.KEY_DOWN) // 208
             {
                 this.getSentHistory(1);
             }
-            else if (keyCode == 201)
+            else if (keyCode == Keyboard.KEY_PRIOR) // 201 (Page Up)
             {
                 this.mc.ingameGUI.getChatGUI().scroll(this.mc.ingameGUI.getChatGUI().getLineCount() - 1);
             }
-            else if (keyCode == 209)
+            else if (keyCode == Keyboard.KEY_NEXT) // 209 (Page Down)
             {
                 this.mc.ingameGUI.getChatGUI().scroll(-this.mc.ingameGUI.getChatGUI().getLineCount() + 1);
             }
@@ -163,58 +188,9 @@ public class GuiChat extends GuiScreen
         }
     }
 
-    public void autocompletePlayerNames()
-    {
-        if (this.playerNamesFound)
-        {
-            this.inputField.deleteFromCursor(this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false) - this.inputField.getCursorPosition());
-
-            if (this.autocompleteIndex >= this.foundPlayerNames.size())
-            {
-                this.autocompleteIndex = 0;
-            }
-        }
-        else
-        {
-            int i = this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false);
-            this.foundPlayerNames.clear();
-            this.autocompleteIndex = 0;
-            String s1 = this.inputField.getText().substring(0, this.inputField.getCursorPosition());
-            this.sendAutocompleteRequest(s1);
-
-            if (this.foundPlayerNames.isEmpty())
-            {
-                return;
-            }
-
-            this.playerNamesFound = true;
-            this.inputField.deleteFromCursor(i - this.inputField.getCursorPosition());
-        }
-
-        if (this.foundPlayerNames.size() > 1)
-        {
-            StringBuilder stringbuilder = new StringBuilder();
-
-            for (String s2 : this.foundPlayerNames)
-            {
-                if (!stringbuilder.isEmpty())
-                {
-                    stringbuilder.append(", ");
-                }
-
-                stringbuilder.append(s2);
-            }
-
-            this.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatComponentText(stringbuilder.toString()), 1);
-        }
-
-        this.inputField.writeText(this.foundPlayerNames.get(this.autocompleteIndex++));
-    }
-
     private void sendAutocompleteRequest(String p_146405_1_)
     {
-        if (p_146405_1_.length() >= 1)
-        {
+        if (!p_146405_1_.isEmpty()) {
             BlockPos blockpos = null;
 
             if (this.mc.objectMouseOver != null && this.mc.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
@@ -227,25 +203,17 @@ public class GuiChat extends GuiScreen
         }
     }
 
-    public void getSentHistory(int msgPos)
-    {
+    public void getSentHistory(int msgPos) {
         int i = this.sentHistoryCursor + msgPos;
         int j = this.mc.ingameGUI.getChatGUI().getSentMessages().size();
         i = MathHelper.clamp_int(i, 0, j);
 
-        if (i != this.sentHistoryCursor)
-        {
-            if (i == j)
-            {
+        if (i != this.sentHistoryCursor) {
+            if (i == j) {
                 this.sentHistoryCursor = j;
                 this.inputField.setText(this.historyBuffer);
-            }
-            else
-            {
-                if (this.sentHistoryCursor == j)
-                {
-                    this.historyBuffer = this.inputField.getText();
-                }
+            } else {
+                if (this.sentHistoryCursor == j) this.historyBuffer = this.inputField.getText();
 
                 this.inputField.setText(this.mc.ingameGUI.getChatGUI().getSentMessages().get(i));
                 this.sentHistoryCursor = i;
@@ -257,49 +225,76 @@ public class GuiChat extends GuiScreen
     {
         drawRect(2, this.height - 14, this.width - 2, this.height - 2, Integer.MIN_VALUE);
         this.inputField.drawTextBox();
+
+        this.drawSuggestionBox();
+
         IChatComponent ichatcomponent = this.mc.ingameGUI.getChatGUI().getChatComponent(Mouse.getX(), Mouse.getY());
 
-        if (ichatcomponent != null && ichatcomponent.getChatStyle().getChatHoverEvent() != null)
-        {
-            this.handleComponentHover(ichatcomponent, mouseX, mouseY);
-        }
+        if (ichatcomponent != null && ichatcomponent.getChatStyle().getChatHoverEvent() != null) this.handleComponentHover(ichatcomponent, mouseX, mouseY);
+
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-    public void onAutocompleteResponse(String[] p_146406_1_)
+    public void onAutocompleteResponse(String[] completions)
     {
-        if (this.waitingOnAutocomplete)
-        {
-            this.playerNamesFound = false;
-            this.foundPlayerNames.clear();
+        if (this.waitingOnAutocomplete) {
+            this.waitingOnAutocomplete = false;
+            this.suggestionList.clear();
 
-            for (String s : p_146406_1_)
-            {
-                if (s.length() > 0)
-                {
-                    this.foundPlayerNames.add(s);
+            for (String completion : completions) if (!completion.isEmpty()) this.suggestionList.add(completion);
+
+            if (!this.suggestionList.isEmpty()) {
+                this.isSuggestionVisible = true;
+                this.selectedSuggestionIndex = 0;
+
+                if (this.suggestionList.size() == 1) {
+                    String s1 = this.inputField.getText().substring(this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false));
+                    if (!this.suggestionList.getFirst().equalsIgnoreCase(s1)) this.completeSelectedSuggestion();
                 }
-            }
-
-            String s1 = this.inputField.getText().substring(this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false));
-            String s2 = StringUtils.getCommonPrefix(p_146406_1_);
-
-            if (s2.length() > 0 && !s1.equalsIgnoreCase(s2))
-            {
-                this.inputField.deleteFromCursor(this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false) - this.inputField.getCursorPosition());
-                this.inputField.writeText(s2);
-            }
-            else if (this.foundPlayerNames.size() > 0)
-            {
-                this.playerNamesFound = true;
-                this.autocompletePlayerNames();
-            }
+            } else this.isSuggestionVisible = false;
         }
     }
 
-    public boolean doesGuiPauseGame()
-    {
+    private void completeSelectedSuggestion() {
+        if (this.isSuggestionVisible && this.selectedSuggestionIndex >= 0 && this.selectedSuggestionIndex < this.suggestionList.size()) {
+            String selected = this.suggestionList.get(this.selectedSuggestionIndex);
+
+            int i = this.inputField.findPosition(-1, this.inputField.getCursorPosition(), false);
+            this.inputField.deleteFromCursor(i - this.inputField.getCursorPosition());
+            this.inputField.writeText(selected);
+
+            this.isSuggestionVisible = false;
+        }
+    }
+
+    private void drawSuggestionBox() {
+        if (!this.isSuggestionVisible) return;
+
+        int boxX = 4;
+        int boxY = this.height - 14 - 3;
+        int maxBoxHeight = 90;
+        int boxWidth = 0;
+        for (String suggestion : this.suggestionList) boxWidth = Math.max(boxWidth, this.fontRendererObject.getStringWidth(suggestion));
+
+        boxWidth += 6;
+
+        int boxHeight = Math.min(this.suggestionList.size() * 12, maxBoxHeight);
+        boxY -= boxHeight;
+
+        drawRect(boxX, boxY, boxX + boxWidth, boxY + boxHeight, 0xD0000000);
+
+        for (int i = 0; i < this.suggestionList.size(); i++) {
+            String suggestion = this.suggestionList.get(i);
+            int entryY = boxY + 2 + (i * 12);
+
+            if (i == this.selectedSuggestionIndex) drawRect(boxX + 1, entryY - 1, boxX + boxWidth - 1, entryY + 10, 0xFF808080);
+
+            this.fontRendererObject.drawStringWithShadow(suggestion, boxX + 3, entryY, 0xFFFFFFFF);
+        }
+    }
+
+    public boolean doesGuiPauseGame() {
         return false;
     }
 }
