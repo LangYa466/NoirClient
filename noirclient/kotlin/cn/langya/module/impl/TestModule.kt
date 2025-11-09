@@ -2,6 +2,7 @@ package cn.langya.module.impl
 
 import cn.langya.event.Render2DEvent
 import cn.langya.module.Module
+import cn.langya.module.value.BooleanValue
 import cn.langya.util.render.RoundedRect
 import com.darkmagician6.eventapi.EventTarget
 import java.awt.Color
@@ -12,6 +13,8 @@ import java.awt.Color
  */
 class TestModule : Module("Test") {
     val test = RoundedRect()
+
+    val testBoolean = addSetting("TestBoolean", true)
 
     init {
         enabled = true // test
