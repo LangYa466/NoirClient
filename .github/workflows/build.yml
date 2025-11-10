@@ -70,51 +70,52 @@ jobs:
         run: |
           git tag ${{ env.TAG_NAME }}
           git push origin ${{ env.TAG_NAME }}
-
-      # 11. Create or update GitHub Release
-      - name: Create or update GitHub release with commit message and README
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Fetch all history for all tags and branches
-          git fetch --all --tags
-
-          # Get the latest commit message
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-
-          # Calculate SHA-256 and MD5 checksums for all .jar files
-          CHECKSUMS=""
-          for JAR in build/libs/*.jar; do
-            SHA256=$(sha256sum "$JAR" | awk '{print $1}')
-            CHECKSUMS+="- $JAR\n  - SHA-256: $SHA256\n"
-          done
           
-          # Get the build time from the latest commit
-          BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
+          # 11. Create or update GitHub Release
+          - name: Create or update GitHub release with commit message and README
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run: |
+              # Fetch all history for all tags and branches
+              git fetch --all --tags
           
-          # Use a 'here document' to populate the release notes
-          IFS='' read -r -d '' RELEASE_NOTES <<EOF
-          ${COMMIT_MESSAGE}
+              # Get the latest commit message
+              COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           
-          ### Checksums of Build Artifacts:
-          ${CHECKSUMS}
+              # Calculate SHA-256 checksums for all .jar files
+              CHECKSUMS=""
+              for JAR in build/libs/*.jar; do
+                SHA256=$(sha256sum "$JAR" | awk '{print $1}')
+                CHECKSUMS+="- $JAR\n  - SHA-256: $SHA256\n"
+              done
           
-          ### Build Information:
-          Build Time: ${BUILD_TIME}
-          EOF
+              # Get the build time from the latest commit
+              BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
           
-          # Get the latest tag name
-          TAG_NAME=$(git describe --tags --abbrev=0)
+              # Use the environment variable for the tag name set in the previous step
+              TAG_NAME=${{ env.TAG_NAME }}
           
-          # Check if a release for this tag already exists
-          if gh release view "$TAG_NAME" > /dev/null 2>&1; then
-            # If the release exists, edit it
-            gh release edit "$TAG_NAME" \
-              --title "Automated Build - $TAG_NAME" \
-              --notes "$RELEASE_NOTES"
-          else
-            # If the release does not exist, create a new one
-            gh release create "$TAG_NAME" build/libs/*.jar \
-              --title "Automated Build - $TAG_NAME" \
-              --notes "$RELEASE_NOTES"
-          fi
+              # Use a 'here document' to populate the release notes
+              IFS='' read -r -d '' RELEASE_NOTES <<EOF
+              ${COMMIT_MESSAGE}
+          
+              ### Checksums of Build Artifacts:
+              ${CHECKSUMS}
+          
+              ### Build Information:
+              Build Time: ${BUILD_TIME}
+              EOF
+          
+              # Check if a release for this tag already exists
+              if gh release view "$TAG_NAME" > /dev/null 2>&1; then
+                # If the release exists, edit it and upload assets, overwriting any existing ones
+                gh release upload "$TAG_NAME" build/libs/*.jar --clobber
+                gh release edit "$TAG_NAME" \
+                  --title "Automated Build - $TAG_NAME" \
+                  --notes "$RELEASE_NOTES"
+              else
+                # If the release does not exist, create a new one
+                gh release create "$TAG_NAME" build/libs/*.jar \
+                  --title "Automated Build - $TAG_NAME" \
+                  --notes "$RELEASE_NOTES"
+              fi
