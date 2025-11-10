@@ -10,7 +10,6 @@ permissions:
   id-token: write
   pull-requests: write
   issues: write
-  release: write  # 添加 release 权限
 
 jobs:
   build:
