@@ -1,5 +1,6 @@
 package cn.langya
 
+import cn.langya.config.ConfigManager
 import cn.langya.module.ModuleManager
 
 /**
@@ -12,6 +13,7 @@ object Client {
     fun init() {
         println("NoirClient Version: $VERSION")
         ModuleManager()
-        println(ModuleManager.modules.toString())
+        // println(ModuleManager.modules.toString())
+        ConfigManager()
     }
 }
