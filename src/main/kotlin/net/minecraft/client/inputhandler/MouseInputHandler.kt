@@ -60,7 +60,7 @@ class MouseInputHandler : InputService() {
                 when {
                     mc.gameSettings.keyBindAttack.isPressed -> handleLeftClick()
                     mc.gameSettings.keyBindPickBlock.isPressed -> mc.middleClickMouse()
-                    mc.gameSettings.keyBindUseItem.isKeyDown && mc.rightClickDelayTimer == 0 -> handleRightClick()
+                    mc.gameSettings.keyBindUseItem.isKeyDown -> handleRightClick()
                 }
             } else if (!mc.gameSettings.keyBindUseItem.isKeyDown) {
                 mc.playerController.onStoppedUsingItem(it)
@@ -116,7 +116,6 @@ class MouseInputHandler : InputService() {
      */
     fun handleRightClick() {
         if (!mc.playerController.isHittingBlock) {
-            mc.rightClickDelayTimer = 4
             var isActionPerformed = true
             val currentItem = currentItem
 
