@@ -96,6 +96,20 @@ jobs:
           # 读取 README.md 文件内容
           README_CONTENT=$(cat README.md)
 
+          # 用 Markdown 格式替换换行符
+          RELEASE_NOTES="
+          $COMMIT_MESSAGE
+
+          ### Checksums of Build Artifacts:
+          $CHECKSUMS
+
+          ### Build Information:
+          Build Time: $BUILD_TIME
+
+          ### Project README:
+          $README_CONTENT
+          "
+
           # 检查是否已存在此 commit hash 的 Release
           EXISTING_RELEASE=$(gh release view "$TAG_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
 
@@ -103,12 +117,12 @@ jobs:
             # 如果没有此 commit hash 的 Release，创建一个新的 Release
             gh release create "$TAG_NAME" build/libs/*.jar \
               --title "Automated Build - $TAG_NAME" \
-              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME\n\n### Project README:\n\n$README_CONTENT"
+              --notes "$RELEASE_NOTES"
           else
             # 如果 Release 已经存在，更新它
             gh release edit "$TAG_NAME" \
               --title "Automated Build - $TAG_NAME" \
-              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME\n\n### Project README:\n\n$README_CONTENT"
+              --notes "$RELEASE_NOTES"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
