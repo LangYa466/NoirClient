@@ -17,6 +17,7 @@ public class VersionCheckThread extends Thread
 
     public void run()
     {
+        if (true) return; // TODO Remove
         HttpURLConnection httpurlconnection = null;
 
         try

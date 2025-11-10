@@ -10,6 +10,7 @@ object Client {
     const val VERSION = "1.0"
 
     fun init() {
+        println("NoirClient Version: $VERSION")
         ModuleManager()
         println(ModuleManager.modules.toString())
     }
