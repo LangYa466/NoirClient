@@ -6,11 +6,10 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write  # 用 contents 权限来支持创建和编辑 release
   id-token: write
   pull-requests: write
   issues: write
-  releases: write  # 需要确保添加 releases 权限
 
 jobs:
   build:
