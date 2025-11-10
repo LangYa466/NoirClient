@@ -1,4 +1,4 @@
-name: Build
+name: Build and Release
 
 on:
   push:
@@ -10,6 +10,7 @@ permissions:
   id-token: write
   pull-requests: write
   issues: write
+  releases: write  # 需要确保添加 releases 权限
 
 jobs:
   build:
@@ -44,30 +45,35 @@ jobs:
       - name: Authenticate with GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GH_TOKEN }}
 
+      - name: Get tag name (latest commit tag)
+        run: |
+          TAG_NAME=$(git describe --tags --abbrev=0)
+          echo "Using tag: $TAG_NAME"  # 输出 TAG_NAME 以便调试
+
       - name: Create or update GitHub release with commit message
         run: |
           # Fetch all history to get the full commit message
           git fetch --prune --unshallow
-        
+          
           # Get the latest commit message
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-        
+          
           # Calculate SHA-256 and MD5 checksums for all .jar files
           JAR_FILES=($(ls build/libs/*.jar))
           CHECKSUMS=""
-        
+          
           for JAR in "${JAR_FILES[@]}"; do
             SHA256=$(sha256sum "$JAR" | awk '{print $1}')
             MD5=$(md5sum "$JAR" | awk '{print $1}')
             CHECKSUMS+="$JAR\n  SHA-256: $SHA256\n  MD5: $MD5\n"
           done
-        
+          
           # Get the build time (date of the most recent commit)
           BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
-        
-          # Create or update the GitHub release
+          
+          # Check if a release with this tag already exists
           EXISTING_RELEASE=$(gh release view "$TAG_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
-        
+          
           if [ -z "$EXISTING_RELEASE" ]; then
             # If no release exists with this tag, create a new one
             gh release create "$TAG_NAME" build/libs/*.jar \
