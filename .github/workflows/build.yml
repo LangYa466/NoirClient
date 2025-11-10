@@ -1,4 +1,4 @@
-name: Build and Release
+name: Build
 
 on:
   push:
@@ -6,83 +6,110 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # 用 contents 权限来支持创建和编辑 release
+  contents: write
   id-token: write
   pull-requests: write
   issues: write
+  release: write  # 添加 release 权限
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout 代码库以及子模块
       - name: Checkout repository and submodules
         uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      - name: Setup JDK 21
+      # 2. 使用缓存来加速 JDK 下载
+      - name: Cache JDK 21
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/sdkman
+          key: ${{ runner.os }}-jdk-21-${{ hashFiles('**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-jdk-21-
+
+      # 3. 安装 JDK 21 (选择 Zulu OpenJDK 或 Oracle JDK)
+      - name: Setup JDK 21 from Zulu OpenJDK
         uses: actions/setup-java@v3
         with:
-          distribution: oracle
+          distribution: zulu  # 使用 Zulu OpenJDK，通常速度较快
           java-version: 21
 
+      # 4. 授予 Gradle Wrapper 执行权限
       - name: Grant permissions to Gradlew
         run: sudo chmod +x ./gradlew
 
+      # 5. 构建项目
       - name: Setup and build
         run: ./gradlew build
 
+      # 6. 上传构建产物到 GitHub Artifacts
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           path: build/libs/*.jar
 
+      # 7. 安装 GitHub CLI
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
+      # 8. 使用 GitHub CLI 进行身份验证
       - name: Authenticate with GitHub CLI
-        run: gh auth login --with-token <<< ${{ secrets.GH_TOKEN }}
+        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get tag name (latest commit tag)
-        run: |
-          TAG_NAME=$(git describe --tags --abbrev=0)
-          echo "Using tag: $TAG_NAME"  # 输出 TAG_NAME 以便调试
+      # 9. 获取最新的 commit hash 作为 TAG_NAME
+      - name: Get commit hash
+        id: commit_hash
+        run: echo "TAG_NAME=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Create or update GitHub release with commit message
+      # 10. 创建 Git 标签（使用 Commit Hash）
+      - name: Create Git tag
         run: |
-          # Fetch all history to get the full commit message
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
+
+      # 11. 创建或更新 GitHub Release
+      - name: Create or update GitHub release with commit message and README
+        run: |
+          # 获取完整的提交历史
           git fetch --prune --unshallow
-          
-          # Get the latest commit message
+
+          # 获取最新的提交信息
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          
-          # Calculate SHA-256 and MD5 checksums for all .jar files
+
+          # 计算所有 .jar 文件的 SHA-256 和 MD5 校验和
           JAR_FILES=($(ls build/libs/*.jar))
           CHECKSUMS=""
-          
+
           for JAR in "${JAR_FILES[@]}"; do
             SHA256=$(sha256sum "$JAR" | awk '{print $1}')
             MD5=$(md5sum "$JAR" | awk '{print $1}')
             CHECKSUMS+="$JAR\n  SHA-256: $SHA256\n  MD5: $MD5\n"
           done
-          
-          # Get the build time (date of the most recent commit)
+
+          # 获取构建时间（最新提交的日期）
           BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
-          
-          # Check if a release with this tag already exists
+
+          # 读取 README.md 文件内容
+          README_CONTENT=$(cat README.md)
+
+          # 检查是否已存在此 commit hash 的 Release
           EXISTING_RELEASE=$(gh release view "$TAG_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
-          
+
           if [ -z "$EXISTING_RELEASE" ]; then
-            # If no release exists with this tag, create a new one
+            # 如果没有此 commit hash 的 Release，创建一个新的 Release
             gh release create "$TAG_NAME" build/libs/*.jar \
               --title "Automated Build - $TAG_NAME" \
-              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME"
+              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME\n\n### Project README:\n\n$README_CONTENT"
           else
-            # If a release exists, update it
+            # 如果 Release 已经存在，更新它
             gh release edit "$TAG_NAME" \
               --title "Automated Build - $TAG_NAME" \
-              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME"
+              --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME\n\n### Project README:\n\n$README_CONTENT"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
