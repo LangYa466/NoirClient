@@ -48,39 +48,36 @@ jobs:
         run: |
           # Fetch all history to get the full commit message
           git fetch --prune --unshallow
-
-          # Extract branch name from GitHub ref
-          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
-
+        
           # Get the latest commit message
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-
+        
           # Calculate SHA-256 and MD5 checksums for all .jar files
           JAR_FILES=($(ls build/libs/*.jar))
           CHECKSUMS=""
-
+        
           for JAR in "${JAR_FILES[@]}"; do
             SHA256=$(sha256sum "$JAR" | awk '{print $1}')
             MD5=$(md5sum "$JAR" | awk '{print $1}')
             CHECKSUMS+="$JAR\n  SHA-256: $SHA256\n  MD5: $MD5\n"
           done
-
+        
           # Get the build time (date of the most recent commit)
           BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
-
+        
           # Create or update the GitHub release
-          EXISTING_RELEASE=$(gh release view "$BRANCH_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
-
+          EXISTING_RELEASE=$(gh release view "$TAG_NAME" --json tagName --jq '.tagName' 2>/dev/null || echo '')
+        
           if [ -z "$EXISTING_RELEASE" ]; then
             # If no release exists with this tag, create a new one
-            gh release create "$BRANCH_NAME" build/libs/*.jar \
-              --title "Automated Build - $BRANCH_NAME" \
+            gh release create "$TAG_NAME" build/libs/*.jar \
+              --title "Automated Build - $TAG_NAME" \
               --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME"
           else
             # If a release exists, update it
-            gh release edit "$BRANCH_NAME" \
-              --title "Automated Build - $BRANCH_NAME" \
+            gh release edit "$TAG_NAME" \
+              --title "Automated Build - $TAG_NAME" \
               --notes "$COMMIT_MESSAGE\n\n### Checksums of Build Artifacts:\n$CHECKSUMS\n\n### Build Information:\nBuild Time: $BUILD_TIME"
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
