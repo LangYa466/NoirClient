@@ -87,14 +87,13 @@ jobs:
           for JAR in "${JAR_FILES[@]}"; do
             SHA256=$(sha256sum "$JAR" | awk '{print $1}')
             MD5=$(md5sum "$JAR" | awk '{print $1}')
-            CHECKSUMS+="$JAR\n  SHA-256: $SHA256\n  MD5: $MD5\n"
+            CHECKSUMS+="$JAR 
+          SHA-256: $SHA256  
+          MD5: $MD5"
           done
 
           # 获取构建时间（最新提交的日期）
           BUILD_TIME=$(git log -1 --date=short --pretty=format:"%ad")
-
-          # 读取 README.md 文件内容
-          README_CONTENT=$(cat README.md)
 
           # 用 Markdown 格式替换换行符
           RELEASE_NOTES="
@@ -105,9 +104,6 @@ jobs:
 
           ### Build Information:
           Build Time: $BUILD_TIME
-
-          ### Project README:
-          $README_CONTENT
           "
 
           # 检查是否已存在此 commit hash 的 Release
