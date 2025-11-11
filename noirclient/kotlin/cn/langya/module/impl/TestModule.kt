@@ -3,7 +3,7 @@ package cn.langya.module.impl
 import cn.langya.event.Render2DEvent
 import cn.langya.module.Module
 import cn.langya.util.render.FontRenderer
-import cn.langya.util.render.RoundedRect
+import cn.langya.util.render.shader.RoundedRect
 import com.darkmagician6.eventapi.EventTarget
 import java.awt.Color
 
@@ -12,8 +12,6 @@ import java.awt.Color
  * @date 8/11/2025
  */
 class TestModule : Module("Test") {
-    val test = RoundedRect()
-
     val testBoolean = addSetting("TestBoolean", true)
 
     init {
@@ -25,14 +23,15 @@ class TestModule : Module("Test") {
     fun onRender2D(e: Render2DEvent) {
         //val text = "US 美利坚 \n value\r ${testBoolean.value} "
         val text = "US 美利坚"
-        test.draw(
-            85F - 2,
-            85F - 2,
-            FontRenderer.getStringWidth(text) + 4,
-            FontRenderer.getFontHeight() + 4,
-            6F,
-            Color.white
+        RoundedRect.drawRound(
+            x = 40f,
+            y = 50f,
+            width = 200f,
+            height = 100f,
+            radius = 15f,
+            color = Color(0, 150, 255, 200)
         )
+
         FontRenderer.drawStringWithShadow(text, 85F, 85F, Color.black)
     }
 }

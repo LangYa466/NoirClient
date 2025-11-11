@@ -3,12 +3,12 @@ package cn.langya.util.render
 import net.minecraft.client.gui.Gui
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.texture.DynamicTexture
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 import java.awt.image.BufferedImage
 import kotlin.math.*
 
-class RoundedRect {
+class G2DRoundedRect {
     private var lastWidth = -1f
     private var lastHeight = -1f
     private var lastRadius = -1f
@@ -116,12 +116,12 @@ class RoundedRect {
     private fun renderTexture(x: Float, y: Float, width: Float, height: Float, color: Int) {
         GlStateManager.pushMatrix()
         GlStateManager.enableBlend()
-        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
+        GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO)
 
         RenderUtil.color(color)
 
         GlStateManager.enableTexture2D()
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.tex!!.getGlTextureId())
+        glBindTexture(GL_TEXTURE_2D, this.tex!!.getGlTextureId())
 
         Gui.drawModalRectWithCustomSizedTexture(
             x.toInt(),
