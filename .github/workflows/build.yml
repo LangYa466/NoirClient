@@ -71,7 +71,7 @@ jobs:
           git push origin "$TAG_NAME"
       # 11. 创建或更新 GitHub Release
       - name: Create or update GitHub release with commit message
-        run: |A
+        run: |
           # 获取完整的提交历史
           git fetch --prune --unshallow
           # 获取最新的提交信息
