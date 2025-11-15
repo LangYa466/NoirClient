@@ -1009,7 +1009,7 @@ public abstract class EntityMinecart extends Entity implements IWorldNameable
         return this.entityName;
     }
 
-    public IChatComponent getDisplayName()
+    public IChatComponent displayName()
     {
         if (this.hasCustomName())
         {

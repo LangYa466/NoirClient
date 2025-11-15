@@ -183,7 +183,7 @@ public class EntityMinecartHopper extends EntityMinecartContainer implements IHo
         return this.transferTicker > 0;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:hopper";
     }

@@ -14,7 +14,7 @@ public class FieldLocatorName implements IFieldLocator
         this.targetFieldName = targetFieldName;
     }
 
-    public Field getField()
+    public Field field()
     {
         Class oclass = this.reflectorClass.getTargetClass();
 

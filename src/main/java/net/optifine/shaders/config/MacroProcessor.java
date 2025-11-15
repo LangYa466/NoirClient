@@ -104,7 +104,7 @@ public class MacroProcessor
                 {
                     ShaderMacro shadermacro = (ShaderMacro)iterator.next();
 
-                    if (s.contains(shadermacro.getName()))
+                    if (s.contains(shadermacro.name()))
                     {
                         stringbuilder.append(shadermacro.getSourceLine());
                         stringbuilder.append("\n");

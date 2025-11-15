@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.LocalizationHelper;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
@@ -50,8 +49,8 @@ public class GuiEnchantment extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObject.drawString(this.field_175380_I.getDisplayName().getUnformattedText(), 12, 5, 4210752);
-        this.fontRendererObject.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObject.drawString(this.field_175380_I.displayName().getUnformattedText(), 12, 5, 4210752);
+        this.fontRendererObject.drawString(this.playerInventory.displayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     public void updateScreen()

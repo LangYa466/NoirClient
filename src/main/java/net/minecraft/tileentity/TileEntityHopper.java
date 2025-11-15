@@ -632,7 +632,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         return this.transferCooldown <= 1;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:hopper";
     }

@@ -384,7 +384,7 @@ public class CustomGuiProperties
     public static String getName(GuiScreen screen)
     {
         IWorldNameable iworldnameable = getWorldNameable(screen);
-        return iworldnameable == null ? null : iworldnameable.getDisplayName().getUnformattedText();
+        return iworldnameable == null ? null : iworldnameable.displayName().getUnformattedText();
     }
 
     private static IWorldNameable getWorldNameable(GuiScreen screen)

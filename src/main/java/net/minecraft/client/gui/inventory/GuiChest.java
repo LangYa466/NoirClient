@@ -27,8 +27,8 @@ public class GuiChest extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        this.fontRendererObject.drawString(this.lowerChestInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRendererObject.drawString(this.upperChestInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObject.drawString(this.lowerChestInventory.displayName().getUnformattedText(), 8, 6, 4210752);
+        this.fontRendererObject.drawString(this.upperChestInventory.displayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)

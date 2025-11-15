@@ -365,7 +365,7 @@ public class TileEntityBeacon extends TileEntityLockable implements ITickable, I
         return stack.getItem() == Items.emerald || stack.getItem() == Items.diamond || stack.getItem() == Items.gold_ingot || stack.getItem() == Items.iron_ingot;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:beacon";
     }

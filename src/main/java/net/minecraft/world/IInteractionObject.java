@@ -8,5 +8,5 @@ public interface IInteractionObject extends IWorldNameable
 {
     Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn);
 
-    String getGuiID();
+    String guiID();
 }

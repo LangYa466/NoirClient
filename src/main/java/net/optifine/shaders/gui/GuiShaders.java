@@ -60,7 +60,7 @@ public class GuiShaders extends GuiScreenOF
         int j1 = this.width - i - 20;
         this.shaderList = new GuiSlotShaders(this, j1, this.height, l, this.height - 50, 16);
         this.shaderList.registerScrollButtons(7, 8);
-        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.ANTIALIASING, k, 0 + l, i, j));
+        buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.ANTIALIASING, k, l, i, j));
         buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.NORMAL_MAP, k, i1 + l, i, j));
         buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.SPECULAR_MAP, k, 2 * i1 + l, i, j));
         buttonList.add(new GuiButtonEnumShaderOption(EnumShaderOption.RENDER_RES_MUL, k, 3 * i1 + l, i, j));

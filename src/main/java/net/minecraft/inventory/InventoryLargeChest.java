@@ -62,9 +62,9 @@ public class InventoryLargeChest implements ILockableContainer
         return this.upperChest.hasCustomName() || this.lowerChest.hasCustomName();
     }
 
-    public IChatComponent getDisplayName()
+    public IChatComponent displayName()
     {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     public ItemStack getStackInSlot(int index)
@@ -157,9 +157,9 @@ public class InventoryLargeChest implements ILockableContainer
         return this.upperChest.getLockCode();
     }
 
-    public String getGuiID()
+    public String guiID()
     {
-        return this.upperChest.getGuiID();
+        return this.upperChest.guiID();
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)

@@ -149,7 +149,7 @@ public class BlockAnvil extends BlockFalling
             return false;
         }
 
-        public IChatComponent getDisplayName()
+        public IChatComponent displayName()
         {
             return new ChatComponentTranslation(Blocks.anvil.getUnlocalizedName() + ".name");
         }
@@ -159,7 +159,7 @@ public class BlockAnvil extends BlockFalling
             return new ContainerRepair(playerInventory, this.world, this.position, playerIn);
         }
 
-        public String getGuiID()
+        public String guiID()
         {
             return "minecraft:anvil";
         }

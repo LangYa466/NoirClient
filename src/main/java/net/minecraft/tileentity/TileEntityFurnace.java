@@ -388,7 +388,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         return true;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:furnace";
     }

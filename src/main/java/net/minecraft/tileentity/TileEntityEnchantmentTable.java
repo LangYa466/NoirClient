@@ -139,9 +139,9 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         this.customName = customNameIn;
     }
 
-    public IChatComponent getDisplayName()
+    public IChatComponent displayName()
     {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
@@ -149,7 +149,7 @@ public class TileEntityEnchantmentTable extends TileEntity implements ITickable,
         return new ContainerEnchantment(playerInventory, this.worldObj, this.pos);
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:enchanting_table";
     }

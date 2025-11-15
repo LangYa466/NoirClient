@@ -54,7 +54,7 @@ public class EntityMinecartChest extends EntityMinecartContainer
         return 8;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:chest";
     }

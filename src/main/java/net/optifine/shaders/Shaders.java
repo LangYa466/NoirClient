@@ -1556,7 +1556,7 @@ public class Shaders
             }
             else
             {
-                ShaderOption[] ashaderoption1 = screenshaderoptions.getShaderOptions();
+                ShaderOption[] ashaderoption1 = screenshaderoptions.shaderOptions();
                 List<ShaderOption> list = new ArrayList();
 
                 for (int i = 0; i < ashaderoption1.length; ++i)
@@ -1595,7 +1595,7 @@ public class Shaders
         else
         {
             ScreenShaderOptions screenshaderoptions = shaderPackGuiScreens.get(s);
-            return screenshaderoptions == null ? def : screenshaderoptions.getColumns();
+            return screenshaderoptions == null ? def : screenshaderoptions.columns();
         }
     }
 
@@ -1606,7 +1606,7 @@ public class Shaders
         for (String s : mapScreens.keySet())
         {
             ScreenShaderOptions screenshaderoptions = mapScreens.get(s);
-            ShaderOption[] ashaderoption = screenshaderoptions.getShaderOptions();
+            ShaderOption[] ashaderoption = screenshaderoptions.shaderOptions();
 
             for (int i = 0; i < ashaderoption.length; ++i)
             {

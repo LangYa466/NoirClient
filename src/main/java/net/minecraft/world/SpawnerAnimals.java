@@ -177,7 +177,7 @@ public final class SpawnerAnimals
 
                                                     if (entityliving == null)
                                                     {
-                                                        entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {worldServerIn});
+                                                        entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(worldServerIn);
                                                         this.mapSampleEntitiesByClass.put(biomegenbase$spawnlistentry.entityClass, entityliving);
                                                     }
                                                 }
@@ -317,7 +317,7 @@ public final class SpawnerAnimals
 
                             try
                             {
-                                entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {worldIn});
+                                entityliving = biomegenbase$spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(worldIn);
                             }
                             catch (Exception exception1)
                             {

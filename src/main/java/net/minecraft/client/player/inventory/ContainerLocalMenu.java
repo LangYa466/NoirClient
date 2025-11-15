@@ -50,7 +50,7 @@ public class ContainerLocalMenu extends InventoryBasic implements ILockableConta
         return LockCode.EMPTY_CODE;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return this.guiID;
     }

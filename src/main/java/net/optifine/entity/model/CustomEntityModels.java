@@ -252,7 +252,7 @@ public class CustomEntityModels
 
     private static boolean modifyModel(ModelAdapter modelAdapter, ModelBase model, CustomModelRenderer customModelRenderer, ModelResolver modelResolver)
     {
-        String s = customModelRenderer.getModelPart();
+        String s = customModelRenderer.modelPart();
         ModelRenderer modelrenderer = modelAdapter.getModelRenderer(model, s);
 
         if (modelrenderer == null)
@@ -262,7 +262,7 @@ public class CustomEntityModels
         }
         else
         {
-            if (!customModelRenderer.isAttach())
+            if (!customModelRenderer.attach())
             {
                 if (modelrenderer.cubeList != null)
                 {
@@ -294,12 +294,12 @@ public class CustomEntityModels
                 }
             }
 
-            modelrenderer.addChild(customModelRenderer.getModelRenderer());
-            ModelUpdater modelupdater = customModelRenderer.getModelUpdater();
+            modelrenderer.addChild(customModelRenderer.modelRenderer());
+            ModelUpdater modelupdater = customModelRenderer.modelUpdater();
 
             if (modelupdater != null)
             {
-                modelResolver.setThisModelRenderer(customModelRenderer.getModelRenderer());
+                modelResolver.setThisModelRenderer(customModelRenderer.modelRenderer());
                 modelResolver.setPartModelRenderer(modelrenderer);
 
                 if (!modelupdater.initialize(modelResolver))
@@ -307,7 +307,7 @@ public class CustomEntityModels
                     return false;
                 }
 
-                customModelRenderer.getModelRenderer().setModelUpdater(modelupdater);
+                customModelRenderer.modelRenderer().setModelUpdater(modelupdater);
             }
 
             return true;

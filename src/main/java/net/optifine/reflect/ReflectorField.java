@@ -46,7 +46,7 @@ public class ReflectorField implements IResolvable
         else
         {
             this.checked = true;
-            this.targetField = this.fieldLocator.getField();
+            this.targetField = this.fieldLocator.field();
 
             if (this.targetField != null)
             {

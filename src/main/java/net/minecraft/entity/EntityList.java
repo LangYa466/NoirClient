@@ -128,7 +128,7 @@ public class EntityList
 
             if (oclass != null)
             {
-                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {worldIn});
+                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(worldIn);
             }
         }
         catch (Exception exception)
@@ -155,7 +155,7 @@ public class EntityList
 
             if (oclass != null)
             {
-                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {worldIn});
+                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(worldIn);
             }
         }
         catch (Exception exception)
@@ -185,7 +185,7 @@ public class EntityList
 
             if (oclass != null)
             {
-                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {worldIn});
+                entity = oclass.getConstructor(new Class[] {World.class}).newInstance(worldIn);
             }
         }
         catch (Exception exception)

@@ -21,9 +21,9 @@ public class GuiBrewingStand extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
-        String s = this.tileBrewingStand.getDisplayName().getUnformattedText();
+        String s = this.tileBrewingStand.displayName().getUnformattedText();
         this.fontRendererObject.drawString(s, this.xSize / 2 - this.fontRendererObject.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRendererObject.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObject.drawString(this.playerInventory.displayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
     }
 
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)

@@ -371,7 +371,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void displayGUIChest(IInventory chestInventory) {
-        String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).getGuiID() : "minecraft:container";
+        String s = chestInventory instanceof IInteractionObject ? ((IInteractionObject) chestInventory).guiID() : "minecraft:container";
 
         if ("minecraft:chest".equals(s)) {
             this.mc.displayGuiScreen(new GuiChest(this.inventory, chestInventory));
@@ -395,7 +395,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     }
 
     public void displayGui(IInteractionObject guiOwner) {
-        String s = guiOwner.getGuiID();
+        String s = guiOwner.guiID();
 
         if ("minecraft:crafting_table".equals(s)) {
             this.mc.displayGuiScreen(new GuiCrafting(this.inventory, this.worldObj));

@@ -7,7 +7,7 @@ public class TileEntityDropper extends TileEntityDispenser
         return this.hasCustomName() ? this.customName : "container.dropper";
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:dropper";
     }

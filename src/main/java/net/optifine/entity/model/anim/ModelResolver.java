@@ -96,7 +96,7 @@ public class ModelResolver implements IModelResolver
                 for (int i = 0; i < this.customModelRenderers.length; ++i)
                 {
                     CustomModelRenderer custommodelrenderer = this.customModelRenderers[i];
-                    ModelRenderer modelrenderer1 = custommodelrenderer.getModelRenderer();
+                    ModelRenderer modelrenderer1 = custommodelrenderer.modelRenderer();
 
                     if (name.equals(modelrenderer1.getId()))
                     {

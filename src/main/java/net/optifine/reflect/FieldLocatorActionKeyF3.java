@@ -9,7 +9,7 @@ import net.minecraft.src.Config;
 
 public class FieldLocatorActionKeyF3 implements IFieldLocator
 {
-    public Field getField()
+    public Field field()
     {
         Class oclass = Minecraft.class;
         Field field = this.getFieldRenderChunksMany();

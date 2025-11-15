@@ -432,7 +432,7 @@ public class TileEntityChest extends TileEntityLockable implements ITickable, II
         return this.cachedChestType;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:chest";
     }

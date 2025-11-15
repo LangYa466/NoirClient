@@ -30,9 +30,9 @@ public class InventoryCraftResult implements IInventory
         return false;
     }
 
-    public IChatComponent getDisplayName()
+    public IChatComponent displayName()
     {
-        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]);
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     public ItemStack decrStackSize(int index, int count)

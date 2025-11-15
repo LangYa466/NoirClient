@@ -197,7 +197,7 @@ public class TileEntityDispenser extends TileEntityLockable implements IInventor
         return true;
     }
 
-    public String getGuiID()
+    public String guiID()
     {
         return "minecraft:dispenser";
     }

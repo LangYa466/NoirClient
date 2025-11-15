@@ -335,7 +335,7 @@ public class GuiScreenResourcePacks extends GuiScreen {
                             BufferedImage img = images.get(k);
                             if (img != null) {
                                 DynamicTexture dt = new DynamicTexture(img);
-                                ResourceLocation rl = new ResourceLocation("preview/" + UUID.randomUUID().toString());
+                                ResourceLocation rl = new ResourceLocation("preview/" + UUID.randomUUID());
                                 textureManager.loadTexture(rl, dt);
                                 created.put(k, rl);
                                 result.put(k, rl);

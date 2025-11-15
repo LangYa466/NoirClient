@@ -573,9 +573,9 @@ public class ShaderPackParser
                     for (ShaderMacro shadermacro : set)
                     {
                         stringbuilder.append("#define ");
-                        stringbuilder.append(shadermacro.getName());
+                        stringbuilder.append(shadermacro.name());
                         stringbuilder.append(" ");
-                        stringbuilder.append(shadermacro.getValue());
+                        stringbuilder.append(shadermacro.value());
                         stringbuilder.append("\n");
                     }
 
@@ -661,7 +661,7 @@ public class ShaderPackParser
         {
             ShaderMacro shadermacro = macros[i];
 
-            if (line.contains(shadermacro.getName()))
+            if (line.contains(shadermacro.name()))
             {
                 list.add(shadermacro);
             }

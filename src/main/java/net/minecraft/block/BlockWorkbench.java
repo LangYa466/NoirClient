@@ -59,7 +59,7 @@ public class BlockWorkbench extends Block
             return false;
         }
 
-        public IChatComponent getDisplayName()
+        public IChatComponent displayName()
         {
             return new ChatComponentTranslation(Blocks.crafting_table.getUnlocalizedName() + ".name");
         }
@@ -69,7 +69,7 @@ public class BlockWorkbench extends Block
             return new ContainerWorkbench(playerInventory, this.world, this.position);
         }
 
-        public String getGuiID()
+        public String guiID()
         {
             return "minecraft:crafting_table";
         }
