@@ -6,8 +6,10 @@ import java.awt.Color
 
 
 object RenderUtil {
+
     fun color(color: Color) {
         color(color.rgb)
+
     }
 
     fun color(color: Int) {
@@ -23,14 +25,11 @@ object RenderUtil {
         GlStateManager.enableBlend()
         GlStateManager.tryBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, 1, 0)
 
-        // RIMUOVI: GlStateManager.disableTexture2D()
-        // Invece, assicuriamoci che sia abilitato per il nostro quad
         GlStateManager.enableTexture2D()
     }
 
     fun disableGL2D() {
-        // Il ripristino qui è corretto, ma lo stato iniziale ora è diverso
-        GlStateManager.disableTexture2D() // Ora lo disabilitiamo dopo aver finito
+        GlStateManager.disableTexture2D()
         GlStateManager.disableBlend()
         GlStateManager.enableDepth()
     }
@@ -46,5 +45,9 @@ object RenderUtil {
         glTexCoord2f(0f, 0f)
         glVertex2f(x, y)
         glEnd()
+    }
+
+    fun resetColor() {
+        color(Color(1.0f, 1.0f, 1.0f, 1.0f))
     }
 }

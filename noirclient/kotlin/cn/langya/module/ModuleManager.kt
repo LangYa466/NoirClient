@@ -6,6 +6,7 @@ import cn.langya.module.value.EnumValue
 import cn.langya.module.value.StringValue
 import cn.langya.module.value.Value
 import com.darkmagician6.eventapi.EventManager
+import net.minecraft.client.Minecraft
 
 /**
  * @author LangYa466
@@ -13,6 +14,7 @@ import com.darkmagician6.eventapi.EventManager
  */
 open class Module(val name: String, val description: String = "") {
     val values = mutableListOf<Value<*>>()
+    val mc = Minecraft.getMinecraft()
 
     /*
     // auto add values

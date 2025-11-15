@@ -8,7 +8,7 @@ import java.awt.Color
 import java.awt.image.BufferedImage
 import kotlin.math.*
 
-class G2DRoundedRect {
+object G2DRoundedRect {
     private var lastWidth = -1f
     private var lastHeight = -1f
     private var lastRadius = -1f
